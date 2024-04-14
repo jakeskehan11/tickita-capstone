@@ -31,6 +31,12 @@ const LoginPage = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <div className="flex justify-center items-center h-screen bg-slate-100">
       <Card className="w-full max-w-sm">
@@ -50,6 +56,7 @@ const LoginPage = () => {
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onKeyPress={handleKeyPress}
             />
           </div>
           <div className="grid gap-2">
@@ -60,6 +67,7 @@ const LoginPage = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={handleKeyPress}
             />
           </div>
         </CardContent>
