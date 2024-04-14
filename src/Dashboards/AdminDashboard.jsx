@@ -7,7 +7,7 @@ const AdminDashboard = () => {
   return (
     <div className="flex">
       <div className="h-screen w-full">
-        <div className="w-72 fixed z-50 bg-green-950">
+        <div className="w-64 fixed z-10 bg-green-950">
           <AdminSidebar />
         </div>
 
