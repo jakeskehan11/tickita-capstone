@@ -31,12 +31,14 @@ const App = () => {
             <Route path="teams" element={<Teams />} />
             <Route path="feedbacks" element={<Feedbacks />} />
             <Route path="settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
 
           <Route path="/user-dashboard/*" element={<UserDashboard />}>
             <Route path="user-tickets" element={<UserTickets />} />
             <Route path="user-chat" element={<UserChat />} />
             <Route path="user-settings" element={<UserSettings />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

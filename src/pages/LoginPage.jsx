@@ -16,9 +16,21 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    // Validate username and password
+    if (username.trim() === "") {
+      setError("Please enter your email");
+      return;
+    }
+
+    if (password.trim() === "") {
+      setError("Please enter your password");
+      return;
+    }
+
     // Perform login validation and authentication
     if (username === "admin" && password === "password") {
       setUserType("admin");
@@ -27,7 +39,7 @@ const LoginPage = () => {
       setUserType("user");
       navigate("/user-dashboard/user-tickets");
     } else {
-      alert("Invalid username or password");
+      setError("Invalid username or password");
     }
   };
 
@@ -70,10 +82,11 @@ const LoginPage = () => {
               onKeyPress={handleKeyPress}
             />
           </div>
+          {error && <div className="text-red-500 text-sm">{error}</div>}
         </CardContent>
         <CardFooter>
           <Button
-            className="w-full bg-green-900 hover:bg-green-800"
+            className="w-full bg-green-950 hover:bg-green-900"
             onClick={handleLogin}
           >
             Sign in
