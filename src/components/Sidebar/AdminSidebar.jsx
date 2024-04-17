@@ -8,6 +8,7 @@ import { IoIosChatboxes, IoIosHappy } from "react-icons/io";
 import { FaUserAlt } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
 
+
 const Sidebar = () => {
   const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
   const activeLink = "flex rounded-lg text-slate-200 mx-1";

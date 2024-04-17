@@ -13,6 +13,12 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import defaultPic from "../../assets/defaultpic.jpg";
 import { Link, NavLink } from "react-router-dom";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -35,11 +41,20 @@ const Navbar = () => {
         TICKITA
       </Link>
 
-      <DropdownMenu className="cursor-pointer">
+      <DropdownMenu>
         <DropdownMenuTrigger>
-          <Avatar className="size-10 cursor-pointer">
-            <AvatarImage src={defaultPic} alt="admin avatar" />
-          </Avatar>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Avatar className="size-10 cursor-pointer">
+                  <AvatarImage src={defaultPic} alt="admin avatar" />
+                </Avatar>
+              </TooltipTrigger>
+              <TooltipContent className="bg-zinc-950" >
+                <p>Account</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-4 pb-6 pt-4 px-6 flex flex-col bg-green-950 text-slate-200 ">
           <DropdownMenuLabel className="flex items-center text-base mb-auto">
@@ -53,14 +68,14 @@ const Navbar = () => {
             <DropdownMenuItem className="cursor-pointer text-base mt-3">
               <div className="flex items-center">
                 <IoSettings className="mr-2" />
-                <button>Settings</button>
+                Settings
               </div>
             </DropdownMenuItem>
           </NavLink>
           <DropdownMenuItem className="cursor-pointer text-base">
             <div className="flex items-center">
               <FaMoon className="mr-2" />
-              <button>Display</button>
+              Display
             </div>
           </DropdownMenuItem>
           <Link to={`/`} onClick={handleLogout}>
