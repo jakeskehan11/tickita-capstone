@@ -27,7 +27,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between py-1 content-center text-slate-100 mx-5">
+    <div className="flex justify-between py-2 content-center text-slate-100 mx-5">
       <Link
         to={`dashboard`}
         className="text-white text-4xl font-extrabold tracking-wider ml-7"
