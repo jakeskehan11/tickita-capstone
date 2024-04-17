@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import UserSidebar from "../components/UserSidebar";
-import UserNavbar from "../components/UserNavbar";
+import UserSidebar from "../components/Sidebar/UserSidebar";
+import UserNavbar from "../components/Navbar/UserNavbar";
 
 const UserDashboard = () => {
   return (

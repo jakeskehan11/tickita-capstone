@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import defaultPic from "../assets/adminpic.jpg";
+import defaultPic from "../../assets/defaultpic.jpg";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <div className="flex justify-between py-1 content-center text-slate-100 mx-5">
       <Link
-        to={`dashboard`}
+        to={`user-tickets`}
         className="text-white text-4xl font-extrabold tracking-wider ml-7"
       >
         TICKITA
@@ -49,7 +49,7 @@ const Navbar = () => {
             Admin Name
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <NavLink to={`settings`}>
+          <NavLink to={`user-settings`}>
             <DropdownMenuItem className="cursor-pointer text-base">
               <div className="flex items-center ">
                 <IoSettings className="mr-2" />
@@ -57,7 +57,7 @@ const Navbar = () => {
               </div>
             </DropdownMenuItem>
           </NavLink>
-          
+
           <DropdownMenuItem className="cursor-pointer text-base">
             <div className="flex items-center">
               <FaMoon className="mr-2" />

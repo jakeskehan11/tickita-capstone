@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
-import defaultPic from "../assets/adminpic.jpg";
+import defaultPic from "../../assets/defaultpic.jpg";
 import { FaTicket } from "react-icons/fa6";
 import { IoIosChatboxes } from "react-icons/io";
-import { IoSettings } from "react-icons/io5";
+
 import { FaQuestionCircle } from "react-icons/fa";
 
 const Sidebar = () => {

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
-import defaultPic from "../assets/adminpic.jpg";
+import defaultPic from "../../assets/defaultpic.jpg";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaTicket } from "react-icons/fa6";
 import { IoIosChatboxes, IoIosHappy } from "react-icons/io";
