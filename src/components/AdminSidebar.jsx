@@ -1,20 +1,18 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
-import "../App.css";
-import adminPic from "../assets/adminpic.jpg";
+import defaultPic from "../assets/adminpic.jpg";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaTicket } from "react-icons/fa6";
 import { IoIosChatboxes, IoIosHappy } from "react-icons/io";
 import { FaUserAlt } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
-import { IoSettings } from "react-icons/io5";
 
 const Sidebar = () => {
-  const [currentColor, setCurrentColor] = useState("#ffffff");
-  const activeLink = "flex rounded-lg bg-white text-green-950 mx-1";
+  const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
+  const activeLink = "flex rounded-lg text-slate-200 mx-1";
   const normalLink =
-    "flex text-slate-100 mx-1 hover:bg-white hover:rounded-lg hover:text-green-950 my-1.5";
+    "flex text-slate-200 mx-1 hover:bg-green-900 hover:rounded-lg hover:text-slate-200 my-1.5";
 
   return (
     /*SIDEBAR TITLE*/
@@ -22,7 +20,7 @@ const Sidebar = () => {
       {/*SIDEBAR ADMIN INFO*/}
       <div className="flex flex-col items-center mt-5">
         <Avatar className="mx-auto size-20">
-          <AvatarImage src={adminPic} alt="admin avatar" />
+          <AvatarImage src={defaultPic} alt="admin avatar" />
         </Avatar>
         <h4 className="font-semibold text-xl text-yellow-500 mt-3">
           Admin Name
@@ -102,18 +100,6 @@ const Sidebar = () => {
           <div className="flex ml-5">
             <IoIosHappy className="size-5 place-self-center" />
             <p className="ml-5 py-3">Feedbacks</p>
-          </div>
-        </NavLink>
-        <NavLink
-          to={`settings`}
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? currentColor : "",
-          })}
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <div className="flex ml-5">
-            <IoSettings className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Settings</p>
           </div>
         </NavLink>
       </div>

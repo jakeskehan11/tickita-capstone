@@ -1,17 +1,17 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
-import "../App.css";
-import userPic from "../assets/userpic.jpg";
+import defaultPic from "../assets/adminpic.jpg";
 import { FaTicket } from "react-icons/fa6";
 import { IoIosChatboxes } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
+import { FaQuestionCircle } from "react-icons/fa";
 
 const Sidebar = () => {
-  const [currentColor, setCurrentColor] = useState("#ffffff");
-  const activeLink = "flex rounded-lg bg-white text-green-950 mx-1";
+  const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
+  const activeLink = "flex rounded-lg text-slate-200 mx-1";
   const normalLink =
-    "flex text-slate-100 mx-1 hover:bg-white hover:rounded-lg hover:text-green-950 my-1.5";
+    "flex text-slate-200 mx-1 hover:bg-green-900 hover:rounded-lg hover:text-slate-200 my-1.5";
 
   return (
     /*SIDEBAR TITLE*/
@@ -19,7 +19,7 @@ const Sidebar = () => {
       {/*SIDEBAR ADMIN INFO*/}
       <div className="flex flex-col items-center mt-5">
         <Avatar className="mx-auto size-20">
-          <AvatarImage src={userPic} alt="user avatar" />
+          <AvatarImage src={defaultPic} alt="user avatar" />
         </Avatar>
         <h4 className="font-semibold text-xl text-yellow-500 mt-3">
           User Name
@@ -54,17 +54,18 @@ const Sidebar = () => {
           </div>
         </NavLink>
         <NavLink
-          to={`user-settings`}
+          to={`user-faq`}
           style={({ isActive }) => ({
             backgroundColor: isActive ? currentColor : "",
           })}
           className={({ isActive }) => (isActive ? activeLink : normalLink)}
         >
           <div className="flex ml-5">
-            <IoSettings className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Settings</p>
+            <FaQuestionCircle  className="size-5 place-self-center" />
+            <p className="ml-5 py-3">FAQ</p>
           </div>
         </NavLink>
+        
       </div>
     </div>
   );
