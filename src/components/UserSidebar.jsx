@@ -16,17 +16,8 @@ const Sidebar = () => {
   return (
     /*SIDEBAR TITLE*/
     <div className="h-screen overflow-auto pb-5">
-      <div className="flex justify-center items-center">
-        <Link
-          to={`user-tickets`}
-          className="text-white text-4xl font-extrabold tracking-wider mt-5"
-        >
-          TICKITA
-        </Link>
-      </div>
-
       {/*SIDEBAR ADMIN INFO*/}
-      <div className="flex flex-col items-center mt-10">
+      <div className="flex flex-col items-center mt-5">
         <Avatar className="mx-auto size-20">
           <AvatarImage src={userPic} alt="user avatar" />
         </Avatar>

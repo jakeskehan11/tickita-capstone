@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { RiLogoutBoxRFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -14,11 +15,20 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-end text-slate-100 mt-7 mr-5">
-      <RiLogoutBoxRFill className="size-5" />
-      <button onClick={handleLogout} className="mx-3 ">
-        Logout
-      </button>
+    <div className="flex justify-between py-1 content-center text-slate-100 mx-5">
+      <Link
+        to={`dashboard`}
+        className="text-white text-4xl font-extrabold tracking-wider ml-7"
+      >
+        TICKITA
+      </Link>
+
+      <div className="flex justify-center items-center">
+        <RiLogoutBoxRFill className=" h-6 w-6 mr-2" />
+        <button onClick={handleLogout} className="">
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
