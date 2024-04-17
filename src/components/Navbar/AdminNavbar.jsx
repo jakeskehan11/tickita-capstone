@@ -30,18 +30,18 @@ const Navbar = () => {
     <div className="flex justify-between py-2 content-center text-slate-100 mx-5">
       <Link
         to={`dashboard`}
-        className="text-white text-4xl font-extrabold tracking-wider ml-7"
+        className="text-slate-100 text-4xl font-extrabold tracking-wider ml-7"
       >
         TICKITA
       </Link>
 
-      <DropdownMenu>
+      <DropdownMenu className="cursor-pointer">
         <DropdownMenuTrigger>
           <Avatar className="size-10 cursor-pointer">
             <AvatarImage src={defaultPic} alt="admin avatar" />
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="mr-4 pb-8 pt-4 px-6 flex flex-col bg-green-950 text-slate-200 ">
+        <DropdownMenuContent className="mr-4 pb-6 pt-4 px-6 flex flex-col bg-green-950 text-slate-200 ">
           <DropdownMenuLabel className="flex items-center text-base mb-auto">
             <Avatar className="size-10 mr-2">
               <AvatarImage src={defaultPic} alt="admin avatar" />
@@ -50,14 +50,13 @@ const Navbar = () => {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <NavLink to={`settings`}>
-            <DropdownMenuItem className="cursor-pointer text-base">
-              <div className="flex items-center ">
+            <DropdownMenuItem className="cursor-pointer text-base mt-3">
+              <div className="flex items-center">
                 <IoSettings className="mr-2" />
                 <button>Settings</button>
               </div>
             </DropdownMenuItem>
           </NavLink>
-          
           <DropdownMenuItem className="cursor-pointer text-base">
             <div className="flex items-center">
               <FaMoon className="mr-2" />
