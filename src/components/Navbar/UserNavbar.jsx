@@ -13,6 +13,12 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import defaultPic from "../../assets/defaultpic.jpg";
 import { Link, NavLink } from "react-router-dom";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -27,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between py-1 content-center text-slate-100 mx-5">
+    <div className="flex justify-between py-2 content-center text-slate-100 mx-5">
       <Link
         to={`user-tickets`}
         className="text-white text-4xl font-extrabold tracking-wider ml-7"
