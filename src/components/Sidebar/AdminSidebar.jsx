@@ -11,9 +11,9 @@ import { MdGroups } from "react-icons/md";
 
 const Sidebar = () => {
   const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
-  const activeLink = "flex rounded-lg text-slate-200 mx-1";
+  const activeLink = "flex rounded-lg text-slate-200 mx-2";
   const normalLink =
-    "flex text-slate-200 mx-1 hover:bg-green-900 hover:rounded-lg hover:text-slate-200 my-1.5";
+    "flex text-slate-200 mx-2 hover:bg-green-900 hover:rounded-lg hover:text-slate-200 my-1.5";
 
   return (
     /*SIDEBAR TITLE*/
