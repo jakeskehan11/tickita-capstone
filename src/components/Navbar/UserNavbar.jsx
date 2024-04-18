@@ -46,7 +46,7 @@ const Navbar = () => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Avatar className="size-10 cursor-pointer">
+                <Avatar className="size-10 !border-none ">
                   <AvatarImage src={defaultPic} alt="admin avatar" />
                 </Avatar>
               </TooltipTrigger>
