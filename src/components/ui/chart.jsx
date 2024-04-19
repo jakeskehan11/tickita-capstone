@@ -12,7 +12,7 @@ import {
 
 const Chart = () => {
   return (
-    <div className="flex justify-evenly items-center mt-10 lg:mx-11">
+    <div className="flex justify-evenly items-center mt-10 lg:mx-14">
       <Card className="w-5/12">
         <CardHeader>
           <CardTitle>Ticket Resolution Time</CardTitle>
