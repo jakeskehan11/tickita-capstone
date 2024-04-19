@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import AdminDashboard from "./Dashboards/AdminDashboard";
-import UserDashboard from "./Dashboards/UserDashboard";
+import AdminDashboard from "./components/Dashboards/AdminDashboard";
+import UserDashboard from "./components/Dashboards/UserDashboard";
 import LoginPage from "./pages/LoginPage";
 import {
   Dashboard,
@@ -28,9 +28,7 @@ const App = () => {
         <Routes>
           <Route index element={<LoginPage />} />
 
-          <Route >
-
-          </Route>
+          <Route></Route>
 
           <Route path="/admin-dashboard/*" element={<AdminDashboard />}>
             <Route path="dashboard" element={<Dashboard />} />

@@ -4,9 +4,10 @@ import { Chart } from "../../components/ui/chart";
 
 const Dashboard = () => {
   return (
-    <div className="ml-60 h-screen">
-      <div className="flex justify-center items-start pt-24 gap-4 flex-wrap">
-        <Card className="w-80">
+    <div className="ml-60 h-screen pt-20">
+      <h1 className="font-bold text-3xl ml-12">Dashboard</h1>
+      <div className="flex justify-center items-start gap-5 flex-wrap mt-10">
+        <Card className="w-[22.5rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 lg">
             <CardTitle className="text-sm font-semibold">
               Total Tickets
@@ -20,7 +21,7 @@ const Dashboard = () => {
             </p>
           </CardContent>
         </Card>
-        <Card className="w-80">
+        <Card className="w-[22.5rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-semibold">
               Open Tickets
@@ -34,7 +35,7 @@ const Dashboard = () => {
             </p>
           </CardContent>
         </Card>
-        <Card className="w-80">
+        <Card className="w-[22.5rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-semibold">
               Pending Tickets
@@ -48,7 +49,7 @@ const Dashboard = () => {
             </p>
           </CardContent>
         </Card>
-        <Card className="w-80">
+        <Card className="w-[22.5rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-semibold">
               Closed Tickets

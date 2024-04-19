@@ -12,7 +12,7 @@ import {
 
 const Chart = () => {
   return (
-    <div className="flex justify-evenly items-center mt-20 mx-[5.8rem]">
+    <div className="flex justify-evenly items-center mt-10">
       <Card className="w-5/12">
         <CardHeader>
           <CardTitle>Ticket Resolution Time</CardTitle>
@@ -50,7 +50,7 @@ const Chart = () => {
               <Tooltip />
               <Area
                 type="monotone"
-                dataKey="ticket"
+                dataKey="tickets"
                 stroke="#003300"
                 fill="rgb(234 179 8)"
               />
@@ -69,14 +69,14 @@ function BarChart({ className }) {
     <div className={className}>
       <ResponsiveBar
         data={[
-          { name: "Jan", count: 111 },
-          { name: "Feb", count: 157 },
-          { name: "Mar", count: 129 },
-          { name: "Apr", count: 150 },
-          { name: "May", count: 119 },
-          { name: "Jun", count: 72 },
+          { name: "Jan", hours: 111 },
+          { name: "Feb", hours: 157 },
+          { name: "Mar", hours: 129 },
+          { name: "Apr", hours: 150 },
+          { name: "May", hours: 119 },
+          { name: "Jun", hours: 72 },
         ]}
-        keys={["count"]}
+        keys={["hours"]}
         indexBy="name"
         margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
         borderRadius={5}
@@ -104,27 +104,27 @@ function BarChart({ className }) {
 const LineChartdata = [
   {
     name: "Jan",
-    ticket: 1500,
+    tickets: 1500,
   },
   {
     name: "Feb",
-    ticket: 800,
+    tickets: 800,
   },
   {
     name: "March",
-    ticket: 2000,
+    tickets: 2000,
   },
   {
     name: "Apr",
-    ticket: 2500,
+    tickets: 2500,
   },
   {
     name: "May",
-    ticket: 3100,
+    tickets: 3100,
   },
   {
     name: "Jun",
-    ticket: 2600,
+    tickets: 2600,
   },
 ];
 

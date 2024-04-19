@@ -56,7 +56,7 @@ const Navbar = () => {
             </Tooltip>
           </TooltipProvider>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="mr-4 pb-6 pt-4 px-6 flex flex-col bg-green-950 text-slate-200 ">
+        <DropdownMenuContent className="mr-10 py-8 px-8 flex flex-col bg-green-950 text-slate-200 ">
           <DropdownMenuLabel className="flex items-center text-base mb-auto">
             <Avatar className="size-10 mr-2">
               <AvatarImage src={defaultPic} alt="admin avatar" />
@@ -64,23 +64,22 @@ const Navbar = () => {
             Admin Name
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <NavLink to={`user-settings`}>
-            <DropdownMenuItem className="cursor-pointer text-base mt-3">
+          <Link to={`user-settings`}>
+            <DropdownMenuItem className="cursor-pointer text-lg mt-3">
               <div className="flex items-center ">
                 <IoSettings className="mr-2" />
                 Settings
               </div>
             </DropdownMenuItem>
-          </NavLink>
-
-          <DropdownMenuItem className="cursor-pointer text-base">
+          </Link>
+          <DropdownMenuItem className="cursor-pointer text-lg">
             <div className="flex items-center">
               <FaMoon className="mr-2" />
               Display
             </div>
           </DropdownMenuItem>
           <Link to={`/`} onClick={handleLogout}>
-            <DropdownMenuItem className="cursor-pointer text-base">
+            <DropdownMenuItem className="cursor-pointer text-lg">
               <div className="flex items-center">
                 <RiLogoutBoxRFill className="mr-2" />
                 Logout
