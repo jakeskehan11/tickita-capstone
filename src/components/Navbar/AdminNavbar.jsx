@@ -65,21 +65,21 @@ const Navbar = () => {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <NavLink to={`settings`}>
-            <DropdownMenuItem className="cursor-pointer text-lg mt-3">
+            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
               <div className="flex items-center">
                 <IoSettings className="mr-2" />
                 Settings
               </div>
             </DropdownMenuItem>
           </NavLink>
-          <DropdownMenuItem className="cursor-pointer text-lg">
+          <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
             <div className="flex items-center">
               <FaMoon className="mr-2" />
               Display
             </div>
           </DropdownMenuItem>
           <Link to={`/`} onClick={handleLogout}>
-            <DropdownMenuItem className="cursor-pointer text-lg ">
+            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
               <div className="flex items-center">
                 <RiLogoutBoxRFill className="mr-2" />
                 Logout

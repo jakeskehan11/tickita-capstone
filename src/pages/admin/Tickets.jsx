@@ -141,6 +141,7 @@ export const columns = [
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
+        
       />
     ),
     cell: ({ row }) => (
@@ -318,7 +319,7 @@ export const columns = [
   },
 ];
 
-const Example = () => {
+const Ticket = () => {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
@@ -462,4 +463,4 @@ const Example = () => {
   );
 };
 
-export default Example;
+export default Ticket;

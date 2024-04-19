@@ -46,7 +46,7 @@ const Navbar = () => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Avatar className="size-10 !border-none ">
+                <Avatar className="size-10 !border-none mr-4">
                   <AvatarImage src={defaultPic} alt="admin avatar" />
                 </Avatar>
               </TooltipTrigger>
@@ -61,27 +61,27 @@ const Navbar = () => {
             <Avatar className="size-10 mr-2">
               <AvatarImage src={defaultPic} alt="admin avatar" />
             </Avatar>
-            Admin Name
+            User Name
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <Link to={`user-settings`}>
-            <DropdownMenuItem className="cursor-pointer text-lg mt-3">
+            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
               <div className="flex items-center ">
                 <IoSettings className="mr-2" />
                 Settings
               </div>
             </DropdownMenuItem>
           </Link>
-          <DropdownMenuItem className="cursor-pointer text-lg">
+          <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
             <div className="flex items-center">
               <FaMoon className="mr-2" />
               Display
             </div>
           </DropdownMenuItem>
           <Link to={`/`} onClick={handleLogout}>
-            <DropdownMenuItem className="cursor-pointer text-lg">
+            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
               <div className="flex items-center">
-                <RiLogoutBoxRFill className="mr-2" />
+                <RiLogoutBoxRFill className="mr-2 " />
                 Logout
               </div>
             </DropdownMenuItem>
