@@ -29,7 +29,7 @@ const Sidebar = () => {
       {/*SIDEBAR LINKS*/}
       <div className="mt-10">
         <NavLink
-          to={`user-tickets`}
+          to={`tickets`}
           style={({ isActive }) => ({
             backgroundColor: isActive ? currentColor : "",
           })}
@@ -41,7 +41,7 @@ const Sidebar = () => {
           </div>
         </NavLink>
         <NavLink
-          to={`user-chat`}
+          to={`chat`}
           style={({ isActive }) => ({
             backgroundColor: isActive ? currentColor : "",
           })}
@@ -53,7 +53,7 @@ const Sidebar = () => {
           </div>
         </NavLink>
         <NavLink
-          to={`user-faq`}
+          to={`faq`}
           style={({ isActive }) => ({
             backgroundColor: isActive ? currentColor : "",
           })}

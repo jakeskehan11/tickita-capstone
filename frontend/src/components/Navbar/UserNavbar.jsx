@@ -64,7 +64,7 @@ const Navbar = () => {
             User Name
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <Link to={`user-settings`}>
+          <Link to={`settings`}>
             <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
               <div className="flex items-center ">
                 <IoSettings className="mr-2" />

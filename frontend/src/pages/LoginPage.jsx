@@ -34,10 +34,10 @@ const LoginPage = () => {
     // Perform login validation and authentication
     if (username === "admin" && password === "password") {
       setUserType("admin");
-      navigate("/admin-dashboard/dashboard");
+      navigate("/admin/dashboard");
     } else if (username === "user" && password === "password") {
       setUserType("user");
-      navigate("/user-dashboard/user-tickets");
+      navigate("/user/tickets");
     } else {
       setError("Invalid username or password");
     }

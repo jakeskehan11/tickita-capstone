@@ -8,7 +8,6 @@ import { IoIosChatboxes, IoIosHappy } from "react-icons/io";
 import { FaUserAlt } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
 
-
 const Sidebar = () => {
   const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
   const activeLink = "flex rounded-lg text-slate-200 mx-2";
@@ -65,30 +64,6 @@ const Sidebar = () => {
           <div className="flex ml-5">
             <IoIosChatboxes className="size-5 place-self-center" />
             <p className="ml-5 py-3">Chat</p>
-          </div>
-        </NavLink>
-        <NavLink
-          to={`users`}
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? currentColor : "",
-          })}
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <div className="flex ml-5">
-            <FaUserAlt className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Users</p>
-          </div>
-        </NavLink>
-        <NavLink
-          to={`teams`}
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? currentColor : "",
-          })}
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <div className="flex ml-5">
-            <MdGroups className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Teams</p>
           </div>
         </NavLink>
         <NavLink
