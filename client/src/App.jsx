@@ -15,6 +15,10 @@ import NotFound from "./pages/NotFound";
 const App = () => {
   const { user } = useAuthContext();
 
+  if (user === undefined) {
+    return null;
+  }
+
   return (
     <Router>
       <Routes>
