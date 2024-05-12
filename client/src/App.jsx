@@ -11,30 +11,59 @@ import AdminRoutes from "./routes/AdminRoutes";
 import SuperAdminDashboard from "./components/Dashboards/SuperAdminDashboard";
 import UserRoutes from "./routes/UserRoutes";
 import NotFound from "./pages/NotFound";
+import { useEffect, useState } from "react";
 
 const App = () => {
-  const { user } = useAuthContext();
+  const [isAuthReady, setIsAuthReady] = useState(false);
+  const { user, dispatch } = useAuthContext();
 
-  if (user === undefined) {
-    return null;
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      dispatch({ type: "LOGIN", payload: JSON.parse(storedUser) });
+    }
+
+    setIsAuthReady(true);
+  }, [dispatch]);
+
+  if (!isAuthReady) {
+    return <div>Loading...</div>;
   }
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
-
         <Route
           path="/superadmin"
-          element={user ? <SuperAdminDashboard /> : <Navigate to="/" />}
+          element={
+            user !== null && user !== undefined ? (
+              <SuperAdminDashboard />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
         />
         <Route
           path="/admin/*"
-          element={user ? <AdminRoutes /> : <Navigate to="/" />}
+          element={
+            user !== null && user !== undefined ? (
+              <AdminRoutes />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
         />
         <Route
           path="/user/*"
-          element={user ? <UserRoutes /> : <Navigate to="/" />}
+          element={
+            user !== null && user !== undefined ? (
+              <UserRoutes />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
