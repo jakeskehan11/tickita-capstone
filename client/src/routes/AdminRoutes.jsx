@@ -13,11 +13,11 @@ const AdminRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<AdminDashboard />}>
-        <Route path="dashboard/*" element={<Dashboard />} />
-        <Route path="tickets/*" element={<Tickets />} />
-        <Route path="chat/*" element={<Chat />} />
-        <Route path="feedbacks/*" element={<Feedbacks />} />
-        <Route path="settings/*" element={<Settings />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="tickets" element={<Tickets />} />
+        <Route path="chat" element={<Chat />} />
+        <Route path="feedbacks" element={<Feedbacks />} />
+        <Route path="settings" element={<Settings />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

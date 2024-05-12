@@ -19,6 +19,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
+
         <Route
           path="/superadmin"
           element={user ? <SuperAdminDashboard /> : <Navigate to="/" />}
