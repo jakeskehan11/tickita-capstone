@@ -57,7 +57,7 @@ const Navbar = () => {
             <Avatar className="size-10 mr-2">
               <AvatarImage src={defaultPic} alt="admin avatar" />
             </Avatar>
-            TICKITA Super Admin
+            Tickita Admin
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <Link to={`settings`}>

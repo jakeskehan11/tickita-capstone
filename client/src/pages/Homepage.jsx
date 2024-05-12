@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { DialogTrigger, DialogContent, Dialog } from "@/components/ui/dialog";
 import LoginPage from "../components/Login";
-import schoolImg from "../../public/school.jpg";
-import schoolImg2 from "../../public/school2.jpg";
+import schoolImg2 from "/school2.jpg";
 
 const Homepage = () => {
   return (

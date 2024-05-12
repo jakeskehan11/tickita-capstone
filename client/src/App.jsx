@@ -16,26 +16,24 @@ const App = () => {
   const { user } = useAuthContext();
 
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route index element={<Homepage />} />
-          <Route
-            path="superadmin"
-            element={user ? <SuperAdminDashboard /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/admin/*"
-            element={user ? <AdminRoutes /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/user/*"
-            element={user ? <UserRoutes /> : <Navigate to="/" />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route
+          path="/superadmin"
+          element={user ? <SuperAdminDashboard /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/*"
+          element={user ? <AdminRoutes /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/user/*"
+          element={user ? <UserRoutes /> : <Navigate to="/" />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 };
 

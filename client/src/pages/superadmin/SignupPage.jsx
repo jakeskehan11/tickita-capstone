@@ -17,6 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 const SignupPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -29,13 +31,33 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(firstName, lastName, email, password, role);
+    try {
+      await signup(firstName, lastName, email, password, role);
 
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setRole("user");
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setRole("user");
+
+      const currentDate = new Date();
+      const formattedTime = currentDate.toLocaleString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      });
+
+      toast("Account has been created", {
+        description: formattedTime,
+      });
+    } catch (error) {
+      // Handle the error here, e.g., display an error message
+      console.error("Error during signup:", error);
+    }
   };
 
   const handleRoleChange = (value) => {
@@ -110,7 +132,6 @@ const SignupPage = () => {
             </div>
             {error && <div className="text-red-500 text-sm">{error}</div>}
           </CardContent>
-
           <CardFooter>
             <Button
               className="w-full bg-green-950 hover:bg-green-900"
@@ -119,6 +140,7 @@ const SignupPage = () => {
             >
               Create Account
             </Button>
+            {!error && <Toaster className="text-white" />}
           </CardFooter>
         </Card>
       </form>

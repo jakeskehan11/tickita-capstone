@@ -18,14 +18,14 @@ const LoginPage = () => {
   const { login, error, isLoading } = useLogin();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
 
     await login(email, password);
   };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      handleSubmit();
+      handleSubmit(event);
     }
   };
 
