@@ -8,5 +8,8 @@ export const useAuthContext = () => {
     throw Error("useAuthContext must be used inside an AuthContextProvider");
   }
 
-  return context;
+  // Persist authentication state across page refreshes
+  const { user, dispatch } = context;
+
+  return { user, dispatch };
 };
