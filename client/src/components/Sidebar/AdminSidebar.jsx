@@ -10,10 +10,24 @@ import { useAuthContext } from "@/hooks/useAuthContext";
 const Sidebar = () => {
   const { user } = useAuthContext();
 
+  const userRole = user.role;
+
   const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
   const activeLink = "flex rounded-lg text-slate-200 mx-2";
   const normalLink =
     "flex text-slate-200 mx-2 hover:bg-green-900 hover:rounded-lg hover:text-slate-200 my-0.5";
+
+  const getNavLinkDestination = (role) => {
+    switch (role) {
+      case "PPSS":
+        return "job-tickets";
+      case "Computer Technician":
+        return "technical-job-tickets";
+      default:
+        return null;
+    }
+  };
+  const destination = getNavLinkDestination(userRole);
 
   return (
     /*SIDEBAR TITLE*/
@@ -23,9 +37,12 @@ const Sidebar = () => {
         <Avatar className="mx-auto size-20">
           <AvatarImage src={defaultPic} alt="admin avatar" />
         </Avatar>
-        <h4 className="font-semibold text-xl capitalize text-yellow-500 mt-3">
+        <p className="font-semibold text-xl capitalize text-yellow-500 mt-3">
           {user.firstname} {user.lastname}
-        </h4>
+        </p>
+        <p className="font-medium text-lg capitalize text-yellow-500 mt-1">
+          {user.role}
+        </p>
       </div>
 
       {/*SIDEBAR LINKS*/}
@@ -43,7 +60,7 @@ const Sidebar = () => {
           </div>
         </NavLink>
         <NavLink
-          to={`tickets`}
+          to={destination}
           style={({ isActive }) => ({
             backgroundColor: isActive ? currentColor : "",
           })}
@@ -51,7 +68,7 @@ const Sidebar = () => {
         >
           <div className="flex ml-5">
             <FaTicket className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Tickets</p>
+            <p className="ml-5 py-3">Ticket</p>
           </div>
         </NavLink>
         <NavLink

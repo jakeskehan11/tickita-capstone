@@ -55,18 +55,13 @@ const SignupPage = () => {
         description: formattedTime,
       });
     } catch (error) {
-      // Handle the error here, e.g., display an error message
       console.error("Error during signup:", error);
     }
   };
 
-  const handleRoleChange = (value) => {
-    setRole(value);
-  };
-
   return (
     <div className="flex justify-center items-center h-screen bg-slate-100">
-      <form onSubmit={handleSubmit} className="w-full max-w-sm">
+      <form onSubmit={handleSubmit} className="w-full max-w-md">
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl">TICKITA Signup</CardTitle>
@@ -107,6 +102,7 @@ const SignupPage = () => {
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
+                placeholder="Password"
                 required
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -118,7 +114,7 @@ const SignupPage = () => {
               <Select
                 defaultValue="user"
                 id="role"
-                onValueChange={handleRoleChange}
+                onValueChange={setRole}
                 value={role}
               >
                 <SelectTrigger className="w-full">
@@ -126,7 +122,10 @@ const SignupPage = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="user">User</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
+                  <SelectItem value="Computer Technician">
+                    Computer Technician Admin
+                  </SelectItem>
+                  <SelectItem value="PPSS">PPSS Admin</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -12,7 +12,7 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("/api/user/login", {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -34,13 +34,13 @@ export const useLogin = () => {
       setIsLoading(false);
 
       if (json && json.role) {
-        if (json.role === "admin") {
+        if (json.role === "PPSS" || json.role === "Computer Technician") {
           navigate("admin/dashboard");
         } else if (json.role === "user") {
           navigate("user/tickets");
         } else if (json.role === "superadmin") {
           navigate("superadmin");
-        } 
+        }
       }
     }
   };

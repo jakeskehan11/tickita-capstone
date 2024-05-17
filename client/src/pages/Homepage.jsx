@@ -26,7 +26,9 @@ const Homepage = () => {
         <Dialog>
           <DialogTrigger asChild>
             <Button className="bg-green-950 hover:bg-green-900 w-96">
-              Need a hero? Sign in to create your support ticket!
+              Need a hero?&nbsp;
+              <span className="font-bold text-yellow-500">Sign in</span>
+              &nbsp;to create your support ticket!
             </Button>
           </DialogTrigger>
           <DialogContent>

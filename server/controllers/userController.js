@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const createToken = (_id, role, firstName, lastName) => {
   return jwt.sign({ _id, role, firstName, lastName }, process.env.SECRET, {
-    expiresIn: "30m",
+    expiresIn: "30d",
   });
 };
 
@@ -41,7 +41,7 @@ const signupUser = async (req, res) => {
   const { firstName, lastName, email, password, role } = req.body;
 
   try {
-    const user = await User.signup(firstName, lastName, email, password, role);
+    const user = await User.signup(firstName, lastName, email, password, role );
 
     // create a token
     const token = createToken(user._id);
