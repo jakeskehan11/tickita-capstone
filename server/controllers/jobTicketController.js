@@ -16,14 +16,11 @@ const getJobTicket = async (req, res) => {
     return res.status(404).json({ error: "No ticket found" });
   }
 
-  const jobTicket = await JobTicket.findById(id).populate("requesterName");
+  const jobTicket = await JobTicket.findById(id);
 
   if (!jobTicket) {
     return res.status(404).json({ error: "No ticket found" });
   }
-
-  console.log(jobTicket.requesterName.firstName);
-  console.log(jobTicket.requesterName.lastName);
 
   res.status(200).json(jobTicket);
 };
