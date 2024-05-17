@@ -5,13 +5,13 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-import { useAuthContext } from "./hooks/useAuthContext";
 import Homepage from "./pages/Homepage";
 import AdminRoutes from "./routes/AdminRoutes";
 import SuperAdminDashboard from "./components/Dashboards/SuperAdminDashboard";
 import UserRoutes from "./routes/UserRoutes";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 const App = () => {
   const [isAuthReady, setIsAuthReady] = useState(false);
