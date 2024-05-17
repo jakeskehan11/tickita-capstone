@@ -12,9 +12,11 @@ import {
 import { toast } from "sonner";
 import { useState } from "react";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
+import { useAuthContext } from "@/hooks/useAuthContext";
 
 const JobTicketForm = ({ ticketType }) => {
   const { dispatch } = useTicketsContext();
+  const { user } = useAuthContext();
 
   // Job Ticket Form
   const [requesterName, setRequesterName] = useState("");
@@ -27,6 +29,12 @@ const JobTicketForm = ({ ticketType }) => {
 
   const JobTickethandleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      setError("Error");
+      return;
+    }
+
     const formData = new FormData(e.target);
     formData.append("ticketType", ticketType);
 
@@ -43,6 +51,7 @@ const JobTicketForm = ({ ticketType }) => {
       body: JSON.stringify(jobTicket),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();

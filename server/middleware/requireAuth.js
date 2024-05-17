@@ -2,42 +2,24 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 const requireAuth = async (req, res, next) => {
+  // verify user is authenticated
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({ error: "Authorization token required" });
+  }
+
+  const token = authorization.split(" ")[1];
+
   try {
-    const { authorization } = req.headers;
+    const { _id } = jwt.verify(token, process.env.SECRET);
 
-    if (!authorization) {
-      return res.status(401).json({ error: "Authorization token required" });
-    }
-
-    const token = authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, process.env.SECRET);
-
-    const user = await User.findById(decodedToken._id);
-    if (!user) {
-      return res.status(401).json({ error: "Invalid user" });
-    }
-
-    req.user = user;
+    req.user = await User.findOne({ _id }).select("_id");
     next();
   } catch (error) {
-    console.error(error);
-    return res.status(401).json({ error: "Invalid token" });
+    console.log(error);
+    res.status(401).json({ error: "Request is not authorized" });
   }
 };
 
-const isAdmin = (req, res, next) => {
-  const { role } = req.user;
-
-  if (role !== "Computer Technician" && role !== "PPSS") {
-    return res
-      .status(403)
-      .send("Forbidden: You are not authorized to access this resource");
-  }
-
-  next();
-};
-
-module.exports = {
-  requireAuth,
-  isAdmin,
-};
+module.exports = requireAuth;

@@ -29,7 +29,7 @@ const SignupPage = () => {
   const { signup, error, isLoading } = useSignup();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
 
     try {
       await signup(firstName, lastName, email, password, role);

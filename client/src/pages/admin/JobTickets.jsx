@@ -33,11 +33,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
+import { useAuthContext } from "@/hooks/useAuthContext";
 
 const JobTicket = () => {
   const { dispatch } = useTicketsContext();
-  const [data, setData] = useState([]);
+  const { user } = useAuthContext();
 
+  const [data, setData] = useState([]);
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
@@ -45,7 +47,11 @@ const JobTicket = () => {
 
   useEffect(() => {
     const fetchJobTickets = async () => {
-      const response = await fetch("/api/job/ticket");
+      const response = await fetch("/api/job/ticket", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {
@@ -54,8 +60,10 @@ const JobTicket = () => {
       }
     };
 
-    fetchJobTickets();
-  }, [dispatch]);
+    if (user) {
+      fetchJobTickets();
+    }
+  }, [dispatch, user]);
 
   const columns = [
     {
@@ -261,8 +269,16 @@ const JobTicket = () => {
 
         const handleClick = async () => {
           try {
+            
+            if (!user) {
+              return;
+            }
+
             const response = await fetch(`/api/job/ticket${ticket._id}`, {
               method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
             });
             const json = await response.json();
 

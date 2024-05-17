@@ -6,8 +6,11 @@ const {
   deleteJobTicket,
   updateJobTicket,
 } = require("../controllers/jobTicketController");
+const requireAuth = require("../middleware/requireAuth");
 
 const router = express.Router();
+
+router.use(requireAuth);
 
 // GET all job tickets
 router.get("/ticket", getJobTickets);
