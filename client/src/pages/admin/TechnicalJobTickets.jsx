@@ -46,7 +46,7 @@ const TechnicalJobTickets = () => {
   const [rowSelection, setRowSelection] = useState({});
 
   useEffect(() => {
-    const fetchJobTickets = async () => {
+    const fetchTechnicalJobTickets = async () => {
       const response = await fetch("/api/technical-job/ticket", {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -60,8 +60,10 @@ const TechnicalJobTickets = () => {
       }
     };
 
-    fetchJobTickets();
-  }, [dispatch]);
+    if (user) {
+      fetchTechnicalJobTickets();
+    }
+  }, [dispatch, user]);
 
   const columns = [
     {
@@ -235,7 +237,6 @@ const TechnicalJobTickets = () => {
 
         const handleClick = async () => {
           try {
-            
             if (!user) {
               return;
             }

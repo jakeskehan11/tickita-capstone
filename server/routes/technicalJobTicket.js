@@ -6,8 +6,11 @@ const {
   deleteTechnicalJobTicket,
   updateTechnicalJobTicket,
 } = require("../controllers/technicalJobTicketController");
+const requireAuth = require("../middleware/requireAuth");
 
 const router = express.Router();
+
+router.use(requireAuth);
 
 // GET all technical job tickets
 router.get("/ticket", getTechnicalJobTickets);

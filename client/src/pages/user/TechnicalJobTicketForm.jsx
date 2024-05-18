@@ -95,7 +95,7 @@ const TechnicalTicketForm = ({ ticketType }) => {
         <Label htmlFor="requesterName">Requester's Name</Label>
         <Input
           id="requesterName"
-          placeholder="Enter your name"
+          placeholder="Enter your full name"
           onChange={(e) => setRequesterName(e.target.value)}
           value={requesterName}
           className={emptyFields.includes("requesterName") ? "error" : ""}

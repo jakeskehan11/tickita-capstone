@@ -269,7 +269,6 @@ const JobTicket = () => {
 
         const handleClick = async () => {
           try {
-            
             if (!user) {
               return;
             }

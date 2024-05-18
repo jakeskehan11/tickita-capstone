@@ -98,7 +98,7 @@ const JobTicketForm = ({ ticketType }) => {
         <Label htmlFor="name">Requester's Name</Label>
         <Input
           id="name"
-          placeholder="Enter your name"
+          placeholder="Enter your full name"
           onChange={(e) => setRequesterName(e.target.value)}
           value={requesterName}
           className={emptyFields.includes("requesterName") ? "error" : ""}
