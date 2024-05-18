@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const NotFoundv2 = () => {
   return (
-    <main className="h-screen flex justify-center items-center">
+    <main className="ml-60 h-screen flex justify-center items-center">
       <div className="text-center">
         <h1 className="text-5xl font-bold text-green-950">404</h1>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">

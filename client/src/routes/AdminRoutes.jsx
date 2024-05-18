@@ -8,7 +8,7 @@ import {
   Feedbacks,
   Settings,
 } from "../pages/admin/index";
-import NotFound from "@/pages/NotFound";
+import NotFoundv2 from "@/pages/NotFoundv2";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const AdminRoutes = () => {
@@ -22,7 +22,7 @@ const AdminRoutes = () => {
         <Route
           path="job-tickets"
           element={
-            user.role === "PPSS" ? <JobTickets /> : <Navigate to="/" replace />
+            user.role === "PPSS" ? <JobTickets /> : <Navigate to="*" replace />
           }
         />
         {/* Computer Technician Admin can only access */}
@@ -32,14 +32,14 @@ const AdminRoutes = () => {
             user.role === "Computer Technician" ? (
               <TechnicalJobTickets />
             ) : (
-              <Navigate to="/" replace />
+              <Navigate to="*" replace />
             )
           }
         />
         <Route path="chat" element={<Chat />} />
         <Route path="feedbacks" element={<Feedbacks />} />
         <Route path="settings" element={<Settings />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFoundv2 />} />
       </Route>
     </Routes>
   );
