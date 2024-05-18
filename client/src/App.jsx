@@ -38,7 +38,9 @@ const App = () => {
         <Route
           path="/superadmin"
           element={
-            user !== null && user !== undefined ? (
+            user !== null &&
+            user !== undefined &&
+            user.role === "superadmin" ? (
               <SuperAdminDashboard />
             ) : (
               <Navigate to="/" replace />
@@ -48,7 +50,9 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            user !== null && user !== undefined ? (
+            user !== null &&
+            user !== undefined &&
+            (user.role === "PPSS" || user.role === "Computer Technician") ? (
               <AdminRoutes />
             ) : (
               <Navigate to="/" replace />
@@ -58,7 +62,7 @@ const App = () => {
         <Route
           path="/user/*"
           element={
-            user !== null && user !== undefined ? (
+            user !== null && user !== undefined && user.role === "user" ? (
               <UserRoutes />
             ) : (
               <Navigate to="/" replace />
