@@ -354,7 +354,7 @@ const JobTicket = () => {
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button className="ml-auto bg-green-950 hover:bg-green-900 text-white hover:text-white">
               View <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>

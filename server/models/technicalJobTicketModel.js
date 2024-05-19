@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// create new job ticket
+// technical job ticket
 const technicalJobTicketSchema = new Schema({
   ticketType: {
     type: String,

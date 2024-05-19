@@ -34,14 +34,12 @@ const TechnicalTicketForm = ({ ticketType }) => {
       return;
     }
 
-    const formData = new FormData(e.target);
-    formData.append("ticketType", ticketType);
-
     const technicalJobTicket = {
       requesterName,
       department,
       typeOfService,
       description,
+      ticketType,
     };
 
     const response = await fetch("/api/technical-job/ticket", {
@@ -66,7 +64,7 @@ const TechnicalTicketForm = ({ ticketType }) => {
       setDescription("");
       setError(null);
       setEmptyFields([]);
-      dispatch({ type: "CREATE_TICKETS", payload: json });
+      dispatch({ type: "CREATE_TICKET", payload: json });
 
       try {
         const currentDate = new Date();

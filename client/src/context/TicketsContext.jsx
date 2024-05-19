@@ -8,13 +8,22 @@ export const ticketsReducer = (state, action) => {
       return {
         tickets: action.payload,
       };
-    case "CREATE_TICKETS":
+    case "CREATE_TICKET":
       return {
         tickets: state.tickets
           ? [...state.tickets, action.payload]
           : [action.payload],
       };
-    case "DELETE_TICKETS":
+    // new reducer to update tickets
+    case "UPDATE_TICKET":
+      return {
+        tickets: state.tickets.map((ticket) =>
+          ticket._id === action.payload._id
+            ? { ...ticket, ...action.payload }
+            : ticket
+        ),
+      };
+    case "DELETE_TICKET":
       return {
         tickets: state.tickets.filter((w) => w._id !== action.payload._id),
       };
@@ -25,7 +34,7 @@ export const ticketsReducer = (state, action) => {
 
 export const TicketsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(ticketsReducer, {
-    tickets: null,
+    tickets: [],
   });
 
   return (

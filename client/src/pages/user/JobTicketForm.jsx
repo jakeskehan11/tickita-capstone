@@ -35,15 +35,13 @@ const JobTicketForm = ({ ticketType }) => {
       return;
     }
 
-    const formData = new FormData(e.target);
-    formData.append("ticketType", ticketType);
-
     const jobTicket = {
       requesterName,
       department,
       building,
       room,
       description,
+      ticketType,
     };
 
     const response = await fetch("/api/job/ticket", {
@@ -69,7 +67,7 @@ const JobTicketForm = ({ ticketType }) => {
       setDescription("");
       setError(null);
       setEmptyFields([]);
-      dispatch({ type: "CREATE_TICKETS", payload: json });
+      dispatch({ type: "CREATE_TICKET", payload: json });
 
       try {
         const currentDate = new Date();
@@ -129,7 +127,7 @@ const JobTicketForm = ({ ticketType }) => {
         </Select>
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="building">Buiding</Label>
+        <Label htmlFor="building">Building</Label>
         <Select
           id="building"
           onValueChange={(value) => setBuilding(value)}

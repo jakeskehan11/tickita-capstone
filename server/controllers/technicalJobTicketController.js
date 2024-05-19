@@ -1,7 +1,7 @@
 const TechnicalJobTicket = require("../models/technicalJobTicketModel");
 const mongoose = require("mongoose");
 
-// Get all job tickets
+// Get all technical job tickets
 const getTechnicalJobTickets = async (req, res) => {
   const technicalJobTickets = await TechnicalJobTicket.find({}).sort({
     createdAt: -1,
@@ -10,7 +10,7 @@ const getTechnicalJobTickets = async (req, res) => {
   res.status(200).json(technicalJobTickets);
 };
 
-// Get a single job ticket
+// Get a single technical job ticket
 const getTechnicalJobTicket = async (req, res) => {
   const { id } = req.params;
 
@@ -27,7 +27,7 @@ const getTechnicalJobTicket = async (req, res) => {
   res.status(200).json(technicalJobTicket);
 };
 
-// Create a new job ticket
+// Create a new technical job ticket
 const createTechnicalJobTicket = async (req, res) => {
   const { requesterName, department, typeOfService, description } = req.body;
   const emptyFields = [];
@@ -59,7 +59,7 @@ const createTechnicalJobTicket = async (req, res) => {
   }
 };
 
-// Delete a job ticket
+// Delete a technical job ticket
 const deleteTechnicalJobTicket = async (req, res) => {
   const { id } = req.params;
 
@@ -78,7 +78,7 @@ const deleteTechnicalJobTicket = async (req, res) => {
   res.status(200).json(technicalJobTicket);
 };
 
-// Update a job ticket
+// Update a technical job ticket
 const updateTechnicalJobTicket = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
