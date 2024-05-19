@@ -10,9 +10,7 @@ export const ticketsReducer = (state, action) => {
       };
     case "CREATE_TICKET":
       return {
-        tickets: state.tickets
-          ? [...state.tickets, action.payload]
-          : [action.payload],
+        tickets: [...state.tickets, action.payload],
       };
     // new reducer to update tickets
     case "UPDATE_TICKET":
@@ -25,7 +23,9 @@ export const ticketsReducer = (state, action) => {
       };
     case "DELETE_TICKET":
       return {
-        tickets: state.tickets.filter((w) => w._id !== action.payload._id),
+        tickets: state.tickets.filter(
+          (ticket) => ticket._id !== action.payload._id
+        ),
       };
     default:
       return state;

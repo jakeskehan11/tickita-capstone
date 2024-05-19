@@ -408,7 +408,7 @@ const UserTicket = () => {
           }
           className="max-w-sm"
         />
-        <div>
+        <div className="flex items-center">
           <CreateTicket />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
