@@ -58,7 +58,7 @@ const JobTicket = () => {
 
   useEffect(() => {
     const fetchJobTickets = async () => {
-      const response = await fetch("/api/job/ticket/", {
+      const response = await fetch("/api/job-ticket/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -284,7 +284,7 @@ const JobTicket = () => {
               return;
             }
 
-            const response = await fetch(`/api/job/ticket/${ticket._id}`, {
+            const response = await fetch(`/api/job-ticket/${ticket._id}`, {
               method: "DELETE",
               headers: {
                 Authorization: `Bearer ${user.token}`,
@@ -317,12 +317,13 @@ const JobTicket = () => {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(ticket._id)}
+                className="cursor-pointer"
               >
                 Copy Ticket ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>View</DropdownMenuItem>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">View Ticket</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
               <AlertDialog>
                 <AlertDialogTrigger className="text-sm hover:bg-slate-100 text-red-500 py-1.5 rounded-sm pl-2 px-20">
                   Delete
@@ -402,7 +403,7 @@ const JobTicket = () => {
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className="capitalize cursor-pointer"
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)

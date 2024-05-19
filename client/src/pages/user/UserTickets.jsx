@@ -48,14 +48,14 @@ const UserTicket = () => {
 
   useEffect(() => {
     const fetchTickets = async () => {
-      const jobTicketResponse = await fetch("/api/job/ticket/", {
+      const jobTicketResponse = await fetch("/api/job-ticket/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
 
       const technicalJobTicketResponse = await fetch(
-        "/api/technical-job/ticket/",
+        "/api/technical-job-ticket/",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -297,11 +297,12 @@ const UserTicket = () => {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(ticket._id)}
+                className= "cursor-pointer"
               >
                 Copy Ticket ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>View</DropdownMenuItem>
+              <DropdownMenuItem className= "cursor-pointer">View Ticket</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -358,7 +359,7 @@ const UserTicket = () => {
                   return (
                     <DropdownMenuCheckboxItem
                       key={column.id}
-                      className="capitalize"
+                      className="capitalize cursor-pointer"
                       checked={column.getIsVisible()}
                       onCheckedChange={(value) =>
                         column.toggleVisibility(!!value)

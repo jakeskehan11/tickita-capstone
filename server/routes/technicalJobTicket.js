@@ -13,18 +13,18 @@ const router = express.Router();
 router.use(requireAuth);
 
 // GET all technical job tickets
-router.get("/ticket/", getTechnicalJobTickets);
+router.get("/", getTechnicalJobTickets);
 
 // GET a single technical job ticket
-router.get("/ticket/:id", getTechnicalJobTicket);
+router.get("/:id", getTechnicalJobTicket);
 
 // POST a new technical job ticket
-router.post("/ticket/", createTechnicalJobTicket);
+router.post("/", createTechnicalJobTicket);
 
 // DELETE a technical job ticket
-router.delete("/ticket/:id", deleteTechnicalJobTicket);
+router.delete("/:id", deleteTechnicalJobTicket);
 
 // UPDATE a technical job ticket
-router.patch("/ticket/:id", updateTechnicalJobTicket);
+router.patch("/:id", updateTechnicalJobTicket);
 
 module.exports = router;

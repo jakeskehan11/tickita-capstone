@@ -19,8 +19,8 @@ app.use((req, res, next) => {
 
 // routes
 app.use("/api/auth", userRoutes);
-app.use("/api/job", jobTicketRoutes);
-app.use("/api/technical-job", technicalJobTicketRoutes);
+app.use("/api/job-ticket", jobTicketRoutes);
+app.use("/api/technical-job-ticket", technicalJobTicketRoutes);
 
 // connect to db
 mongoose
