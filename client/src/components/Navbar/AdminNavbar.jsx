@@ -54,7 +54,7 @@ const Navbar = () => {
             </Tooltip>
           </TooltipProvider>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="mr-10 py-8 px-8 flex flex-col bg-green-950 text-slate-200">
+        <DropdownMenuContent className="mr-10 py-5 px-5 flex flex-col bg-green-950 text-slate-200">
           <DropdownMenuLabel className="flex items-center text-base mb-auto">
             <Avatar className="size-10 mr-2">
               <AvatarImage src={defaultPic} alt="admin avatar" />
@@ -65,7 +65,7 @@ const Navbar = () => {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <NavLink to={`settings`}>
-            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
+            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200 pr-16">
               <div className="flex items-center">
                 <IoSettings className="mr-2" />
                 Settings

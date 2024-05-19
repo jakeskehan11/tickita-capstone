@@ -3,15 +3,29 @@ const mongoose = require("mongoose");
 
 // Get all technical job tickets
 const getTechnicalJobTickets = async (req, res) => {
-  const user_id = req.user._id;
+  try {
+    const user_id = req.user._id;
+    const user_role = req.user.role; // Assuming role is stored in req.user.role
 
-  const technicalJobTickets = await TechnicalJobTicket.find({ user_id }).sort({
-    createdAt: -1,
-  });
+    let technicalJobTickets;
 
-  res.status(200).json(technicalJobTickets);
+    if (user_role === "Computer Technician") {
+      // If the user's role is 'Computer Technician', fetch all job tickets
+      technicalJobTickets = await TechnicalJobTicket.find().sort({
+        createdAt: -1,
+      });
+    } else {
+      // Otherwise, fetch only the technical job tickets for the specific user
+      technicalJobTickets = await TechnicalJobTicket.find({ user_id }).sort({
+        createdAt: -1,
+      });
+    }
+
+    res.status(200).json(technicalJobTickets);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
-
 // Get a single technical job ticket
 const getTechnicalJobTicket = async (req, res) => {
   const { id } = req.params;
@@ -72,7 +86,7 @@ const deleteTechnicalJobTicket = async (req, res) => {
   }
 
   const technicalJobTicket = await TechnicalJobTicket.findOneAndDelete({
-    _id: id,
+    _id: id
   });
 
   if (!technicalJobTicket) {

@@ -32,6 +32,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
@@ -47,7 +58,7 @@ const TechnicalJobTickets = () => {
 
   useEffect(() => {
     const fetchTechnicalJobTickets = async () => {
-      const response = await fetch("/api/technical-job/ticket", {
+      const response = await fetch("/api/technical-job/ticket/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -242,7 +253,7 @@ const TechnicalJobTickets = () => {
             }
 
             const response = await fetch(
-              `/api/technical-job/ticket${ticket._id}`,
+              `/api/technical-job/ticket/${ticket._id}`,
               {
                 method: "DELETE",
                 headers: {
@@ -281,10 +292,33 @@ const TechnicalJobTickets = () => {
                 Copy Ticket ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
+              <DropdownMenuItem>View</DropdownMenuItem>
               <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem className="text-red-500" onClick={handleDeleteClick}>
-                Delete
-              </DropdownMenuItem>
+              <AlertDialog>
+                <AlertDialogTrigger className="text-sm hover:bg-slate-100 text-red-500 py-1.5 rounded-sm pl-2 px-20">
+                  Delete
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      the ticket and remove the ticket data from servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={handleDeleteClick}
+                      className="bg-red-500 text-white hover:bg-red-600"
+                    >
+                      Delete ticket
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -373,7 +407,7 @@ const TechnicalJobTickets = () => {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table.getRowModel()?.rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}

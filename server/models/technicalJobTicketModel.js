@@ -11,7 +11,6 @@ const technicalJobTicketSchema = new Schema({
     type: String,
     enum: ["Job Ticket", "Technical Job Ticket"],
   },
-
   requesterName: { type: String, required: true },
   department: {
     type: String,

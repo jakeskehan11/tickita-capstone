@@ -3,11 +3,24 @@ const mongoose = require("mongoose");
 
 // Get all job tickets
 const getJobTickets = async (req, res) => {
-  const user_id = req.user._id;
+  try {
+    const user_id = req.user._id;
+    const user_role = req.user.role; // Assuming role is stored in req.user.role
 
-  const jobTickets = await JobTicket.find({ user_id }).sort({ createdAt: -1 });
+    let jobTickets;
 
-  res.status(200).json(jobTickets);
+    if (user_role === "PPSS") {
+      // If the user's role is 'PPSS', fetch all job tickets
+      jobTickets = await JobTicket.find().sort({ createdAt: -1 });
+    } else {
+      // Otherwise, fetch only the job tickets for the specific user
+      jobTickets = await JobTicket.find({ user_id }).sort({ createdAt: -1 });
+    }
+
+    res.status(200).json(jobTickets);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // Get a single job ticket

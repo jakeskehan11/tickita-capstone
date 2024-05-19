@@ -48,14 +48,14 @@ const UserTicket = () => {
 
   useEffect(() => {
     const fetchTickets = async () => {
-      const jobTicketResponse = await fetch("/api/job/ticket", {
+      const jobTicketResponse = await fetch("/api/job/ticket/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
 
       const technicalJobTicketResponse = await fetch(
-        "/api/technical-job/ticket",
+        "/api/technical-job/ticket/",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -302,58 +302,6 @@ const UserTicket = () => {
       cell: ({ row }) => {
         const ticket = row.original;
 
-        const handleDeleteClick = async () => {
-          try {
-            if (!user) {
-              return;
-            }
-
-            // Delete job ticket
-            const jobTicketResponse = await fetch(
-              `/api/job/ticket${ticket._id}`,
-              {
-                method: "DELETE",
-                headers: {
-                  Authorization: `Bearer ${user.token}`,
-                },
-              }
-            );
-
-            // Delete technical job ticket
-            const technicalJobTicketResponse = await fetch(
-              `/api/technical-job/ticket${ticket._id}`,
-              {
-                method: "DELETE",
-                headers: {
-                  Authorization: `Bearer ${user.token}`,
-                },
-              }
-            );
-
-            if (jobTicketResponse.ok || technicalJobTicketResponse.ok) {
-              const deletedTicketId = ticket._id;
-              dispatch({
-                type: "DELETE_TICKET",
-                payload: { _id: deletedTicketId },
-              });
-              setData((prevData) =>
-                prevData.filter((item) => item._id !== deletedTicketId)
-              );
-            } else {
-              const jobTicketJson = await jobTicketResponse.json();
-              const technicalJobTicketJson =
-                await technicalJobTicketResponse.json();
-              console.error(
-                "Failed to delete the ticket:",
-                jobTicketJson.message,
-                technicalJobTicketJson.message
-              );
-            }
-          } catch (error) {
-            console.error("Network error:", error);
-          }
-        };
-
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -370,13 +318,7 @@ const UserTicket = () => {
                 Copy Ticket ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem
-                className="text-red-500"
-                onClick={handleDeleteClick}
-              >
-                Delete
-              </DropdownMenuItem>
+              <DropdownMenuItem>View</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -385,7 +327,7 @@ const UserTicket = () => {
   ];
 
   const table = useReactTable({
-    data,
+    data: data?.length ? data : [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

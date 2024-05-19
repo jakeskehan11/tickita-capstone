@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 // job ticket
 const jobTicketSchema = new Schema({
   user_id: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   ticketType: {
