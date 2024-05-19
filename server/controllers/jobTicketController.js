@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 
 // Get all job tickets
 const getJobTickets = async (req, res) => {
-  const jobTickets = await JobTicket.find({}).sort({ createdAt: -1 });
+  const user_id = req.user._id;
+
+  const jobTickets = await JobTicket.find({ user_id }).sort({ createdAt: -1 });
 
   res.status(200).json(jobTickets);
 };
@@ -43,7 +45,9 @@ const createJobTicket = async (req, res) => {
   }
 
   try {
+    const user_id = req.user._id;
     const jobTicket = await JobTicket.create({
+      user_id,
       ticketType: "Job Ticket",
       requesterName,
       department,

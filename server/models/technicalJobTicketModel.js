@@ -3,11 +3,15 @@ const Schema = mongoose.Schema;
 
 // technical job ticket
 const technicalJobTicketSchema = new Schema({
+  user_id: {
+    type: String,
+    required: true,
+  },
   ticketType: {
     type: String,
     enum: ["Job Ticket", "Technical Job Ticket"],
   },
-  
+
   requesterName: { type: String, required: true },
   department: {
     type: String,
