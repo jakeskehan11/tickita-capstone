@@ -1,5 +1,6 @@
-const TechnicalJobTicket = require("../models/technicalJobTicketModel");
 const mongoose = require("mongoose");
+const TechnicalJobTicket = require("../models/technicalJobTicketModel");
+const User = require("../models/userModel");
 
 // Get all technical job tickets
 const getTechnicalJobTickets = async (req, res) => {
@@ -45,10 +46,9 @@ const getTechnicalJobTicket = async (req, res) => {
 
 // Create a new technical job ticket
 const createTechnicalJobTicket = async (req, res) => {
-  const { requesterName, department, typeOfService, description } = req.body;
+  const { department, typeOfService, description } = req.body;
   const emptyFields = [];
 
-  if (!requesterName) emptyFields.push("requesterName");
   if (!department) emptyFields.push("department");
   if (!typeOfService) emptyFields.push("building");
   if (!description) emptyFields.push("description");
@@ -60,11 +60,11 @@ const createTechnicalJobTicket = async (req, res) => {
   }
 
   try {
-    const user_id = req.user._id;
+    const user = await User.findById(req.user._id);
+
     const technicalJobTicket = await TechnicalJobTicket.create({
-      user_id,
+      user_id: user._id,
       ticketType: "Technical Job Ticket",
-      requesterName,
       department,
       typeOfService,
       description,
@@ -86,7 +86,7 @@ const deleteTechnicalJobTicket = async (req, res) => {
   }
 
   const technicalJobTicket = await TechnicalJobTicket.findOneAndDelete({
-    _id: id
+    _id: id,
   });
 
   if (!technicalJobTicket) {

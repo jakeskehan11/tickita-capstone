@@ -139,19 +139,19 @@ const UserTicket = () => {
       ),
     },
     {
-      accessorKey: "requesterName",
+      accessorKey: "description",
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Requester Name
+          Description
           <CaretSortIcon className="text-center" />
         </Button>
       ),
       cell: ({ row }) => (
-        <div className="text-center capitalize">
-          {row.getValue("requesterName")}
+        <div className="ml-4 capitalize w-48 truncate">
+          {row.getValue("description")}
         </div>
       ),
     },
@@ -203,23 +203,6 @@ const UserTicket = () => {
       ),
       cell: ({ row }) => (
         <div className="text-center">{row.getValue("room")}</div>
-      ),
-    },
-    {
-      accessorKey: "description",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Description
-          <CaretSortIcon className="text-center" />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className="ml-4 capitalize w-48 truncate">
-          {row.getValue("description")}
-        </div>
       ),
     },
     {

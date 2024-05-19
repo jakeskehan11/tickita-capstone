@@ -19,7 +19,6 @@ const JobTicketForm = ({ ticketType }) => {
   const { user } = useAuthContext();
 
   // Job Ticket Form
-  const [requesterName, setRequesterName] = useState("");
   const [department, setDepartment] = useState("");
   const [building, setBuilding] = useState("");
   const [room, setRoom] = useState("");
@@ -36,7 +35,6 @@ const JobTicketForm = ({ ticketType }) => {
     }
 
     const jobTicket = {
-      requesterName,
       department,
       building,
       room,
@@ -60,7 +58,6 @@ const JobTicketForm = ({ ticketType }) => {
     }
 
     if (response.ok) {
-      setRequesterName("");
       setDepartment("");
       setBuilding("");
       setRoom("");
@@ -92,16 +89,6 @@ const JobTicketForm = ({ ticketType }) => {
 
   return (
     <form className="space-y-4 py-4" onSubmit={JobTickethandleSubmit}>
-      <div className="grid gap-2">
-        <Label htmlFor="name">Requester's Name</Label>
-        <Input
-          id="name"
-          placeholder="Enter your full name"
-          onChange={(e) => setRequesterName(e.target.value)}
-          value={requesterName}
-          className={emptyFields.includes("requesterName") ? "error" : ""}
-        />
-      </div>
       <div className="grid gap-2">
         <Label htmlFor="department">Department</Label>
         <Select

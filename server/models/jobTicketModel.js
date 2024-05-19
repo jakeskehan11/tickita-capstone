@@ -10,9 +10,9 @@ const jobTicketSchema = new Schema({
   },
   ticketType: {
     type: String,
-    enum: ["Job Ticket", "Technical Job Ticket"],
+    enum: ["Job Ticket"],
   },
-  requesterName: { type: String, required: true },
+  requesterName: { type: String },
   department: {
     type: String,
     enum: ["ASD", "FASD", "ITD", "MD", "TED"],
@@ -38,6 +38,18 @@ const jobTicketSchema = new Schema({
   requestDate: { type: String, default: new Date().toLocaleDateString() },
   requestTime: { type: String, default: new Date().toLocaleTimeString() },
   updatedAt: { type: Date, default: Date.now },
+});
+
+jobTicketSchema.pre("save", async function (next) {
+  try {
+    const user = await mongoose.model("User").findById(this.user_id);
+    if (user) {
+      this.requesterName = `${user.firstName} ${user.lastName}`;
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = mongoose.model("Job-Ticket", jobTicketSchema);

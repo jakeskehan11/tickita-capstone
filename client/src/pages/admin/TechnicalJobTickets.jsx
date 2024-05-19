@@ -132,6 +132,23 @@ const TechnicalJobTickets = () => {
       ),
     },
     {
+      accessorKey: "description",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Description
+          <CaretSortIcon className="text-center" />
+        </Button>
+      ),
+      cell: ({ row }) => (
+        <div className="ml-4 capitalize w-48 truncate">
+          {row.getValue("description")}
+        </div>
+      ),
+    },
+    {
       accessorKey: "department",
       header: ({ column }) => (
         <Button
@@ -146,23 +163,6 @@ const TechnicalJobTickets = () => {
       cell: ({ row }) => (
         <div className="text-center uppercase">
           {row.getValue("department")}
-        </div>
-      ),
-    },
-    {
-      accessorKey: "description",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Description
-          <CaretSortIcon className="text-center" />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className="ml-4 capitalize w-48 truncate">
-          {row.getValue("description")}
         </div>
       ),
     },
@@ -312,7 +312,7 @@ const TechnicalJobTickets = () => {
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
                       onClick={handleDeleteClick}
-                      className="bg-red-500 text-white hover:bg-red-600"
+                      className="bg-red-400 text-white hover:bg-red-500"
                     >
                       Delete ticket
                     </AlertDialogAction>

@@ -1,5 +1,6 @@
-const JobTicket = require("../models/jobTicketModel");
 const mongoose = require("mongoose");
+const JobTicket = require("../models/jobTicketModel");
+const User = require("../models/userModel");
 
 // Get all job tickets
 const getJobTickets = async (req, res) => {
@@ -42,10 +43,9 @@ const getJobTicket = async (req, res) => {
 
 // Create a new technical job ticket
 const createJobTicket = async (req, res) => {
-  const { requesterName, department, building, room, description } = req.body;
+  const { department, building, room, description } = req.body;
   const emptyFields = [];
 
-  if (!requesterName) emptyFields.push("requesterName");
   if (!department) emptyFields.push("department");
   if (!building) emptyFields.push("building");
   if (!room) emptyFields.push("room");
@@ -58,11 +58,11 @@ const createJobTicket = async (req, res) => {
   }
 
   try {
-    const user_id = req.user._id;
+    const user = await User.findById(req.user._id);
+
     const jobTicket = await JobTicket.create({
-      user_id,
+      user_id: user._id,
       ticketType: "Job Ticket",
-      requesterName,
       department,
       building,
       room,
