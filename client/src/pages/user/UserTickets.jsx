@@ -37,7 +37,7 @@ import { useTicketsContext } from "@/hooks/useTicketsContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
 const UserTicket = () => {
-  const { dispatch } = useTicketsContext();
+  const { dispatch, tickets } = useTicketsContext();
   const { user } = useAuthContext();
 
   const [data, setData] = useState([]);
@@ -71,7 +71,6 @@ const UserTicket = () => {
         const uniqueTickets = Array.from(
           new Set(allTickets.map((ticket) => ticket._id))
         ).map((id) => allTickets.find((ticket) => ticket._id === id));
-
         setData(uniqueTickets);
         dispatch({ type: "SET_TICKETS", payload: uniqueTickets });
       }
@@ -81,6 +80,10 @@ const UserTicket = () => {
       fetchTickets();
     }
   }, [dispatch, user]);
+
+  useEffect(() => {
+    setData(tickets);
+  }, [tickets]);
 
   const columns = [
     {
@@ -132,7 +135,7 @@ const UserTicket = () => {
         </Button>
       ),
       cell: ({ row }) => (
-        <div className="ml-4 capitalize w-60">{row.getValue("ticketType")}</div>
+        <div className="ml-4 capitalize w-36">{row.getValue("ticketType")}</div>
       ),
     },
     {
@@ -299,7 +302,7 @@ const UserTicket = () => {
       cell: ({ row }) => {
         const ticket = row.original;
 
-        const handleClick = async () => {
+        const handleDeleteClick = async () => {
           try {
             if (!user) {
               return;
@@ -315,7 +318,6 @@ const UserTicket = () => {
                 },
               }
             );
-            const jobTicketJson = await jobTicketResponse.json();
 
             // Delete technical job ticket
             const technicalJobTicketResponse = await fetch(
@@ -327,18 +329,20 @@ const UserTicket = () => {
                 },
               }
             );
-            const technicalJobTicketJson =
-              await technicalJobTicketResponse.json();
 
             if (jobTicketResponse.ok || technicalJobTicketResponse.ok) {
+              const deletedTicketId = ticket._id;
               dispatch({
                 type: "DELETE_TICKET",
-                payload: { jobTicketJson, technicalJobTicketJson },
+                payload: { _id: deletedTicketId },
               });
               setData((prevData) =>
-                prevData.filter((item) => item._id !== ticket._id)
+                prevData.filter((item) => item._id !== deletedTicketId)
               );
             } else {
+              const jobTicketJson = await jobTicketResponse.json();
+              const technicalJobTicketJson =
+                await technicalJobTicketResponse.json();
               console.error(
                 "Failed to delete the ticket:",
                 jobTicketJson.message,
@@ -367,7 +371,10 @@ const UserTicket = () => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem className="text-red-500" onClick={handleClick}>
+              <DropdownMenuItem
+                className="text-red-500"
+                onClick={handleDeleteClick}
+              >
                 Delete
               </DropdownMenuItem>
             </DropdownMenuContent>

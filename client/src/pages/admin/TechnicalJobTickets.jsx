@@ -235,7 +235,7 @@ const TechnicalJobTickets = () => {
       cell: ({ row }) => {
         const ticket = row.original;
 
-        const handleClick = async () => {
+        const handleDeleteClick = async () => {
           try {
             if (!user) {
               return;
@@ -282,7 +282,7 @@ const TechnicalJobTickets = () => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem className="text-red-500" onClick={handleClick}>
+              <DropdownMenuItem className="text-red-500" onClick={handleDeleteClick}>
                 Delete
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -325,7 +325,7 @@ const TechnicalJobTickets = () => {
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className="ml-auto bg-green-950 hover:bg-green-900 text-white hover:text-white">
+            <Button variant="outline" className="ml-auto">
               View <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -395,7 +395,7 @@ const TechnicalJobTickets = () => {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  No ticket results.
                 </TableCell>
               </TableRow>
             )}
