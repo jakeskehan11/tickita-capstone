@@ -10,7 +10,10 @@ const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
 // express app
 const app = express();
 
-app.use(cors);
+app.use(cors({
+  origin:["https://tickita-api.vercel.app/"],
+  methods:["POST","GET","DELETE"]
+});
 
 // middleware
 app.use(express.json());
