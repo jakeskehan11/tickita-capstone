@@ -1,19 +1,22 @@
 import { Outlet } from "react-router-dom";
 import SuperAdminNavbar from "../Navbar/SuperAdminNavbar";
-import SignupPage from "../../pages/superadmin/SignupPage";
+import SuperAdminSidebar from "../Sidebar/SuperAdminSidebar";
 
-const AdminDashboard = () => {
+const SuperAdminDashboard = () => {
   return (
     <div className="flex">
-      <div className="h-screen w-full ">
-        <div className="fixed w-full bg-green-950 h-14 border-b z-50 border-black">
+      <div className="h-screen w-full">
+        <div className="fixed w-full h-14 bg-white">
           <SuperAdminNavbar />
         </div>
-        <main className="bg-slate-50">
-          <SignupPage />
+        <div className="w-60 fixed bg-green-950">
+          <SuperAdminSidebar />
+        </div>
+        <main className="bg-slate-100">
+          <Outlet />
         </main>
       </div>
     </div>
   );
 };
-export default AdminDashboard;
+export default SuperAdminDashboard;

@@ -60,7 +60,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-slate-100">
+    <div className="ml-60 h-screen flex justify-center items-center">
       <form onSubmit={handleSubmit} className="w-full max-w-md">
         <Card>
           <CardHeader>

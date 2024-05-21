@@ -5,8 +5,9 @@ import {
   UserChat,
   UserSettings,
   UserFaq,
+  UserFeedbacks
 } from "../pages/user/index";
-import NotFound from "@/pages/NotFoundv2";
+import NotFoundv2 from "@/pages/NotFoundv2";
 
 const UserRoutes = () => {
   return (
@@ -15,8 +16,9 @@ const UserRoutes = () => {
         <Route path="tickets" element={<UserTickets />} />
         <Route path="chat" element={<UserChat />} />
         <Route path="faq" element={<UserFaq />} />
+        <Route path="feedbacks" element={<UserFeedbacks />} />
         <Route path="settings" element={<UserSettings />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFoundv2 />} />
       </Route>
     </Routes>
   );

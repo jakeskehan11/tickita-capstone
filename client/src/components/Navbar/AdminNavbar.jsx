@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { IoSettings } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
@@ -12,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import defaultPic from "../../assets/defaultpic.jpg";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Tooltip,
   TooltipContent,
@@ -31,20 +30,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between py-2 content-center text-slate-100 mx-5">
-      <Link
-        to={`dashboard`}
-        className="text-slate-100 text-4xl font-extrabold tracking-wider ml-7"
-      >
-        TICKITA
-      </Link>
-
+    <div className="py-2 content-center text-slate-100 flex justify-end">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Avatar className="size-10 !border-none mr-4">
+                <Avatar className="size-10 !border-none mr-10">
                   <AvatarImage src={defaultPic} alt="admin avatar" />
                 </Avatar>
               </TooltipTrigger>
@@ -64,14 +56,14 @@ const Navbar = () => {
             </p>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <NavLink to={`settings`}>
+          <Link to={`settings`}>
             <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200 pr-16">
               <div className="flex items-center">
                 <IoSettings className="mr-2" />
                 Settings
               </div>
             </DropdownMenuItem>
-          </NavLink>
+          </Link>
           <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
             <div className="flex items-center">
               <FaMoon className="mr-2" />

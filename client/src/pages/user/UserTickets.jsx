@@ -35,6 +35,8 @@ import {
 import CreateTicket from "@/pages/user/CreateTicket";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
+import { IoCopy } from "react-icons/io5";
+import { MdPreview } from "react-icons/md";
 
 const UserTicket = () => {
   const { dispatch, tickets } = useTicketsContext();
@@ -297,12 +299,16 @@ const UserTicket = () => {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(ticket._id)}
-                className= "cursor-pointer"
+                className="cursor-pointer"
               >
+                <IoCopy className="text-center size-5 mr-1" />
                 Copy Ticket ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className= "cursor-pointer">View Ticket</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <MdPreview className="text-center size-5 mr-1" />
+                View Ticket
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );

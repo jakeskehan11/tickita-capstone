@@ -27,7 +27,7 @@ const jobTicketSchema = new Schema({
   description: { type: String, required: true },
   status: {
     type: String,
-    enum: ["open", "pending", "closed"],
+    enum: ["open", "pending", "resolved" ,"closed"],
     default: "open",
   },
   priority: {

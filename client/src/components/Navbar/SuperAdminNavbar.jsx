@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { IoSettings } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
@@ -12,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import defaultPic from "../../assets/defaultpic.jpg";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Tooltip,
   TooltipContent,
@@ -29,20 +28,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between py-2 content-center text-slate-100 mx-5">
-      <Link
-        to={`user-tickets`}
-        className="text-white text-4xl font-extrabold tracking-wider ml-7"
-      >
-        TICKITA
-      </Link>
-
+    <div className="py-2 content-center text-slate-100 flex justify-end">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Avatar className="size-10 !border-none mr-4">
+                <Avatar className="size-10 !border-none mr-10">
                   <AvatarImage src={defaultPic} alt="admin avatar" />
                 </Avatar>
               </TooltipTrigger>
@@ -52,7 +44,7 @@ const Navbar = () => {
             </Tooltip>
           </TooltipProvider>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="mr-10 py-5 px-5 flex flex-col bg-green-950 text-slate-200 pr-16">
+        <DropdownMenuContent className="mr-10 py-5 px-5 flex flex-col bg-green-950 text-slate-200">
           <DropdownMenuLabel className="flex items-center text-base mb-auto">
             <Avatar className="size-10 mr-2">
               <AvatarImage src={defaultPic} alt="admin avatar" />
@@ -61,7 +53,7 @@ const Navbar = () => {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <Link to={`settings`}>
-            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200">
+            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200 pr-24">
               <div className="flex items-center">
                 <IoSettings className="mr-2" />
                 Settings

@@ -7,11 +7,12 @@ import {
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import AdminRoutes from "./routes/AdminRoutes";
-import SuperAdminDashboard from "./components/Dashboards/SuperAdminDashboard";
+
 import UserRoutes from "./routes/UserRoutes";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "./hooks/useAuthContext";
+import SuperAdminRoutes from "./routes/SuperAdminRoutes";
 
 const App = () => {
   const [isAuthReady, setIsAuthReady] = useState(false);
@@ -36,12 +37,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route
-          path="/superadmin"
+          path="/superadmin/*"
           element={
             user !== null &&
             user !== undefined &&
             user.role === "superadmin" ? (
-              <SuperAdminDashboard />
+              <SuperAdminRoutes />
             ) : (
               <Navigate to="/" replace />
             )

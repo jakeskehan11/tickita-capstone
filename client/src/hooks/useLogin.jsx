@@ -39,7 +39,7 @@ export const useLogin = () => {
         } else if (json.role === "user") {
           navigate("user/tickets");
         } else if (json.role === "superadmin") {
-          navigate("superadmin");
+          navigate("superadmin/create-account");
         }
       }
     }

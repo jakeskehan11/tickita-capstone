@@ -3,8 +3,6 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import defaultPic from "../../assets/defaultpic.jpg";
 import { FaTicket } from "react-icons/fa6";
-import { IoIosChatboxes, IoIosHappy } from "react-icons/io";
-import { FaQuestionCircle } from "react-icons/fa";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
 
@@ -20,12 +18,12 @@ const Sidebar = () => {
     /*SIDEBAR TITLE*/
     <div className="h-screen overflow-auto pb-5">
       <Link
-        to={`tickets`}
+        to={`create-account`}
         className="text-slate-100 text-4xl font-extrabold tracking-wider flex justify-center mt-2"
       >
         TICKITA
       </Link>
-      {/*SIDEBAR USER INFO*/}
+      {/*SIDEBAR SUPER ADMIN INFO*/}
       <div className="flex flex-col items-center mt-5">
         <Avatar className="mx-auto size-20">
           <AvatarImage src={defaultPic} alt="user avatar" />
@@ -38,7 +36,7 @@ const Sidebar = () => {
       {/*SIDEBAR LINKS*/}
       <div className="mt-10">
         <NavLink
-          to={`tickets`}
+          to={`create-account`}
           style={({ isActive }) => ({
             backgroundColor: isActive ? currentColor : "",
           })}
@@ -46,43 +44,7 @@ const Sidebar = () => {
         >
           <div className="flex ml-5">
             <FaTicket className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Tickets</p>
-          </div>
-        </NavLink>
-        <NavLink
-          to={`chat`}
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? currentColor : "",
-          })}
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <div className="flex ml-5">
-            <IoIosChatboxes className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Chat</p>
-          </div>
-        </NavLink>
-        <NavLink
-          to={`faq`}
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? currentColor : "",
-          })}
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <div className="flex ml-5">
-            <FaQuestionCircle className="size-5 place-self-center" />
-            <p className="ml-5 py-3">FAQ</p>
-          </div>
-        </NavLink>
-        <NavLink
-          to={`feedbacks`}
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? currentColor : "",
-          })}
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <div className="flex ml-5">
-            <IoIosHappy className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Feedbacks</p>
+            <p className="ml-5 py-3">Create Account</p>
           </div>
         </NavLink>
       </div>

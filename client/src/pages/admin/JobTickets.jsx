@@ -43,6 +43,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { IoCopy } from "react-icons/io5";
+import { MdPreview, MdEdit, MdDelete  } from "react-icons/md";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
@@ -319,13 +321,21 @@ const JobTicket = () => {
                 onClick={() => navigator.clipboard.writeText(ticket._id)}
                 className="cursor-pointer"
               >
+                <IoCopy className="text-center size-5 mr-1" />
                 Copy Ticket ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">View Ticket</DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+              <MdPreview className="text-center size-5 mr-1" />
+                View Ticket
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+              <MdEdit className="text-center size-5 mr-1"/>
+                Edit
+              </DropdownMenuItem>
               <AlertDialog>
-                <AlertDialogTrigger className="text-sm hover:bg-slate-100 text-red-500 py-1.5 rounded-sm pl-2 px-20">
+                <AlertDialogTrigger className="text-sm hover:bg-slate-100 text-red-500 py-1.5 rounded-sm pl-2 px-20 flex">
+                <MdDelete className="text-center size-5 mr-1 text-red-500"/>
                   Delete
                 </AlertDialogTrigger>
                 <AlertDialogContent>

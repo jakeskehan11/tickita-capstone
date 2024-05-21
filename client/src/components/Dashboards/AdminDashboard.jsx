@@ -5,14 +5,14 @@ import AdminNavbar from "../Navbar/AdminNavbar";
 const AdminDashboard = () => {
   return (
     <div className="flex">
-      <div className="h-screen w-full ">
-        <div className="fixed w-full bg-green-950 h-14 border-b z-50 border-black">
+      <div className="h-screen w-full">
+        <div className="fixed w-full h-14 bg-white">
           <AdminNavbar />
         </div>
-        <div className="w-60 fixed bg-green-950 mt-14 z-50">
+        <div className="w-60 fixed bg-green-950">
           <AdminSidebar />
         </div>
-        <main className="bg-slate-50">
+        <main className="bg-slate-100">
           <Outlet />
         </main>
       </div>

@@ -6,13 +6,13 @@ const UserDashboard = () => {
   return (
     <div className="flex">
       <div className="h-screen w-full">
-        <div className="fixed w-full bg-green-950 h-14 z-50">
+        <div className="fixed w-full h-14 bg-white">
           <UserNavbar />
         </div>
-        <div className="w-60 fixed bg-green-950 mt-14 z-50">
+        <div className="w-60 fixed bg-green-950">
           <UserSidebar />
         </div>
-        <main className="bg-slate-50">
+        <main className="bg-slate-100">
           <Outlet />
         </main>
       </div>

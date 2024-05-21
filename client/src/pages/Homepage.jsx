@@ -7,25 +7,24 @@ const Homepage = () => {
   return (
     <>
       <img
-        className="h-screen w-full object-cover brightness-[0.35]"
+        className="absolute h-screen w-full object-cover brightness-[0.35]"
         src={schoolImg2}
         alt="school image"
       />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-        <h1 className="text-5xl font-extrabold text-slate-100 tracking-wider">
+      <div className="60 h-screen flex  flex-col items-center justify-center gap-3">
+        <h1 className="text-5xl font-extrabold text-slate-100 tracking-wider z-10">
           TICKITA
         </h1>
-        <h2 className="text-3xl font-bold text-slate-200 tracking-wide">
+        <h2 className="text-3xl font-bold text-slate-200 tracking-wide z-10">
           CVSU Naic Support Ticketing Management System
         </h2>
-        <h2 className="text-3xl font-bold text-slate-200">
+        <h2 className="text-3xl font-bold text-slate-200 z-10">
           with Task Tracking and Satisfaction Feedback
         </h2>
-      </div>
-      <div className="absolute inset-x-0 bottom-80 flex justify-center ">
+
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="bg-green-950 hover:bg-green-900 w-96">
+            <Button className="bg-green-950 hover:bg-green-900 w-96 z-10">
               Need a hero?&nbsp;
               <span className="font-bold text-yellow-500">Sign in</span>
               &nbsp;to create your support ticket!
