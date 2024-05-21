@@ -2,12 +2,15 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const userRoutes = require("./routes/user");
 const jobTicketRoutes = require("./routes/jobTicket");
 const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
 
 // express app
 const app = express();
+
+app.use(cors);
 
 // middleware
 app.use(express.json());
