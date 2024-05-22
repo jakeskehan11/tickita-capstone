@@ -37,7 +37,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route
-          path="/superadmin/*"
+          path="https://tickita.vercel.app/superadmin/*"
           element={
             user !== null &&
             user !== undefined &&
@@ -49,7 +49,7 @@ const App = () => {
           }
         />
         <Route
-          path="/admin/*"
+          path="https://tickita.vercel.app/admin/*"
           element={
             user !== null &&
             user !== undefined &&
@@ -61,7 +61,7 @@ const App = () => {
           }
         />
         <Route
-          path="/user/*"
+          path="https://tickita.vercel.app/user/*"
           element={
             user !== null && user !== undefined && user.role === "user" ? (
               <UserRoutes />
