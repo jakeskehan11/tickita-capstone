@@ -20,6 +20,10 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+  res.json("TICKTIA");
+});
+
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
