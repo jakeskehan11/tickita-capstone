@@ -17,7 +17,7 @@ const Chart = () => {
         <CardHeader>
           <CardTitle>Total Tickets</CardTitle>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            Ticket volume over the last 4 weeks
+            Total ticket of the month
           </p>
         </CardHeader>
         <CardContent>
@@ -69,10 +69,10 @@ function BarChart({ className }) {
     <div className={className}>
       <ResponsiveBar
         data={[
-          { name: "Jan", tickets: 111 },
-          { name: "Feb", tickets: 157 },
-          { name: "Mar", tickets: 129 },
-          { name: "Apr", tickets: 150 },
+          { name: "Week 1", tickets: 111 },
+          { name: "Week 2", tickets: 157 },
+          { name: "Week 3", tickets: 129 },
+          { name: "Week 4", tickets: 150 },
         ]}
         keys={["tickets"]}
         indexBy="name"
