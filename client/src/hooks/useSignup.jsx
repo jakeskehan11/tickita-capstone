@@ -10,7 +10,7 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("https://tickita-api.vercel.app/signup", {
+    const response = await fetch("/api/auth/signup/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstName, lastName, email, password, role }),

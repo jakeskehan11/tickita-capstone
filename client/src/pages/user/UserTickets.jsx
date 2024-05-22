@@ -50,14 +50,14 @@ const UserTicket = () => {
 
   useEffect(() => {
     const fetchTickets = async () => {
-      const jobTicketResponse = await fetch("https://tickita-api.vercel.app/api/job-ticket/", {
+      const jobTicketResponse = await fetch("/api/job-ticket/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
 
       const technicalJobTicketResponse = await fetch(
-        "https://tickita-api.vercel.app/technical-job-ticket/",
+        "/api/technical-job-ticket/",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
