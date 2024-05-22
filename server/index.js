@@ -11,7 +11,6 @@ const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
 const app = express();
 
 // middleware
-app.use(express.json());
 app.use(
   cors({
     origin: ["https://tickita.vercel.app"],
@@ -19,6 +18,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json("TICKTIA");
