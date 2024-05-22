@@ -13,7 +13,7 @@ export const useLogin = () => {
     setError(null);
 
     const response = await fetch(
-      "https://tickita-api.vercel.app/api/auth/login",
+      "/api/auth/login",
       {
         method: "POST",
         headers: {
