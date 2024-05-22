@@ -40,7 +40,7 @@ const TechnicalTicketForm = ({ ticketType }) => {
       ticketType,
     };
 
-    const response = await fetch("/api/technical-job-ticket/", {
+    const response = await fetch("https://tickita-api.vercel.app/api/technical-job-ticket/", {
       method: "POST",
       body: JSON.stringify(technicalJobTicket),
       headers: {
