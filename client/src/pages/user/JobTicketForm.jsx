@@ -25,6 +25,7 @@ const JobTicketForm = ({ ticketType }) => {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const JobTickethandleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +35,8 @@ const JobTicketForm = ({ ticketType }) => {
       return;
     }
 
+    setIsLoading(true);
+
     const jobTicket = {
       department,
       building,
@@ -42,19 +45,23 @@ const JobTicketForm = ({ ticketType }) => {
       ticketType,
     };
 
-    const response = await fetch("https://tickita-api.vercel.app/api/job-ticket/", {
-      method: "POST",
-      body: JSON.stringify(jobTicket),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://tickita-api.vercel.app/api/job-ticket/",
+      {
+        method: "POST",
+        body: JSON.stringify(jobTicket),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields || []);
+      setIsLoading(false);
     }
 
     if (response.ok) {
@@ -64,6 +71,7 @@ const JobTicketForm = ({ ticketType }) => {
       setDescription("");
       setError(null);
       setEmptyFields([]);
+      setIsLoading(false);
       dispatch({ type: "CREATE_TICKET", payload: json });
 
       try {
@@ -159,7 +167,7 @@ const JobTicketForm = ({ ticketType }) => {
       </div>
       {error && <div className="text-red-500 text-sm">{error}</div>}
       <Button className="w-full bg-green-950 hover:bg-green-900" type="submit">
-        Submit
+        {isLoading ? "Submitting..." : "Submit"}
       </Button>
     </form>
   );

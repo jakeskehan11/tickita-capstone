@@ -24,6 +24,7 @@ const TechnicalTicketForm = ({ ticketType }) => {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const TechnicalJobTickethandleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +34,8 @@ const TechnicalTicketForm = ({ ticketType }) => {
       return;
     }
 
+    setIsLoading(true);
+
     const technicalJobTicket = {
       department,
       typeOfService,
@@ -40,19 +43,23 @@ const TechnicalTicketForm = ({ ticketType }) => {
       ticketType,
     };
 
-    const response = await fetch("https://tickita-api.vercel.app/api/technical-job-ticket/", {
-      method: "POST",
-      body: JSON.stringify(technicalJobTicket),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://tickita-api.vercel.app/api/technical-job-ticket/",
+      {
+        method: "POST",
+        body: JSON.stringify(technicalJobTicket),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields || []);
+      setIsLoading(false);
     }
 
     if (response.ok) {
@@ -61,6 +68,7 @@ const TechnicalTicketForm = ({ ticketType }) => {
       setDescription("");
       setError(null);
       setEmptyFields([]);
+      setIsLoading(false);
       dispatch({ type: "CREATE_TICKET", payload: json });
 
       try {
@@ -161,7 +169,7 @@ const TechnicalTicketForm = ({ ticketType }) => {
       </div>
       {error && <div className="text-red-500 text-sm">{error}</div>}
       <Button className="w-full bg-green-950 hover:bg-green-900" type="submit">
-        Submit
+        {isLoading ? "Submitting..." : "Submit"}
       </Button>
     </form>
   );
