@@ -12,7 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://tickita.vercel.app",
+        target: "https://tickita-api.vercel.app",
         changeOrigin: true,
       },
     },
