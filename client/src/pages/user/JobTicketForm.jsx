@@ -166,7 +166,7 @@ const JobTicketForm = ({ ticketType }) => {
         />
       </div>
       {error && <div className="text-red-500 text-sm">{error}</div>}
-      <Button className="w-full bg-green-950 hover:bg-green-900" type="submit">
+      <Button className="w-full bg-green-950 hover:bg-green-900" type="submit" disabled={isLoading}>
         {isLoading ? "Submitting..." : "Submit"}
       </Button>
     </form>
