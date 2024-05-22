@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
+
 const userRoutes = require("./routes/user");
 const jobTicketRoutes = require("./routes/jobTicket");
 const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
@@ -10,7 +10,7 @@ const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
 // express app
 const app = express();
 
-app.use(cors);
+
 
 // middleware
 app.use(express.json());
@@ -27,7 +27,7 @@ app.use("/api/technical-job-ticket", technicalJobTicketRoutes);
 
 // connect to db
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("connected to database");
     // listen to port
