@@ -40,11 +40,11 @@ export const useLogin = () => {
 
       if (json && json.role) {
         if (json.role === "PPSS" || json.role === "Computer Technician") {
-          navigate("admin/dashboard");
+          navigate("https://tickita.vercel.app/admin/dashboard");
         } else if (json.role === "user") {
-          navigate("user/tickets");
+          navigate("https://tickita.vercel.app/user/tickets");
         } else if (json.role === "superadmin") {
-          navigate("superadmin/create-account");
+          navigate("https://tickita.vercel.app/superadmin/create-account");
         }
       }
     }
