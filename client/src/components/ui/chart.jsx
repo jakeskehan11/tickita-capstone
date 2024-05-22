@@ -15,9 +15,9 @@ const Chart = () => {
     <div className="flex justify-evenly items-center mt-10">
       <Card className="w-5/12">
         <CardHeader>
-          <CardTitle>Ticket Resolution Time</CardTitle>
+          <CardTitle>Total Tickets</CardTitle>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            Average time to resolve tickets over the last 6 months
+            Ticket volume over the last 4 weeks
           </p>
         </CardHeader>
         <CardContent>
@@ -69,14 +69,12 @@ function BarChart({ className }) {
     <div className={className}>
       <ResponsiveBar
         data={[
-          { name: "Jan", hours: 111 },
-          { name: "Feb", hours: 157 },
-          { name: "Mar", hours: 129 },
-          { name: "Apr", hours: 150 },
-          { name: "May", hours: 119 },
-          { name: "Jun", hours: 72 },
+          { name: "Jan", tickets: 111 },
+          { name: "Feb", tickets: 157 },
+          { name: "Mar", tickets: 129 },
+          { name: "Apr", tickets: 150 },
         ]}
-        keys={["hours"]}
+        keys={["tickets"]}
         indexBy="name"
         margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
         borderRadius={5}

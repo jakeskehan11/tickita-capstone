@@ -10,7 +10,7 @@ const Dashboard = () => {
         <Card className="w-[22.5rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 lg">
             <CardTitle className="text-sm font-semibold">
-              Total Tickets
+              Open Tickets
             </CardTitle>
             <LuTicket className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </CardHeader>
@@ -24,7 +24,7 @@ const Dashboard = () => {
         <Card className="w-[22.5rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-semibold">
-              Open Tickets
+              Pending Tickets
             </CardTitle>
             <LuTicket className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </CardHeader>
@@ -38,7 +38,7 @@ const Dashboard = () => {
         <Card className="w-[22.5rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-semibold">
-              Pending Tickets
+              Resolved Tickets
             </CardTitle>
             <LuTicket className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </CardHeader>
