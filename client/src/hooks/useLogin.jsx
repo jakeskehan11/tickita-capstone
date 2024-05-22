@@ -14,7 +14,12 @@ export const useLogin = () => {
 
     const response = await fetch("https://tickita-api.vercel.app/login", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
+      },
       body: JSON.stringify({ email, password }),
     });
     const json = await response.json();
