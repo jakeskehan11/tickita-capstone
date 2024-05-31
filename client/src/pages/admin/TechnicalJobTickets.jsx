@@ -43,8 +43,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
 import { IoCopy } from "react-icons/io5";
-import { MdPreview, MdEdit, MdDelete } from "react-icons/md";
+import { MdPreview, MdDelete } from "react-icons/md";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
@@ -77,6 +78,138 @@ const TechnicalJobTickets = () => {
       fetchTechnicalJobTickets();
     }
   }, [dispatch, user]);
+
+  const handleUpdateTicket = async (ticket, updatedStatus, updatedPriority) => {
+    try {
+      const response = await fetch(`/api/technical-job-ticket/${ticket._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          status: updatedStatus,
+          priority: updatedPriority,
+        }),
+      });
+
+      if (response.ok) {
+        const updatedTicket = await response.json();
+        setData((prevData) =>
+          prevData.map((item) =>
+            item._id === updatedTicket._id ? updatedTicket : item
+          )
+        );
+        dispatch({ type: "UPDATE_TICKET", payload: updatedTicket });
+      } else {
+        console.error("Failed to update the ticket:", response.status);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    }
+  };
+
+  {/*UPDATE STATUS*/}
+  const renderStatusDropdown = (row) => {
+    const ticket = row.original;
+    const currentStatus = ticket.status;
+
+    const handleStatusUpdate = (updatedStatus) => {
+      handleUpdateTicket(ticket, updatedStatus, ticket.priority);
+    };
+
+    const getBackgroundClass = (status) => {
+      switch (status) {
+        case "open":
+          return "bg-green-950 hover:bg-green-900";
+        case "pending":
+          return "bg-yellow-500 hover:bg-yellow-400";
+        case "resolved":
+          return "bg-blue-600 hover:bg-blue-500";
+        case "closed":
+          return "bg-red-600 hover:bg-red-500";
+        default:
+          return "";
+      }
+    };
+
+    return (
+      <div className="flex justify-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="capitalize p-0 h-0">
+              <Badge className={getBackgroundClass(currentStatus)}>
+                {currentStatus}
+              </Badge>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuLabel>Update Status</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {["open", "pending", "resolved"].map((status) => (
+              <DropdownMenuItem
+                key={status}
+                className="cursor-pointer capitalize"
+                onClick={() => handleStatusUpdate(status)}
+              >
+                {status}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    );
+  };
+
+  {/*UPDATE PRIORITY*/}
+  const renderPriorityDropdown = (row) => {
+    const ticket = row.original;
+    const currentPriority = ticket.priority;
+
+    const handlePriorityUpdate = (updatedPriority) => {
+      handleUpdateTicket(ticket, ticket.status, updatedPriority);
+    };
+
+    const getBackgroundClass = (priority) => {
+      switch (priority) {
+        case "low":
+          return "bg-green-950 hover:bg-green-900";
+        case "medium":
+          return "bg-yellow-500 hover:bg-yellow-400";
+        case "high":
+          return "bg-red-600 hover:bg-red-500";
+        default:
+          return "";
+      }
+    };
+
+    return (
+      <div className="flex justify-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="capitalize p-0 h-0">
+              <Badge className={getBackgroundClass(currentPriority)}>
+                {currentPriority}
+              </Badge>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuLabel>Update Priority</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {["low", "medium", "high"].map((priority) => (
+              <DropdownMenuItem
+                key={priority}
+                className="cursor-pointer capitalize"
+                onClick={() => handlePriorityUpdate(priority)}
+              >
+                {priority}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    );
+  };
 
   const columns = [
     {
@@ -180,11 +313,7 @@ const TechnicalJobTickets = () => {
           <CaretSortIcon className="text-center" />
         </Button>
       ),
-      cell: ({ row }) => {
-        return (
-          <div className="text-center capitalize">{row.getValue("status")}</div>
-        );
-      },
+      cell: ({ row }) => renderStatusDropdown(row),
     },
     {
       accessorKey: "priority",
@@ -198,13 +327,7 @@ const TechnicalJobTickets = () => {
           <CaretSortIcon className="text-center" />
         </Button>
       ),
-      cell: ({ row }) => {
-        return (
-          <div className="text-center capitalize">
-            {row.getValue("priority")}
-          </div>
-        );
-      },
+      cell: ({ row }) => renderPriorityDropdown(row),
     },
     {
       accessorKey: "requestDate",
@@ -300,10 +423,8 @@ const TechnicalJobTickets = () => {
                 <MdPreview className="text-center size-5 mr-1" />
                 View Ticket
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <MdEdit className="text-center size-5 mr-1" />
-                Edit
-              </DropdownMenuItem>
+
+              {/* DELETE TICKET ACTION */}
               <AlertDialog>
                 <AlertDialogTrigger className="text-sm hover:bg-slate-100 text-red-500 py-1.5 rounded-sm pl-2 px-20 flex">
                   <MdDelete className="text-center size-5 mr-1 text-red-500" />
@@ -441,7 +562,7 @@ const TechnicalJobTickets = () => {
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
-                    No ticket results.
+                    No ticket.
                   </TableCell>
                 </TableRow>
               )}

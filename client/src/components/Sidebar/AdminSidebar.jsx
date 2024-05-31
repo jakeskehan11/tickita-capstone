@@ -14,7 +14,7 @@ const Sidebar = () => {
   const userRole = user.role;
 
   const [currentColor, setCurrentColor] = useState("rgb(255 255 255 / 0.05)");
-  const activeLink = "flex text-[#E5B80B]";
+  const activeLink = "flex text-yellow-500";
   const normalLink = "flex text-slate-100 hover:bg-white/5";
 
   const getNavLinkDestination = (role) => {
@@ -43,10 +43,10 @@ const Sidebar = () => {
         <Avatar className="mx-auto size-20">
           <AvatarImage src={defaultPic} alt="admin avatar" />
         </Avatar>
-        <p className="font-semibold text-xl capitalize text-[#E5B80B] mt-3">
+        <p className="font-semibold text-xl capitalize text-yellow-500 mt-3">
           {user.firstname} {user.lastname}
         </p>
-        <p className="font-medium text-lg capitalize text-[#E5B80B] mt-1">
+        <p className="font-medium text-lg capitalize text-yellow-500 mt-1">
           {user.role}
         </p>
       </div>

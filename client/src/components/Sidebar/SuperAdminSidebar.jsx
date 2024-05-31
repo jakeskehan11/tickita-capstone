@@ -10,7 +10,7 @@ const Sidebar = () => {
   const { user } = useAuthContext();
 
   const [currentColor, setCurrentColor] = useState("rgb(255 255 255 / 0.05)");
-  const activeLink = "flex text-[#E5B80B]";
+  const activeLink = "flex text-yellow-500";
   const normalLink = "flex text-slate-100 hover:bg-white/5";
 
   return (
@@ -27,7 +27,7 @@ const Sidebar = () => {
         <Avatar className="mx-auto size-20">
           <AvatarImage src={defaultPic} alt="user avatar" />
         </Avatar>
-        <h4 className="font-semibold text-xl capitalize text-[#E5B80B] mt-3">
+        <h4 className="font-semibold text-xl capitalize text-yellow-500 mt-3">
           {user.firstname} {user.lastname}
         </h4>
       </div>

@@ -32,6 +32,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import CreateTicket from "@/pages/user/CreateTicket";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
@@ -86,6 +87,34 @@ const UserTicket = () => {
   useEffect(() => {
     setData(tickets);
   }, [tickets]);
+
+  const getStatusColorClass = (status) => {
+    switch (status) {
+      case "open":
+        return "bg-green-950 hover:bg-green-900";
+      case "pending":
+        return "bg-yellow-500 hover:bg-yellow-400";
+      case "resolved":
+        return "bg-blue-600 hover:bg-blue-500";
+      case "closed":
+        return "bg-red-600 hover:bg-red-500";
+      default:
+        return "";
+    }
+  };
+
+  const getPriorityColorClass = (priority) => {
+    switch (priority) {
+      case "low":
+        return "bg-green-950 hover:bg-green-900";
+      case "medium":
+        return "bg-yellow-500 hover:bg-yellow-400";
+      case "high":
+        return "bg-red-600 hover:bg-red-500";
+      default:
+        return "";
+    }
+  };
 
   const columns = [
     {
@@ -220,8 +249,12 @@ const UserTicket = () => {
         </Button>
       ),
       cell: ({ row }) => {
+        const status = row.getValue("status");
+        const colorClass = getStatusColorClass(status);
         return (
-          <div className="text-center capitalize">{row.getValue("status")}</div>
+          <div className="flex justify-center capitalize">
+            <Badge className={colorClass}>{status}</Badge>
+          </div>
         );
       },
     },
@@ -238,9 +271,11 @@ const UserTicket = () => {
         </Button>
       ),
       cell: ({ row }) => {
+        const priority = row.getValue("priority");
+        const colorClass = getPriorityColorClass(priority);
         return (
-          <div className="text-center capitalize">
-            {row.getValue("priority")}
+          <div className="flex justify-center capitalize">
+            <Badge className={colorClass}>{priority}</Badge>
           </div>
         );
       },

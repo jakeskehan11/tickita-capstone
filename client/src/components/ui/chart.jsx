@@ -8,7 +8,7 @@ const Chart = () => {
       <Card className="w-5/12">
         <CardHeader>
           <CardTitle>Ticket Trends</CardTitle>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-gray-500">
             Ticket volume over the last 6 months
           </p>
         </CardHeader>
@@ -19,7 +19,7 @@ const Chart = () => {
       <Card className="w-5/12">
         <CardHeader>
           <CardTitle>Overall Tickets</CardTitle>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-gray-500">
             Ticket volume of the current month
           </p>
         </CardHeader>
@@ -32,7 +32,7 @@ const Chart = () => {
                 cy="50%"
                 labelLine={false}
                 label={renderCustomizedLabel}
-                outerRadius="65%"
+                outerRadius="75%"
                 fill="#fff"
                 dataKey="tickets"
               >
@@ -48,8 +48,8 @@ const Chart = () => {
                 data={totalTickets}
                 cx="50%"
                 cy="50%"
-                innerRadius="75%"
-                outerRadius="95%"
+                innerRadius="85%"
+                outerRadius="100%"
                 fill="#000"
               />
               <Tooltip />

@@ -33,7 +33,7 @@ const LoginPage = () => {
     <form onSubmit={handleSubmit}>
       <Card className="rounded-none shadow-none border-white">
         <CardHeader>
-          <CardTitle className="text-2xl">TICKITA Login</CardTitle>
+          <CardTitle className="text-2xl font-bold">TICKITA Login</CardTitle>
           <CardDescription>
             Enter your CVSU Email below to login to your account.
           </CardDescription>

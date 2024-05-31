@@ -9,49 +9,49 @@ const Dashboard = () => {
       <div className="flex justify-center items-start gap-6 flex-wrap mt-10">
         <Card className="w-64 2xl:w-[22rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-base font-semibold">
+            <CardTitle className="text-base font-bold">
               Open Tickets
             </CardTitle>
             <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-2xl font-bold">2,600</div>
+            <div className="text-2xl font-bold text-green-950">2,600</div>
             <p className="text-xs text-gray-500 ">+12.1% from last month</p>
           </CardContent>
         </Card>
         <Card className="w-64 2xl:w-[22rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-base font-semibold">
+            <CardTitle className="text-base font-bold">
               Pending Tickets
             </CardTitle>
-            <LuTicket className="w-4 h-4 text-gray-500 " />
+            <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-2xl font-bold">1,234</div>
+            <div className="text-2xl font-bold text-yellow-500">1,234</div>
             <p className="text-xs text-gray-500 ">+8.1% from last month</p>
           </CardContent>
         </Card>
         <Card className="w-64 2xl:w-[22rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-base font-semibold">
+            <CardTitle className="text-base font-bold">
               Resolved Tickets
             </CardTitle>
             <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-2xl font-bold">250</div>
+            <div className="text-2xl font-bold text-blue-600">250</div>
             <p className="text-xs text-gray-500">+5% from last month</p>
           </CardContent>
         </Card>
         <Card className="w-64 2xl:w-[22rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-base font-semibold">
+            <CardTitle className="text-base font-bold">
               Closed Tickets
             </CardTitle>
-            <LuTicket className="w-4 h-4 text-gray-500 " />
+            <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-2xl font-bold">1,116</div>
+            <div className="text-2xl font-bold text-red-600">1,116</div>
             <p className="text-xs text-gray-500 ">+15% from last month</p>
           </CardContent>
         </Card>
