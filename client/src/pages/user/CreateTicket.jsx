@@ -7,13 +7,15 @@ import {
   Dialog,
 } from "@/components/ui/dialog";
 import { TabsTrigger, TabsList, TabsContent, Tabs } from "@/components/ui/tabs";
-import { Toaster } from "@/components/ui/sonner";
+import { useState } from "react";
 import JobTicketForm from "./JobTicketForm";
 import TechnicalTicketForm from "./TechnicalJobTicketForm";
 
 const CreateTicket = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className="bg-green-950 hover:bg-green-900">
           Request Ticket
@@ -33,16 +35,15 @@ const CreateTicket = () => {
 
           {/* Job Request Form */}
           <TabsContent value="Job Ticket">
-            <JobTicketForm />
+            <JobTicketForm setIsOpen={setIsOpen} />
           </TabsContent>
 
           {/* Technical Job Request Form */}
           <TabsContent value="Technical Job Ticket">
-            <TechnicalTicketForm />
+            <TechnicalTicketForm setIsOpen={setIsOpen} />
           </TabsContent>
         </Tabs>
       </DialogContent>
-      <Toaster className="text-white" />
     </Dialog>
   );
 };

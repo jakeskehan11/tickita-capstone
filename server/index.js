@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
+// const cors = require("cors");
 const userRoutes = require("./routes/user");
 const jobTicketRoutes = require("./routes/jobTicket");
 const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
@@ -11,18 +11,14 @@ const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
 const app = express();
 
 // middleware
-app.use(
-  cors({
-    origin: ["https://tickita.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://tickita.vercel.app"],
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     credentials: true,
+//   })
+// );
 app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.json("TICKTIA");
-});
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -30,6 +26,9 @@ app.use((req, res, next) => {
 });
 
 // routes
+app.get("/", (req, res) => {
+  res.json("TICKTIA API");
+});
 app.use("/api/auth", userRoutes);
 app.use("/api/job-ticket", jobTicketRoutes);
 app.use("/api/technical-job-ticket", technicalJobTicketRoutes);

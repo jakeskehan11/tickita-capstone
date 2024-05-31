@@ -4,63 +4,55 @@ import { Chart } from "../../components/ui/chart";
 
 const Dashboard = () => {
   return (
-    <div className="ml-60 h-screen pt-20">
+    <div className="ml-60 pt-20 bg-slate-100">
       <h1 className="font-bold text-3xl ml-12">Dashboard</h1>
-      <div className="flex justify-center items-start gap-5 flex-wrap mt-10">
-        <Card className="w-[22.5rem]">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 lg">
-            <CardTitle className="text-sm font-semibold">
+      <div className="flex justify-center items-start gap-6 flex-wrap mt-10">
+        <Card className="w-64 2xl:w-[22rem]">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-base font-semibold">
               Open Tickets
             </CardTitle>
-            <LuTicket className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+            <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
             <div className="text-2xl font-bold">2,600</div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              +12.1% from last month
-            </p>
+            <p className="text-xs text-gray-500 ">+12.1% from last month</p>
           </CardContent>
         </Card>
-        <Card className="w-[22.5rem]">
+        <Card className="w-64 2xl:w-[22rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-semibold">
+            <CardTitle className="text-base font-semibold">
               Pending Tickets
             </CardTitle>
-            <LuTicket className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+            <LuTicket className="w-4 h-4 text-gray-500 " />
           </CardHeader>
           <CardContent className="mt-8">
             <div className="text-2xl font-bold">1,234</div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              +8.1% from last month
-            </p>
+            <p className="text-xs text-gray-500 ">+8.1% from last month</p>
           </CardContent>
         </Card>
-        <Card className="w-[22.5rem]">
+        <Card className="w-64 2xl:w-[22rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-semibold">
+            <CardTitle className="text-base font-semibold">
               Resolved Tickets
             </CardTitle>
-            <LuTicket className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+            <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
             <div className="text-2xl font-bold">250</div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              +5% from last month
-            </p>
+            <p className="text-xs text-gray-500">+5% from last month</p>
           </CardContent>
         </Card>
-        <Card className="w-[22.5rem]">
+        <Card className="w-64 2xl:w-[22rem]">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-semibold">
+            <CardTitle className="text-base font-semibold">
               Closed Tickets
             </CardTitle>
-            <LuTicket className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+            <LuTicket className="w-4 h-4 text-gray-500 " />
           </CardHeader>
           <CardContent className="mt-8">
             <div className="text-2xl font-bold">1,116</div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              +15% from last month
-            </p>
+            <p className="text-xs text-gray-500 ">+15% from last month</p>
           </CardContent>
         </Card>
       </div>

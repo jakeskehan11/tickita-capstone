@@ -9,12 +9,20 @@ import {
   SelectContent,
   Select,
 } from "@/components/ui/select";
-import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
-const JobTicketForm = ({ ticketType }) => {
+const JobTicketForm = ({ ticketType, setIsOpen }) => {
   const { dispatch } = useTicketsContext();
   const { user } = useAuthContext();
 
@@ -26,6 +34,8 @@ const JobTicketForm = ({ ticketType }) => {
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [ticketId, setTicketId] = useState(null);
 
   const JobTickethandleSubmit = async (e) => {
     e.preventDefault();
@@ -45,17 +55,14 @@ const JobTicketForm = ({ ticketType }) => {
       ticketType,
     };
 
-    const response = await fetch(
-      "https://tickita-api.vercel.app/api/job-ticket/",
-      {
-        method: "POST",
-        body: JSON.stringify(jobTicket),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch("/api/job-ticket/", {
+      method: "POST",
+      body: JSON.stringify(jobTicket),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
     const json = await response.json();
 
     if (!response.ok) {
@@ -73,25 +80,8 @@ const JobTicketForm = ({ ticketType }) => {
       setEmptyFields([]);
       setIsLoading(false);
       dispatch({ type: "CREATE_TICKET", payload: json });
-
-      try {
-        const currentDate = new Date();
-        const formattedTime = currentDate.toLocaleString("en-US", {
-          weekday: "long",
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-        });
-
-        toast("Request Job Ticket has been created", {
-          description: formattedTime,
-        });
-      } catch (error) {
-        console.error(error);
-      }
+      setIsAlertOpen(true);
+      setTicketId(json._id);
     }
   };
 
@@ -166,9 +156,46 @@ const JobTicketForm = ({ ticketType }) => {
         />
       </div>
       {error && <div className="text-red-500 text-sm">{error}</div>}
-      <Button className="w-full bg-green-950 hover:bg-green-900" type="submit" disabled={isLoading}>
+      <Button
+        className="w-full bg-green-950 hover:bg-green-900"
+        type="submit"
+        disabled={isLoading}
+      >
         {isLoading ? "Submitting..." : "Submit"}
       </Button>
+      <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-xl font-bold mb-4">
+              Your Ticket request has been submitted!
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-black text-md font-semibold">{`JOB TICKET ID: ${ticketId}`}</AlertDialogDescription>
+            <AlertDialogDescription>
+              {new Date().toLocaleString("en-US", {
+                timeZone: "Asia/Manila",
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction
+              onClick={() => {
+                setIsAlertOpen(false);
+                setIsOpen(false);
+              }}
+              className="bg-green-950 hover:bg-green-900 w-full"
+            >
+              Close
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </form>
   );
 };

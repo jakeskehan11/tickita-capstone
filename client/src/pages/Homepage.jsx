@@ -11,22 +11,22 @@ const Homepage = () => {
         src={schoolImg2}
         alt="school image"
       />
-      <div className="60 h-screen flex  flex-col items-center justify-center gap-3">
-        <h1 className="text-5xl font-extrabold text-slate-100 tracking-wider z-10">
+      <div className="60 h-screen flex flex-col items-center justify-center gap-1">
+        <h1 className="text-6xl font-extrabold text-[#E5B80B] tracking-wider z-10 mb-1">
           TICKITA
         </h1>
-        <h2 className="text-3xl font-bold text-slate-200 tracking-wide z-10">
+        <h3 className="text-2xl font-semibold text-slate-200 tracking-wide z-10">
           CVSU Naic Support Ticketing Management System
-        </h2>
-        <h2 className="text-3xl font-bold text-slate-200 z-10">
+        </h3>
+        <h2 className="text-2xl font-semibold text-slate-200 tracking-wide z-10">
           with Task Tracking and Satisfaction Feedback
         </h2>
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="bg-green-950 hover:bg-green-900 w-96 z-10">
+            <Button className="bg-green-950 hover:bg-green-900 w-96 z-10 text-slate-100">
               Need a hero?&nbsp;
-              <span className="font-bold text-yellow-500">Sign in</span>
+              <span className="font-bold text-[#E5B80B]">Sign in</span>
               &nbsp;to create your support ticket!
             </Button>
           </DialogTrigger>

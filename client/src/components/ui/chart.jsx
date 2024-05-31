@@ -1,29 +1,10 @@
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { ResponsiveBar } from "@nivo/bar";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from "recharts";
 
 const Chart = () => {
   return (
     <div className="flex justify-evenly items-center mt-10">
-      <Card className="w-5/12">
-        <CardHeader>
-          <CardTitle>Total Tickets</CardTitle>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Total ticket of the month
-          </p>
-        </CardHeader>
-        <CardContent>
-          <BarChart className="aspect-[16/9]" />
-        </CardContent>
-      </Card>
       <Card className="w-5/12">
         <CardHeader>
           <CardTitle>Ticket Trends</CardTitle>
@@ -32,29 +13,47 @@ const Chart = () => {
           </p>
         </CardHeader>
         <CardContent>
+          <BarChart className="aspect-[16/9]" />
+        </CardContent>
+      </Card>
+      <Card className="w-5/12">
+        <CardHeader>
+          <CardTitle>Overall Tickets</CardTitle>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Ticket volume of the current month
+          </p>
+        </CardHeader>
+        <CardContent>
           <ResponsiveContainer className="aspect-[16/9]">
-            <AreaChart
-              width={500}
-              height={400}
-              data={LineChartdata}
-              margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Area
-                type="monotone"
+            <PieChart>
+              <Pie
+                data={ticketsData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={renderCustomizedLabel}
+                outerRadius="65%"
+                fill="#fff"
                 dataKey="tickets"
-                stroke="#003300"
-                fill="rgb(234 179 8)"
+              >
+                {ticketsData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Pie
+                dataKey="tickets"
+                data={totalTickets}
+                cx="50%"
+                cy="50%"
+                innerRadius="75%"
+                outerRadius="95%"
+                fill="#000"
               />
-            </AreaChart>
+              <Tooltip />
+            </PieChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
@@ -64,24 +63,72 @@ const Chart = () => {
 
 export default Chart;
 
+const ticketsData = [
+  { name: "Open", tickets: 500 },
+  { name: "Pending", tickets: 300 },
+  { name: "Resolved", tickets: 150 },
+  { name: "Closed", tickets: 150 },
+];
+const COLORS = [
+  "rgb(5 46 22)",
+  "rgb(234 179 8)",
+  " rgb(37 99 235)",
+  "rgb(220 38 38)",
+];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  index,
+}) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+
+const totalTickets = [{ name: "Total Tickets", tickets: 1000 }];
+
 function BarChart({ className }) {
   return (
     <div className={className}>
       <ResponsiveBar
         data={[
-          { name: "Week 1", tickets: 111 },
-          { name: "Week 2", tickets: 157 },
-          { name: "Week 3", tickets: 129 },
-          { name: "Week 4", tickets: 150 },
+          { name: "JAN", tickets: 111 },
+          { name: "FEB", tickets: 157 },
+          { name: "MAR", tickets: 129 },
+          { name: "APR", tickets: 140 },
+          { name: "MAY", tickets: 250 },
+          { name: "JUN", tickets: 150 },
         ]}
         keys={["tickets"]}
         indexBy="name"
-        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
+        margin={{ top: 10, right: 0, bottom: 40, left: 40 }}
         borderRadius={5}
         padding={0.5}
         colors={["#003300"]}
         axisBottom={{ tickSize: 0, tickPadding: 16 }}
-        axisLeft={{ tickSize: 0, tickValues: 4, tickPadding: 16 }}
+        axisLeft={{
+          tickSize: 0,
+          tickValues: 4,
+          tickPadding: 16,
+        }}
         gridYValues={4}
         theme={{
           tooltip: {
@@ -89,6 +136,11 @@ function BarChart({ className }) {
             container: { fontSize: "12px", textTransform: "capitalize" },
           },
           grid: { line: { stroke: "#f3f4f6" } },
+          axis: {
+            ticks: {
+              text: { fontSize: "14px", fontWeight: "bold" },
+            },
+          },
         }}
         tooltipLabel={({ id }) => `${id}`}
         enableLabel={false}
@@ -98,32 +150,5 @@ function BarChart({ className }) {
     </div>
   );
 }
-
-const LineChartdata = [
-  {
-    name: "Jan",
-    tickets: 1500,
-  },
-  {
-    name: "Feb",
-    tickets: 800,
-  },
-  {
-    name: "March",
-    tickets: 2000,
-  },
-  {
-    name: "Apr",
-    tickets: 2500,
-  },
-  {
-    name: "May",
-    tickets: 3100,
-  },
-  {
-    name: "Jun",
-    tickets: 2600,
-  },
-];
 
 export { Chart, BarChart };

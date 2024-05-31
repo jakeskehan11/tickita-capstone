@@ -30,13 +30,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className="py-2 content-center text-slate-100 flex justify-end">
+    <div className="py-2 content-center text-slate-100 flex justify-end mr-10">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Avatar className="size-10 !border-none mr-10">
+                <Avatar className="size-10 !border-none">
                   <AvatarImage src={defaultPic} alt="admin avatar" />
                 </Avatar>
               </TooltipTrigger>
@@ -46,7 +46,7 @@ const Navbar = () => {
             </Tooltip>
           </TooltipProvider>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="mr-10 py-5 px-5 flex flex-col bg-green-950 text-slate-200">
+        <DropdownMenuContent className="mr-10 p-4 flex flex-col bg-green-950 text-slate-200">
           <DropdownMenuLabel className="flex items-center text-base mb-auto">
             <Avatar className="size-10 mr-2">
               <AvatarImage src={defaultPic} alt="admin avatar" />
@@ -55,9 +55,9 @@ const Navbar = () => {
               {user.firstname} {user.lastname}
             </p>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="bg-gray-500" />
           <Link to={`settings`}>
-            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200 pr-16">
+            <DropdownMenuItem className="cursor-pointer text-lg hover:!bg-green-900 hover:!text-slate-200 pr-32">
               <div className="flex items-center ">
                 <IoSettings className="mr-2" />
                 Settings

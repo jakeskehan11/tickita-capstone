@@ -40,7 +40,7 @@ const technicalJobTicketSchema = new Schema({
   },
   priority: {
     type: String,
-    enum: ["low", "medium", "high", "urgent"],
+    enum: ["low", "medium", "high"],
     default: "open",
   },
   requestDate: { type: String, default: new Date().toLocaleDateString() },

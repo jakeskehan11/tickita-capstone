@@ -6,16 +6,16 @@ import { AiFillDashboard } from "react-icons/ai";
 import { FaTicket } from "react-icons/fa6";
 import { IoIosChatboxes, IoIosHappy } from "react-icons/io";
 import { useAuthContext } from "@/hooks/useAuthContext";
+import schoolStatue from "../../../public/cvsu-statue.png";
 
 const Sidebar = () => {
   const { user } = useAuthContext();
 
   const userRole = user.role;
 
-  const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
-  const activeLink = "flex rounded-lg text-slate-200 mx-2";
-  const normalLink =
-    "flex text-slate-200 mx-2 hover:bg-green-900 hover:rounded-lg my-0.5";
+  const [currentColor, setCurrentColor] = useState("rgb(255 255 255 / 0.05)");
+  const activeLink = "flex text-[#E5B80B]";
+  const normalLink = "flex text-slate-100 hover:bg-white/5";
 
   const getNavLinkDestination = (role) => {
     switch (role) {
@@ -31,10 +31,10 @@ const Sidebar = () => {
 
   return (
     /*SIDEBAR TITLE*/
-    <div className="h-screen overflow-auto pb-5">
+    <div className="h-screen overflow-auto">
       <Link
         to={`dashboard`}
-        className="text-slate-100 text-4xl font-extrabold tracking-wider flex justify-center mt-2"
+        className="text-white text-4xl font-extrabold tracking-wider flex justify-center mt-2"
       >
         TICKITA
       </Link>
@@ -43,16 +43,16 @@ const Sidebar = () => {
         <Avatar className="mx-auto size-20">
           <AvatarImage src={defaultPic} alt="admin avatar" />
         </Avatar>
-        <p className="font-semibold text-xl capitalize text-yellow-500 mt-3">
+        <p className="font-semibold text-xl capitalize text-[#E5B80B] mt-3">
           {user.firstname} {user.lastname}
         </p>
-        <p className="font-medium text-lg capitalize text-yellow-500 mt-1">
+        <p className="font-medium text-lg capitalize text-[#E5B80B] mt-1">
           {user.role}
         </p>
       </div>
 
       {/*SIDEBAR LINKS*/}
-      <div className="mt-10">
+      <div className="mt-10 backdrop-blur">
         <NavLink
           to={`dashboard`}
           style={({ isActive }) => ({
@@ -102,6 +102,11 @@ const Sidebar = () => {
           </div>
         </NavLink>
       </div>
+      <img
+        src={schoolStatue}
+        alt="school statue pic"
+        className="absolute inset-x-0 bottom-0 object-contain -z-10"
+      />
     </div>
   );
 };

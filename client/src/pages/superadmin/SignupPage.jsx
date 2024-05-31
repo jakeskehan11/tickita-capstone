@@ -14,11 +14,18 @@ import {
   CardTitle,
   CardHeader,
 } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
-import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
 
 const SignupPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -27,6 +34,7 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
   const { signup, error, isLoading } = useSignup();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
@@ -39,36 +47,22 @@ const SignupPage = () => {
       setEmail("");
       setPassword("");
       setRole("user");
-
-      const currentDate = new Date();
-      const formattedTime = currentDate.toLocaleString("en-US", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-      });
-
-      toast("Account has been created", {
-        description: formattedTime,
-      });
+      setIsAlertOpen(true);
     } catch (error) {
       console.error("Error during signup:", error);
     }
   };
 
   return (
-    <div className="ml-60 h-screen flex justify-center items-center">
-      <form onSubmit={handleSubmit} className="w-full max-w-md">
+    <div className="ml-60 pt-20 bg-slate-100 flex justify-center items-center">
+      <form onSubmit={handleSubmit} className="w-[32rem] mt-20">
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">TICKITA Signup</CardTitle>
+            <CardTitle className="text-2xl">TICKITA Create Account</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">First Name</Label>
+              <Label htmlFor="firstName">First Name</Label>
               <Input
                 placeholder="First Name"
                 required
@@ -78,7 +72,7 @@ const SignupPage = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Last Name</Label>
+              <Label htmlFor="lastName">Last Name</Label>
               <Input
                 placeholder="Last Name"
                 required
@@ -139,9 +133,38 @@ const SignupPage = () => {
             >
               Create Account
             </Button>
-            {!error && <Toaster className="text-white" />}
           </CardFooter>
         </Card>
+        <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-xl font-bold mb-4">
+                Account has been created successfully!
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                {new Date().toLocaleString("en-US", {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction
+                onClick={() => {
+                  setIsAlertOpen(false);
+                }}
+                className="bg-green-950 hover:bg-green-900 w-full"
+              >
+                Close
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </form>
     </div>
   );

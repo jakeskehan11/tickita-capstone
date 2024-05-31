@@ -4,15 +4,14 @@ import { useState } from "react";
 import defaultPic from "../../assets/defaultpic.jpg";
 import { FaTicket } from "react-icons/fa6";
 import { useAuthContext } from "@/hooks/useAuthContext";
-
+import schoolStatue from "../../../public/cvsu-statue.png"
 
 const Sidebar = () => {
   const { user } = useAuthContext();
 
-  const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
-  const activeLink = "flex rounded-lg text-slate-200 mx-2";
-  const normalLink =
-    "flex text-slate-200 mx-2 hover:bg-green-900 hover:rounded-lg hover:text-slate-200 my-0.5";
+  const [currentColor, setCurrentColor] = useState("rgb(255 255 255 / 0.05)");
+  const activeLink = "flex text-[#E5B80B]";
+  const normalLink = "flex text-slate-100 hover:bg-white/5";
 
   return (
     /*SIDEBAR TITLE*/
@@ -28,13 +27,13 @@ const Sidebar = () => {
         <Avatar className="mx-auto size-20">
           <AvatarImage src={defaultPic} alt="user avatar" />
         </Avatar>
-        <h4 className="font-semibold text-xl capitalize text-yellow-500 mt-3">
+        <h4 className="font-semibold text-xl capitalize text-[#E5B80B] mt-3">
           {user.firstname} {user.lastname}
         </h4>
       </div>
 
       {/*SIDEBAR LINKS*/}
-      <div className="mt-10">
+      <div className="mt-10 backdrop-blur">
         <NavLink
           to={`create-account`}
           style={({ isActive }) => ({
@@ -48,6 +47,7 @@ const Sidebar = () => {
           </div>
         </NavLink>
       </div>
+      <img src={schoolStatue} alt="school statue pic" className="absolute inset-x-0 bottom-0 object-contain -z-10" />
     </div>
   );
 };
