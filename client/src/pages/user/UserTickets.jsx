@@ -32,6 +32,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  DialogClose,
+  DialogDescription,
+  DialogTitle,
+  DialogHeader,
+  DialogContent,
+  Dialog,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import CreateTicket from "@/pages/user/CreateTicket";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
@@ -48,7 +67,10 @@ const UserTicket = () => {
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
+  const [viewTicket, setViewTicket] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // FETCH TICKETS
   useEffect(() => {
     const fetchTickets = async () => {
       const jobTicketResponse = await fetch("/api/job-ticket/", {
@@ -70,7 +92,16 @@ const UserTicket = () => {
       const technicalJobTickets = await technicalJobTicketResponse.json();
 
       if (jobTicketResponse.ok && technicalJobTicketResponse.ok) {
-        const allTickets = [...jobTickets, ...technicalJobTickets];
+        const allTickets = [
+          ...jobTickets.map((ticket) => ({
+            ...ticket,
+            ticketType: "Job Ticket",
+          })),
+          ...technicalJobTickets.map((ticket) => ({
+            ...ticket,
+            ticketType: "Technical Job Ticket",
+          })),
+        ];
         const uniqueTickets = Array.from(
           new Set(allTickets.map((ticket) => ticket._id))
         ).map((id) => allTickets.find((ticket) => ticket._id === id));
@@ -87,6 +118,66 @@ const UserTicket = () => {
   useEffect(() => {
     setData(tickets);
   }, [tickets]);
+
+  // FETCH SINGLE TICKET
+  const fetchTicketDetails = async (ticketId, ticketType) => {
+    const endpoint =
+      ticketType === "Technical Job Ticket"
+        ? `/api/technical-job-ticket/${ticketId}`
+        : `/api/job-ticket/${ticketId}`;
+    const response = await fetch(endpoint, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      setViewTicket(json);
+      setIsModalOpen(true);
+    } else {
+      console.error("Failed to fetch the ticket details:", json.message);
+    }
+  };
+
+  // CLOSED TICKET STATUS
+  const handleCloseTicket = async () => {
+    try {
+      const endpoint =
+        viewTicket.ticketType === "Technical Job Ticket"
+          ? `/api/technical-job-ticket/${viewTicket._id}`
+          : `/api/job-ticket/${viewTicket._id}`;
+
+      const response = await fetch(endpoint, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({ status: "closed" }),
+      });
+
+      if (response.ok) {
+        const updatedTickets = tickets.map((ticket) =>
+          ticket._id === viewTicket._id
+            ? { ...ticket, status: "closed" }
+            : ticket
+        );
+        dispatch({ type: "SET_TICKETS", payload: updatedTickets });
+
+        setData(updatedTickets);
+
+        setIsModalOpen(false);
+      } else {
+        console.error(
+          "Failed to update the ticket status:",
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error updating ticket status:", error);
+    }
+  };
 
   const getStatusColorClass = (status) => {
     switch (status) {
@@ -166,7 +257,7 @@ const UserTicket = () => {
         </Button>
       ),
       cell: ({ row }) => (
-        <div className="ml-4 capitalize w-36">{row.getValue("ticketType")}</div>
+        <div className="text-center w-36">{row.getValue("ticketType")}</div>
       ),
     },
     {
@@ -340,7 +431,17 @@ const UserTicket = () => {
                 Copy Ticket ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">
+
+              {/* VIEW SINGLE TICKET ACTION */}
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() =>
+                  fetchTicketDetails(
+                    row.getValue("_id"),
+                    row.getValue("ticketType")
+                  )
+                }
+              >
                 <MdPreview className="text-center size-5 mr-1" />
                 View Ticket
               </DropdownMenuItem>
@@ -465,6 +566,102 @@ const UserTicket = () => {
             </TableBody>
           </Table>
         </div>
+
+        {/* VIEW TICKET MODAL */}
+        {isModalOpen && (
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogContent className="max-w-3xl">
+              {setViewTicket ? (
+                <>
+                  <DialogHeader>
+                    <DialogTitle className="mb-4 font-bold text-xl">
+                      {viewTicket.ticketType === "Job Ticket"
+                        ? "Job Ticket Details"
+                        : "Technical Job Ticket Details"}
+                    </DialogTitle>
+                    <DialogDescription>
+                      <div className="text-black text-base w-full">
+                        <div className="my-1">
+                          <span className="font-semibold">TICKET ID:</span>{" "}
+                          {viewTicket._id}
+                        </div>
+                        <div className="my-1">
+                          <span className="font-semibold">Requester Name:</span>{" "}
+                          {viewTicket.requesterName}
+                        </div>
+                        <div className="mt-1 mb-3">
+                          <span className="font-semibold">
+                            {viewTicket.ticketType === "Job Ticket"
+                              ? "Description of Work Requested:"
+                              : "Description of Work Requested and Other Details:"}
+                          </span>
+                          <p className="whitespace-normal break-words max-w-[45rem] max-h-48 overflow-y-auto">
+                            {viewTicket.description}
+                          </p>
+                        </div>
+                        <div className="my-1">
+                          <span className="font-semibold">Department:</span>{" "}
+                          {viewTicket.department}
+                        </div>
+                        <div className="my-1 capitalize">
+                          <span className="font-semibold">Status:</span>{" "}
+                          {viewTicket.status}
+                        </div>
+                        {viewTicket.ticketType === "Technical Job Ticket" && (
+                          <>
+                            <div className="my-1 capitalize">
+                              <span className="font-semibold">Priority:</span>{" "}
+                              {viewTicket.priority}
+                            </div>
+                          </>
+                        )}
+                        <div className="my-1">
+                          <span className="font-semibold">Request Date:</span>{" "}
+                          {viewTicket.requestDate}
+                        </div>
+                        <div className="my-1">
+                          <span className="font-semibold">Request Time:</span>{" "}
+                          {viewTicket.requestTime}
+                        </div>
+                      </div>
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogClose asChild>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button className="bg-red-500 hover:bg-red-600">
+                          Closed Ticket
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            closed the ticket.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={handleCloseTicket}
+                            className="bg-red-500 hover:bg-red-600"
+                          >
+                            Closed ticket
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </DialogClose>
+                </>
+              ) : (
+                <p>Loading...</p>
+              )}
+            </DialogContent>
+          </Dialog>
+        )}
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}

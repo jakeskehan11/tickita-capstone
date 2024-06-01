@@ -43,6 +43,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  DialogClose,
+  DialogDescription,
+  DialogTitle,
+  DialogHeader,
+  DialogContent,
+  Dialog,
+} from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { IoCopy } from "react-icons/io5";
 import { MdPreview, MdDelete } from "react-icons/md";
@@ -58,8 +66,10 @@ const JobTicket = () => {
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
+  const [viewTicket, setViewTicket] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // fetch tickets
+  // FETCH JOB TICKETS
   useEffect(() => {
     const fetchJobTickets = async () => {
       const response = await fetch("/api/job-ticket/", {
@@ -79,6 +89,23 @@ const JobTicket = () => {
       fetchJobTickets();
     }
   }, [dispatch, user]);
+
+  // FETCH SINGLE TICKET
+  const fetchTicketDetails = async (ticketId) => {
+    const response = await fetch(`/api/job-ticket/${ticketId}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      setViewTicket(json);
+      setIsModalOpen(true);
+    } else {
+      console.error("Failed to fetch the ticket details:", json.message);
+    }
+  };
 
   // fetch patch
   const handleUpdateTicket = async (ticket, updatedStatus, updatedPriority) => {
@@ -115,6 +142,16 @@ const JobTicket = () => {
   const renderStatusDropdown = (row) => {
     const ticket = row.original;
     const currentStatus = ticket.status;
+
+    if (currentStatus === "closed") {
+      return (
+        <div className="flex justify-center">
+          <Badge className="bg-red-600 hover:bg-red-500 capitalize">
+            {currentStatus}
+          </Badge>
+        </div>
+      );
+    }
 
     const handleStatusUpdate = (updatedStatus) => {
       handleUpdateTicket(ticket, updatedStatus, ticket.priority);
@@ -254,13 +291,15 @@ const JobTicket = () => {
     {
       accessorKey: "requesterName",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Requester Name
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Requester Name
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => (
         <div className="text-center capitalize">
@@ -288,14 +327,16 @@ const JobTicket = () => {
     {
       accessorKey: "department",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
-        >
-          Department
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className=""
+          >
+            Department
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => (
         <div className="text-center uppercase">
@@ -306,14 +347,16 @@ const JobTicket = () => {
     {
       accessorKey: "building",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
-        >
-          Building
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className=""
+          >
+            Building
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => (
         <div className="text-center capitalize">{row.getValue("building")}</div>
@@ -322,14 +365,16 @@ const JobTicket = () => {
     {
       accessorKey: "room",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
-        >
-          Room #
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className=""
+          >
+            Room #
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => (
         <div className="text-center">{row.getValue("room")}</div>
@@ -338,42 +383,48 @@ const JobTicket = () => {
     {
       accessorKey: "status",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
-        >
-          Status
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className=""
+          >
+            Status
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => renderStatusDropdown(row),
     },
     {
       accessorKey: "priority",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
-        >
-          Priority
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className=""
+          >
+            Priority
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => renderPriorityDropdown(row),
     },
     {
       accessorKey: "requestDate",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
-        >
-          Request Date
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className=""
+          >
+            Request Date
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => (
         <div className="text-center capitalize">
@@ -384,14 +435,16 @@ const JobTicket = () => {
     {
       accessorKey: "requestTime",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
-        >
-          Request Time
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className=""
+          >
+            Request Time
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => (
         <div className="text-center capitalize">
@@ -405,6 +458,7 @@ const JobTicket = () => {
       cell: ({ row }) => {
         const ticket = row.original;
 
+        // DELETE TICKET
         const handleDeleteClick = async () => {
           try {
             if (!user) {
@@ -450,7 +504,12 @@ const JobTicket = () => {
                 Copy Ticket ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">
+
+              {/* VIEW SINGLE TICKET ACTION */}
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => fetchTicketDetails(row.original._id)}
+              >
                 <MdPreview className="text-center size-5 mr-1" />
                 View Ticket
               </DropdownMenuItem>
@@ -475,7 +534,7 @@ const JobTicket = () => {
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
                       onClick={handleDeleteClick}
-                      className="bg-red-400 text-white hover:bg-red-500"
+                      className="bg-red-500 text-white hover:bg-red-600"
                     >
                       Delete ticket
                     </AlertDialogAction>
@@ -600,6 +659,76 @@ const JobTicket = () => {
             </TableBody>
           </Table>
         </div>
+
+        {/* VIEW TICKET MODAL */}
+        {isModalOpen && (
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogContent className="max-w-3xl">
+              <DialogHeader>
+                <DialogTitle className="mb-4 font-bold text-xl">
+                  Job Ticket Details
+                </DialogTitle>
+                <DialogDescription>
+                  {setViewTicket ? (
+                    <div className="text-black text-base w-full">
+                      <div className="my-1">
+                        <span className="font-semibold">TICKET ID:</span>{" "}
+                        {viewTicket._id}
+                      </div>
+                      <div className="my-1">
+                        <span className="font-semibold">Requester Name:</span>{" "}
+                        {viewTicket.requesterName}
+                      </div>
+                      <div className="mt-1 mb-3">
+                        <span className="font-semibold">
+                          Description of Work Requested:
+                        </span>
+                        <p className="whitespace-normal break-words max-w-[45rem] max-h-48 overflow-y-auto">
+                          {viewTicket.description}
+                        </p>
+                      </div>
+                      <div className="my-1">
+                        <span className="font-semibold">Department:</span>{" "}
+                        {viewTicket.department}
+                      </div>
+                      <div className="my-1">
+                        <span className="font-semibold">Building:</span>{" "}
+                        {viewTicket.building}
+                      </div>
+                      <div className="my-1">
+                        <span className="font-semibold">Room#</span>{" "}
+                        {viewTicket.room}
+                      </div>
+                      <div className="my-1 capitalize">
+                        <span className="font-semibold">Status:</span>{" "}
+                        {viewTicket.status}
+                      </div>
+                      <div className="my-1 capitalize">
+                        <span className="font-semibold">Priority:</span>{" "}
+                        {viewTicket.priority}
+                      </div>
+                      <div className="my-1">
+                        <span className="font-semibold">Request Date:</span>{" "}
+                        {viewTicket.requestDate}
+                      </div>
+                      <div className="my-1">
+                        <span className="font-semibold">Request Time:</span>{" "}
+                        {viewTicket.requestTime}
+                      </div>
+                    </div>
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </DialogDescription>
+              </DialogHeader>
+              <DialogClose asChild>
+                <Button className="bg-green-950 hover:bg-green-900">
+                  Close
+                </Button>
+              </DialogClose>
+            </DialogContent>
+          </Dialog>
+        )}
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
