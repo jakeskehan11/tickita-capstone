@@ -10,26 +10,31 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ firstName, lastName, email, password, role }),
-    });
-    
-    const json = await response.json();
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, email, password, role }),
+      });
 
-    if (!response.ok) {
-      setIsLoading(false);
-      setError(json.error);
-    }
-    if (response.ok) {
-      // save the user to local storage
+      const json = await response.json();
+
+      if (!response.ok) {
+        setError(json.error);
+        return false; // Return false if signup fails
+      }
+
+      // Save the user to local storage
       localStorage.setItem("user", JSON.stringify(json));
 
-      // update the auth context
+      // Update the auth context
       // dispatch({ type: "LOGIN", payload: json });
 
-      // update loading state
+      return true; // Return true if signup is successful
+    } catch (error) {
+      setError(error.message);
+      return false; // Return false if an error occurs
+    } finally {
       setIsLoading(false);
     }
   };

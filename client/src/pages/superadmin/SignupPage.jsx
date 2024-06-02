@@ -40,14 +40,22 @@ const SignupPage = () => {
     e?.preventDefault();
 
     try {
-      await signup(firstName, lastName, email, password, role);
+      const signupSuccess = await signup(
+        firstName,
+        lastName,
+        email,
+        password,
+        role
+      );
 
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setRole("user");
-      setIsAlertOpen(true);
+      if (signupSuccess) {
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setRole("user");
+        setIsAlertOpen(true);
+      }
     } catch (error) {
       console.error("Error during signup:", error);
     }
@@ -58,7 +66,9 @@ const SignupPage = () => {
       <form onSubmit={handleSubmit} className="w-[32rem] mt-20">
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">TICKITA Create Account</CardTitle>
+            <CardTitle className="text-2xl font-bold">
+              TICKITA Create Account
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">

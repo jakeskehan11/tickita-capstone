@@ -631,7 +631,7 @@ const TechnicalJobTickets = () => {
         {/* VIEW TICKET MODAL */}
         {isModalOpen && (
           <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-            <DialogContent className="max-w-3xl">
+            <DialogContent className="max-w-2xl">
               <DialogHeader>
                 <DialogTitle className="mb-4 font-bold text-xl">
                   Technical Job Ticket Details
@@ -651,7 +651,7 @@ const TechnicalJobTickets = () => {
                         <span className="font-semibold">
                           Description of Work Requested and Other Details:
                         </span>
-                        <p className="whitespace-normal break-words max-w-[45rem] max-h-48 overflow-y-auto">
+                        <p className="whitespace-normal break-words max-w-[39rem] max-h-40 overflow-y-auto">
                           {viewTicket.description}
                         </p>
                       </div>

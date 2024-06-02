@@ -11,17 +11,14 @@ const Homepage = () => {
         src={schoolImg2}
         alt="school image"
       />
-      <div className="60 h-screen flex flex-col items-center justify-center gap-1">
-        <h1 className="text-6xl font-extrabold text-yellow-500 tracking-wider z-10 mb-2 ">
+      <div className="h-screen flex flex-col items-center justify-center gap-6">
+        <h1 className="text-7xl font-black text-yellow-500 tracking-wider z-10">
           TICKITA
         </h1>
-        <h3 className="text-2xl font-semibold text-slate-200 tracking-wide z-10">
-          CVSU Naic Support Ticketing Management System
+        <h3 className="text-2xl font-medium text-slate-100 tracking-wide text-center w-[32.5rem] z-10">
+          CvSU Naic Support Ticketing Management System with Task Tracking and
+          Satisfaction Feedback
         </h3>
-        <h2 className="text-2xl font-semibold text-slate-200 tracking-wide z-10">
-          with Task Tracking and Satisfaction Feedback
-        </h2>
-
         <Dialog>
           <DialogTrigger asChild>
             <Button className="bg-green-950 hover:bg-green-900 w-96 z-10 text-slate-100">
