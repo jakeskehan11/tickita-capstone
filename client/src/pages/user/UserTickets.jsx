@@ -73,14 +73,14 @@ const UserTicket = () => {
   // FETCH TICKETS
   useEffect(() => {
     const fetchTickets = async () => {
-      const jobTicketResponse = await fetch("/api/job-ticket/", {
+      const jobTicketResponse = await fetch("https://tickita-api.vercel.app/api/job-ticket/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
 
       const technicalJobTicketResponse = await fetch(
-        "/api/technical-job-ticket/",
+        "https://tickita-api.vercel.app/api/technical-job-ticket/",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -123,8 +123,8 @@ const UserTicket = () => {
   const fetchTicketDetails = async (ticketId, ticketType) => {
     const endpoint =
       ticketType === "Technical Job Ticket"
-        ? `/api/technical-job-ticket/${ticketId}`
-        : `/api/job-ticket/${ticketId}`;
+        ? `https://tickita-api.vercel.app/api/technical-job-ticket/${ticketId}`
+        : `https://tickita-api.vercel.app/api/job-ticket/${ticketId}`;
     const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -145,8 +145,8 @@ const UserTicket = () => {
     try {
       const endpoint =
         viewTicket.ticketType === "Technical Job Ticket"
-          ? `/api/technical-job-ticket/${viewTicket._id}`
-          : `/api/job-ticket/${viewTicket._id}`;
+          ? `https://tickita-api.vercel.app/api/${viewTicket._id}`
+          : `https://tickita-api.vercel.app/api/${viewTicket._id}`;
 
       const response = await fetch(endpoint, {
         method: "PATCH",

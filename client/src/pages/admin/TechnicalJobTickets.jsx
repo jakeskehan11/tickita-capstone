@@ -72,11 +72,14 @@ const TechnicalJobTickets = () => {
   // FETCH TECHNICAL JOB TICKETS
   useEffect(() => {
     const fetchTechnicalJobTickets = async () => {
-      const response = await fetch("/api/technical-job-ticket/", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://tickita-api.vercel.app/api/technical-job-ticket/",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
 
       if (response.ok) {
@@ -92,11 +95,14 @@ const TechnicalJobTickets = () => {
 
   // FETCH SINGLE TICKET
   const fetchTicketDetails = async (ticketId) => {
-    const response = await fetch(`/api/technical-job-ticket/${ticketId}`, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      `https://tickita-api.vercel.app/api/technical-job-ticket/${ticketId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (response.ok) {
@@ -107,19 +113,23 @@ const TechnicalJobTickets = () => {
     }
   };
 
+  // FETCH UPDATE TICKET
   const handleUpdateTicket = async (ticket, updatedStatus, updatedPriority) => {
     try {
-      const response = await fetch(`/api/technical-job-ticket/${ticket._id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
-          status: updatedStatus,
-          priority: updatedPriority,
-        }),
-      });
+      const response = await fetch(
+        `https://tickita-api.vercel.app/api/technical-job-ticket/${ticket._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            status: updatedStatus,
+            priority: updatedPriority,
+          }),
+        }
+      );
 
       if (response.ok) {
         const updatedTicket = await response.json();
@@ -431,7 +441,7 @@ const TechnicalJobTickets = () => {
             }
 
             const response = await fetch(
-              `/api/technical-job-ticket/${ticket._id}`,
+              `https://tickita-api.vercel.app/api/technical-job-ticket/${ticket._id}`,
               {
                 method: "DELETE",
                 headers: {

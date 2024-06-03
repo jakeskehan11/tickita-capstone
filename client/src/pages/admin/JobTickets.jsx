@@ -72,7 +72,7 @@ const JobTicket = () => {
   // FETCH JOB TICKETS
   useEffect(() => {
     const fetchJobTickets = async () => {
-      const response = await fetch("/api/job-ticket/", {
+      const response = await fetch("https://tickita-api.vercel.app/api/job-ticket/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -92,7 +92,7 @@ const JobTicket = () => {
 
   // FETCH SINGLE TICKET
   const fetchTicketDetails = async (ticketId) => {
-    const response = await fetch(`/api/job-ticket/${ticketId}`, {
+    const response = await fetch(`https://tickita-api.vercel.app/api/job-ticket/${ticketId}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -107,10 +107,10 @@ const JobTicket = () => {
     }
   };
 
-  // fetch patch
+  // FETCH UPDATE TICKET
   const handleUpdateTicket = async (ticket, updatedStatus, updatedPriority) => {
     try {
-      const response = await fetch(`/api/job-ticket/${ticket._id}`, {
+      const response = await fetch(`https://tickita-api.vercel.app/api/job-ticket/${ticket._id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -465,7 +465,7 @@ const JobTicket = () => {
               return;
             }
 
-            const response = await fetch(`/api/job-ticket/${ticket._id}`, {
+            const response = await fetch(`https://tickita-api.vercel.app/api/job-ticket/${ticket._id}`, {
               method: "DELETE",
               headers: {
                 Authorization: `Bearer ${user.token}`,
