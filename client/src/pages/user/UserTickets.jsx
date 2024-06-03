@@ -145,8 +145,8 @@ const UserTicket = () => {
     try {
       const endpoint =
         viewTicket.ticketType === "Technical Job Ticket"
-          ? `https://tickita-api.vercel.app/api/${viewTicket._id}`
-          : `https://tickita-api.vercel.app/api/${viewTicket._id}`;
+          ? `https://tickita-api.vercel.app/api/technical-job-ticket/${viewTicket._id}`
+          : `https://tickita-api.vercel.app/api/job-ticket/${viewTicket._id}`;
 
       const response = await fetch(endpoint, {
         method: "PATCH",
