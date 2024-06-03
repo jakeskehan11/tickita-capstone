@@ -14,7 +14,7 @@ const app = express();
 app.use(
   cors({
     origin: ["https://tickita.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     credentials: true,
   })
 );
