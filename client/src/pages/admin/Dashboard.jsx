@@ -15,7 +15,7 @@ const Dashboard = () => {
             <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-4xl font-bold text-green-950">2,600</div>
+            <div className="text-3xl font-bold text-green-950">2,600</div>
             <p className="text-xs text-gray-500 ">+12.1% from last month</p>
           </CardContent>
         </Card>
@@ -27,7 +27,7 @@ const Dashboard = () => {
             <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-4xl font-bold text-yellow-500">1,234</div>
+            <div className="text-3xl font-bold text-yellow-500">1,234</div>
             <p className="text-xs text-gray-500 ">+8.1% from last month</p>
           </CardContent>
         </Card>
@@ -39,7 +39,7 @@ const Dashboard = () => {
             <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-4xl font-bold text-blue-600">250</div>
+            <div className="text-3xl font-bold text-blue-600">250</div>
             <p className="text-xs text-gray-500">+5% from last month</p>
           </CardContent>
         </Card>
@@ -51,7 +51,7 @@ const Dashboard = () => {
             <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-4xl font-bold text-red-600">1,116</div>
+            <div className="text-3xl font-bold text-red-600">1,116</div>
             <p className="text-xs text-gray-500 ">+15% from last month</p>
           </CardContent>
         </Card>
