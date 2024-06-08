@@ -1,22 +1,22 @@
 const express = require("express");
 const requireAuth = require("../middleware/requireAuth");
 const {
-  createJobTicketFeedback,
-  getJobTicketFeedbacks,
-  getJobTicketFeedBack,
-} = require("../controllers/feedbackJobTicketController");
+  createTicketFeedback,
+  getTicketFeedbacks,
+  getTicketFeedBack,
+} = require("../controllers/feedbackController");
 
 const router = express.Router();
 
 router.use(requireAuth);
 
 // POST a feedback for Job Ticket
-router.post("/:id", createJobTicketFeedback);
+router.post("/:id", createTicketFeedback);
 
 // GET all Job Ticket feedbacks
-router.get("/all/", getJobTicketFeedbacks);
+router.get("/all/", getTicketFeedbacks);
 
 // Get a single feedback for Job Ticket
-router.get("/:id", getJobTicketFeedBack);
+router.get("/:id", getTicketFeedBack);
 
 module.exports = router;

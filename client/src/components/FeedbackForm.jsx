@@ -16,7 +16,6 @@ import { useState } from "react";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import ReactStars from "react-rating-stars-component";
 
-
 const FeedbackForm = ({ isOpen, onClose, ticketId, ticketType }) => {
   const { user } = useAuthContext();
 

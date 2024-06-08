@@ -30,7 +30,7 @@ const AdminSidebar = () => {
   const destination = getNavLinkDestination(userRole);
 
   return (
-    /*SIDEBAR TITLE*/
+    // SIDEBAR TITLE
     <div className="h-screen overflow-auto">
       <Link
         to={`dashboard`}

@@ -59,44 +59,55 @@ const Feedbacks = () => {
   // FETCH FEEDBACKS
   useEffect(() => {
     const fetchFeedbacks = async () => {
-      const jobTicketFeedbackResponse = await fetch(
-        "/api/job-ticket/feedback/all/",
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      try {
+        const fetchFeedback = async (url) => {
+          const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || "Failed to fetch feedback");
+          }
+          return data;
+        };
 
-      const technicalJobTicketFeedbackResponse = await fetch(
-        "/api/technical-job-ticket/feedback/all/",
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+        const jobTicketFeedbacks = await fetchFeedback(
+          "/api/job-ticket/feedback/all/"
+        );
+        const technicalJobTicketFeedbacks = await fetchFeedback(
+          "/api/technical-job-ticket/feedback/all/"
+        );
 
-      const jobTicketFeedbacks = await jobTicketFeedbackResponse.json();
-      const technicalJobTicketFeedbacks =
-        await technicalJobTicketFeedbackResponse.json();
-
-      if (
-        jobTicketFeedbackResponse.ok &&
-        technicalJobTicketFeedbackResponse.ok
-      ) {
-        const allFeedbacks = [
+        const combinedFeedbacks = [
           ...jobTicketFeedbacks.map((feedback) => ({
             ...feedback,
-            ticketType: "Job Ticket",
+            ticketType: feedback.jobTicket_id
+              ? "Job Ticket"
+              : "Technical Job Ticket",
           })),
           ...technicalJobTicketFeedbacks.map((feedback) => ({
             ...feedback,
-            ticketType: "Technical Job Ticket",
+            ticketType: feedback.technicalJobTicket_id
+              ? "Technical Job Ticket"
+              : "Job Ticket",
           })),
         ];
 
-        setData(allFeedbacks);
+        // Remove duplicates based on unique feedback ID
+        const uniqueFeedbacks = combinedFeedbacks.reduce((acc, current) => {
+          const x = acc.find((item) => item._id === current._id);
+          if (!x) {
+            return acc.concat([current]);
+          } else {
+            return acc;
+          }
+        }, []);
+
+        setData(uniqueFeedbacks);
+      } catch (error) {
+        console.error("Error fetching feedbacks:", error);
       }
     };
 
@@ -231,9 +242,7 @@ const Feedbacks = () => {
         </div>
       ),
       cell: ({ row }) => (
-        <div className="text-center uppercase w-44">
-          {row.getValue("attendingStaff")}
-        </div>
+        <div className="text-center w-44">{row.getValue("attendingStaff")}</div>
       ),
     },
     {

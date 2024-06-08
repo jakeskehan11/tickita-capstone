@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
+const JobTicket = require("../models/jobTicketModel");
 const TechnicalJobTicket = require("../models/technicalJobTicketModel");
 const User = require("../models/userModel");
-const TechnicalJobTicketFeedback = require("../models/technicalJobTicketFeedbackModel");
+const Feedback = require("../models/feedbackModel");
 
-// Create a Technical Job Ticket Feedback
-const createTechnicalJobTicketFeedback = async (req, res) => {
+// Create a Job Ticket Feedback
+const createTicketFeedback = async (req, res) => {
   const { id } = req.params;
 
   if (!id || !mongoose.Types.ObjectId.isValid(id)) {
@@ -41,19 +42,44 @@ const createTechnicalJobTicketFeedback = async (req, res) => {
 
   try {
     const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
+    const jobTicket = await JobTicket.findOne({ _id: id, user_id: user._id });
     const technicalJobTicket = await TechnicalJobTicket.findOne({
       _id: id,
       user_id: user._id,
     });
 
-    if (!technicalJobTicket) {
+    const ticket = jobTicket || technicalJobTicket;
+
+    if (!ticket) {
       return res.status(404).json({ error: "No ticket found" });
     }
 
-    const feedback = await TechnicalJobTicketFeedback.create({
+    // Check if feedback already exists for the ticket
+    const existingFeedback = await Feedback.findOne({
+      $or: [
+        { jobTicket_id: jobTicket ? jobTicket._id : null },
+        {
+          technicalJobTicket_id: technicalJobTicket
+            ? technicalJobTicket._id
+            : null,
+        },
+      ],
+    });
+
+    if (existingFeedback) {
+      return res
+        .status(400)
+        .json({ error: "Feedback already exists for this ticket" });
+    }
+
+    const feedback = await Feedback.create({
       user_id: user._id,
-      technicalJobTicket_id: technicalJobTicket._id,
+      jobTicket_id: jobTicket ? jobTicket._id : null,
+      technicalJobTicket_id: technicalJobTicket ? technicalJobTicket._id : null,
       purposeOfVisit,
       courtesy,
       quality,
@@ -64,65 +90,56 @@ const createTechnicalJobTicketFeedback = async (req, res) => {
       comments,
     });
 
-    technicalJobTicket.feedback = feedback._id;
-    await technicalJobTicket.save();
+    ticket.feedback = feedback._id;
+    await ticket.save();
 
-    res.status(200).json({ technicalJobTicket, feedback });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-// Get all Technical Job Ticket Feedbacks
-const getTechnicalJobTicketFeedbacks = async (req, res) => {
-  try {
-    const user_id = req.user._id;
-    const user_role = req.user.role; // Assuming role is stored in req.user.role
-
-    let technicalJobTicketFeedbacks;
-
-    if (user_role === "HR") {
-      // If the user's role is 'HR', fetch all Technical Job Ticket Feedbacks
-      technicalJobTicketFeedbacks =
-        await TechnicalJobTicketFeedback.find().sort({
-          createdAt: -1,
-        });
-    } else {
-      // Otherwise, fetch only the Technical Job Ticket Feedback for the specific user
-      technicalJobTicketFeedbacks = await TechnicalJobTicketFeedback.find({
-        user_id,
-      }).sort({
-        createdAt: -1,
-      });
-    }
-
-    res.status(200).json(technicalJobTicketFeedbacks);
+    res.status(200).json({ ticket, feedback });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Get a single Technical Job Ticket Feedback
-const getTechnicalJobTicketFeedBack = async (req, res) => {
+// Get all Ticket Feedbacks
+const getTicketFeedbacks = async (req, res) => {
+  try {
+    const user_id = req.user._id;
+    const user_role = req.user.role; // Assuming role is stored in req.user.role
+
+    let feedbacks;
+
+    // If the user's role is 'HR', fetch all Job Ticket Feedbacks and Technical Job Ticket Feedbacks
+    if (user_role === "HR") {
+      feedbacks = await Feedback.find();
+    } else {
+      // Otherwise, fetch only the Job Ticket Feedback for the specific user
+      feedbacks = await Feedback.find({ user_id });
+    }
+
+    res.status(200).json(feedbacks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get a single Job Ticket Feedback
+const getTicketFeedBack = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No feedback found" });
   }
 
-  const technicalJobTicketFeedback = await TechnicalJobTicketFeedback.findById(
-    id
-  );
+  const feedback = await Feedback.findById(id);
 
-  if (!technicalJobTicketFeedback) {
+  if (!feedback) {
     return res.status(404).json({ error: "No feedback found" });
   }
 
-  res.status(200).json(technicalJobTicketFeedback);
+  res.status(200).json(feedback);
 };
 
 module.exports = {
-  createTechnicalJobTicketFeedback,
-  getTechnicalJobTicketFeedbacks,
-  getTechnicalJobTicketFeedBack,
+  createTicketFeedback,
+  getTicketFeedbacks,
+  getTicketFeedBack,
 };

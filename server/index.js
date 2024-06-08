@@ -6,8 +6,7 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/user");
 const jobTicketRoutes = require("./routes/jobTicket");
 const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
-const jobTicketFeedbackRoutes = require("./routes/jobTicketFeedback");
-const technicalJobTicketFeedbackRoutes = require("./routes/technicalJobTicketFeedback");
+const feedbackRoutes = require("./routes/ticketFeedback");
 
 // express app
 const app = express();
@@ -34,8 +33,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", userRoutes);
 app.use("/api/job-ticket", jobTicketRoutes);
 app.use("/api/technical-job-ticket", technicalJobTicketRoutes);
-app.use("/api/job-ticket/feedback", jobTicketFeedbackRoutes);
-app.use("/api/technical-job-ticket/feedback", technicalJobTicketFeedbackRoutes);
+app.use("/api/job-ticket/feedback", feedbackRoutes);
+app.use("/api/technical-job-ticket/feedback", feedbackRoutes);
 
 // connect to db
 mongoose

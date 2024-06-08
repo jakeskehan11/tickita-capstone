@@ -4,7 +4,7 @@ import SuperAdminSidebar from "../Sidebar/SuperAdminSidebar";
 
 const SuperAdminDashboard = () => {
   return (
-    <div className="flex">
+    <div className="flex overflow-y-auto scrollbar-custom">
       <div className="w-full">
         <div className="fixed w-full bg-slate-50 z-10">
           <Navbar />

@@ -25,7 +25,7 @@ const TechnicalTicketForm = ({ ticketType, setIsOpen }) => {
   const { dispatch } = useTicketsContext();
   const { user } = useAuthContext();
 
-  // Job Ticket Form
+  // Technical Job Ticket Form
   const [department, setDepartment] = useState("");
   const [typeOfService, setTypeOfService] = useState("");
   const [description, setDescription] = useState("");

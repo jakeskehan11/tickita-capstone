@@ -14,7 +14,7 @@ const SuperAdminSidebar = () => {
   const normalLink = "flex text-slate-100 hover:bg-green-900";
 
   return (
-    /*SIDEBAR TITLE*/
+    // SIDEBAR TITLE
     <div className="h-screen overflow-auto pb-5">
       <Link
         to={`create-account`}

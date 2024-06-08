@@ -11,14 +11,12 @@ import defaultPic from "/defaultpic.jpg";
 const UserSidebar = () => {
   const { user } = useAuthContext();
 
-  const userRole = user.role;
-
   const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
   const activeLink = "flex text-yellow-500";
   const normalLink = "flex text-slate-100 hover:bg-green-900";
 
   return (
-    /*SIDEBAR TITLE*/
+    // SIDEBAR TITLE
     <div className="h-screen overflow-auto pb-5">
       <Link
         to={`tickets`}
