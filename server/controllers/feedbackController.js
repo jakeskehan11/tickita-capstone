@@ -138,8 +138,25 @@ const getTicketFeedBack = async (req, res) => {
   res.status(200).json(feedback);
 };
 
+const deleteTicketFeedback = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "No feedback found" });
+  }
+
+  const feedback = await Feedback.findOneAndDelete({ _id: id });
+
+  if (!feedback) {
+    return res.status(400).json({ error: "No feedback found" });
+  }
+
+  res.status(200).json(feedback);
+};
+
 module.exports = {
   createTicketFeedback,
   getTicketFeedbacks,
   getTicketFeedBack,
+  deleteTicketFeedback,
 };

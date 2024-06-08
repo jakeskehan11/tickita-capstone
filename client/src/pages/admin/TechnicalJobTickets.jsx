@@ -514,7 +514,7 @@ const TechnicalJobTickets = () => {
                       onClick={handleDeleteClick}
                       className="bg-red-500 text-white hover:bg-red-600"
                     >
-                      Delete ticket
+                      Delete Ticket
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>

@@ -40,12 +40,25 @@ import {
   DialogContent,
   Dialog,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
-import { useAuthContext } from "@/hooks/useAuthContext";
 import { IoCopy } from "react-icons/io5";
-import { MdPreview } from "react-icons/md";
+import { MdPreview, MdDelete } from "react-icons/md";
+import { useFeedbacksContext } from "@/hooks/useFeedbacksContext";
+import { useAuthContext } from "@/hooks/useAuthContext";
 
 const Feedbacks = () => {
+  const { dispatch } = useFeedbacksContext();
   const { user } = useAuthContext();
 
   const [data, setData] = useState([]);
@@ -106,6 +119,7 @@ const Feedbacks = () => {
         }, []);
 
         setData(uniqueFeedbacks);
+        dispatch({ type: "SET_FEEDBACKS", payload: uniqueFeedbacks });
       } catch (error) {
         console.error("Error fetching feedbacks:", error);
       }
@@ -114,7 +128,7 @@ const Feedbacks = () => {
     if (user) {
       fetchFeedbacks();
     }
-  }, [user]);
+  }, [dispatch, user]);
 
   // FETCH SINGLE TICKET
   const fetchFeedbackDetails = async (ticketId, ticketType) => {
@@ -452,7 +466,39 @@ const Feedbacks = () => {
       id: "actions",
       enableHiding: false,
       cell: ({ row }) => {
-        const ticket = row.original;
+        const feedback = row.original;
+
+        // DELETE TICKET
+        const handleDeleteClick = async () => {
+          try {
+            if (!user) {
+              return;
+            }
+
+            const baseUrl = feedback.jobTicket_id
+              ? `/api/job-ticket/feedback/${feedback._id}`
+              : `/api/technical-job-ticket/feedback/${feedback._id}`;
+
+            const response = await fetch(baseUrl, {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            });
+            const json = await response.json();
+
+            if (response.ok) {
+              dispatch({ type: "DELETE_FEEDBACK", payload: json });
+              setData((prevData) =>
+                prevData.filter((item) => item._id !== feedback._id)
+              );
+            } else {
+              console.error("Failed to delete the ticket:", json.message);
+            }
+          } catch (error) {
+            console.error("Network error:", error);
+          }
+        };
 
         return (
           <DropdownMenu>
@@ -484,8 +530,35 @@ const Feedbacks = () => {
                 }
               >
                 <MdPreview className="text-center size-5 mr-1" />
-                View Ticket
+                View Feedback
               </DropdownMenuItem>
+
+              <AlertDialog>
+                <AlertDialogTrigger className="text-sm hover:bg-slate-100 text-red-500 py-1.5 rounded-sm pl-2 px-20 flex">
+                  <MdDelete className="text-center size-5 mr-1 text-red-500" />
+                  Delete
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      the feedback and remove the feedback data from servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={handleDeleteClick}
+                      className="bg-red-500 text-white hover:bg-red-600"
+                    >
+                      Delete Feedback
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </DropdownMenuContent>
           </DropdownMenu>
         );
