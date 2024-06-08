@@ -2,22 +2,24 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
+// const cors = require("cors");
 const userRoutes = require("./routes/user");
 const jobTicketRoutes = require("./routes/jobTicket");
 const technicalJobTicketRoutes = require("./routes/technicalJobTicket");
+const jobTicketFeedbackRoutes = require("./routes/jobTicketFeedback");
+const technicalJobTicketFeedbackRoutes = require("./routes/technicalJobTicketFeedback");
 
 // express app
 const app = express();
 
 // middleware
-app.use(
-  cors({
-    origin: ["https://tickita.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://tickita.vercel.app"],
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+//     credentials: true,
+//   })
+// );
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -32,6 +34,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", userRoutes);
 app.use("/api/job-ticket", jobTicketRoutes);
 app.use("/api/technical-job-ticket", technicalJobTicketRoutes);
+app.use("/api/job-ticket/feedback", jobTicketFeedbackRoutes);
+app.use("/api/technical-job-ticket/feedback", technicalJobTicketFeedbackRoutes);
 
 // connect to db
 mongoose

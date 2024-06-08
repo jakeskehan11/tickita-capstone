@@ -73,7 +73,7 @@ const TechnicalJobTickets = () => {
   useEffect(() => {
     const fetchTechnicalJobTickets = async () => {
       const response = await fetch(
-        "https://tickita-api.vercel.app/api/technical-job-ticket/",
+        "/api/technical-job-ticket/",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -96,7 +96,7 @@ const TechnicalJobTickets = () => {
   // FETCH SINGLE TICKET
   const fetchTicketDetails = async (ticketId) => {
     const response = await fetch(
-      `https://tickita-api.vercel.app/api/technical-job-ticket/${ticketId}`,
+      `/api/technical-job-ticket/${ticketId}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -117,7 +117,7 @@ const TechnicalJobTickets = () => {
   const handleUpdateTicket = async (ticket, updatedStatus, updatedPriority) => {
     try {
       const response = await fetch(
-        `https://tickita-api.vercel.app/api/technical-job-ticket/${ticket._id}`,
+        `/api/technical-job-ticket/${ticket._id}`,
         {
           method: "PATCH",
           headers: {
@@ -169,7 +169,7 @@ const TechnicalJobTickets = () => {
     const getBackgroundClass = (status) => {
       switch (status) {
         case "open":
-          return "bg-green-950 hover:bg-green-900";
+          return "bg-green-900 hover:bg-green-800";
         case "pending":
           return "bg-yellow-500 hover:bg-yellow-400";
         case "resolved":
@@ -185,7 +185,7 @@ const TechnicalJobTickets = () => {
       <div className="flex justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="capitalize p-0 h-0">
+            <Button variant="ghost" className="capitalize w-0 p-0 h-0">
               <Badge className={getBackgroundClass(currentStatus)}>
                 {currentStatus}
               </Badge>
@@ -221,7 +221,7 @@ const TechnicalJobTickets = () => {
     const getBackgroundClass = (priority) => {
       switch (priority) {
         case "low":
-          return "bg-green-950 hover:bg-green-900";
+          return "bg-green-900 hover:bg-green-800";
         case "medium":
           return "bg-yellow-500 hover:bg-yellow-400";
         case "high":
@@ -235,7 +235,7 @@ const TechnicalJobTickets = () => {
       <div className="flex justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="capitalize p-0 h-0">
+            <Button variant="ghost" className="capitalize w-0 p-0 h-0">
               <Badge className={getBackgroundClass(currentPriority)}>
                 {currentPriority}
               </Badge>
@@ -441,7 +441,7 @@ const TechnicalJobTickets = () => {
             }
 
             const response = await fetch(
-              `https://tickita-api.vercel.app/api/technical-job-ticket/${ticket._id}`,
+              `/api/technical-job-ticket/${ticket._id}`,
               {
                 method: "DELETE",
                 headers: {
@@ -661,7 +661,7 @@ const TechnicalJobTickets = () => {
                         <span className="font-semibold">
                           Description of Work Requested and Other Details:
                         </span>
-                        <p className="whitespace-normal break-words max-w-[39rem] max-h-40 overflow-y-auto">
+                        <p className="whitespace-normal break-words max-w-[39rem] max-h-40 overflow-y-auto scrollbar-custom">
                           {viewTicket.description}
                         </p>
                       </div>

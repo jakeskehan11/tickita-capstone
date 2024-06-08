@@ -1,26 +1,28 @@
 import { NavLink, Link } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
-import defaultPic from "../../assets/defaultpic.jpg";
 import { FaTicket } from "react-icons/fa6";
-import { IoIosChatboxes, IoIosHappy } from "react-icons/io";
+import { IoIosChatboxes } from "react-icons/io";
 import { FaQuestionCircle } from "react-icons/fa";
 import { useAuthContext } from "@/hooks/useAuthContext";
-import schoolStatue from "../../../public/cvsu-statue.png";
+import schoolStatue from "/cvsu-statue.png";
+import defaultPic from "/defaultpic.jpg";
 
-const Sidebar = () => {
+const UserSidebar = () => {
   const { user } = useAuthContext();
 
-  const [currentColor, setCurrentColor] = useState("rgb(255 255 255 / 0.05)");
+  const userRole = user.role;
+
+  const [currentColor, setCurrentColor] = useState("rgb(20 83 45)");
   const activeLink = "flex text-yellow-500";
-  const normalLink = "flex text-slate-100 hover:bg-white/5";
+  const normalLink = "flex text-slate-100 hover:bg-green-900";
 
   return (
     /*SIDEBAR TITLE*/
     <div className="h-screen overflow-auto pb-5">
       <Link
         to={`tickets`}
-        className="text-slate-100 text-4xl font-extrabold tracking-wider flex justify-center mt-2"
+        className="text-yellow-500 text-4xl font-extrabold tracking-wider flex justify-center mt-2"
       >
         TICKITA
       </Link>
@@ -35,7 +37,7 @@ const Sidebar = () => {
       </div>
 
       {/*SIDEBAR LINKS*/}
-      <div className="mt-10 backdrop-blur">
+      <div className="mt-10">
         <NavLink
           to={`tickets`}
           style={({ isActive }) => ({
@@ -72,25 +74,13 @@ const Sidebar = () => {
             <p className="ml-5 py-3">FAQ</p>
           </div>
         </NavLink>
-        <NavLink
-          to={`feedbacks`}
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? currentColor : "",
-          })}
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <div className="flex ml-5">
-            <IoIosHappy className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Feedbacks</p>
-          </div>
-        </NavLink>
       </div>
       <img
         src={schoolStatue}
         alt="school statue pic"
-        className="absolute inset-x-0 bottom-0 object-contain -z-10"
+        className="absolute inset-x-0 bottom-0 object-contain -z-10 w-60 h-80"
       />
     </div>
   );
 };
-export default Sidebar;
+export default UserSidebar;

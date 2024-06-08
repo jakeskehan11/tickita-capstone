@@ -17,7 +17,7 @@ const Homepage = () => {
         </h1>
         <h3 className="text-2xl font-medium text-slate-100 tracking-wide text-center w-[32.5rem] z-10">
           CvSU Naic Support Ticketing Management System with Task Tracking and
-          Satisfaction Feedback
+          Satisfaction Feedback Integration
         </h3>
         <Dialog>
           <DialogTrigger asChild>

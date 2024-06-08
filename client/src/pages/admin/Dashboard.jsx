@@ -15,7 +15,7 @@ const Dashboard = () => {
             <LuTicket className="w-4 h-4 text-gray-500" />
           </CardHeader>
           <CardContent className="mt-8">
-            <div className="text-3xl font-bold text-green-950">2,600</div>
+            <div className="text-3xl font-bold text-green-900">2,600</div>
             <p className="text-xs text-gray-500 ">+12.1% from last month</p>
           </CardContent>
         </Card>

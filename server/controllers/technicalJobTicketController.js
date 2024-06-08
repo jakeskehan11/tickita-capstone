@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const TechnicalJobTicket = require("../models/technicalJobTicketModel");
 const User = require("../models/userModel");
 
+
 // Get all technical job tickets
 const getTechnicalJobTickets = async (req, res) => {
   try {
@@ -116,6 +117,9 @@ const updateTechnicalJobTicket = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// FEEDBACK
+
 
 module.exports = {
   getTechnicalJobTickets,

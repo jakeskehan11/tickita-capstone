@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import SuperAdminNavbar from "../Navbar/SuperAdminNavbar";
+import Navbar from "../Navbar";
 import SuperAdminSidebar from "../Sidebar/SuperAdminSidebar";
 
 const SuperAdminDashboard = () => {
@@ -7,7 +7,7 @@ const SuperAdminDashboard = () => {
     <div className="flex">
       <div className="w-full">
         <div className="fixed w-full bg-slate-50 z-10">
-          <SuperAdminNavbar />
+          <Navbar />
         </div>
         <div className="w-60 fixed bg-green-950 z-20">
           <SuperAdminSidebar />

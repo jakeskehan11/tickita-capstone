@@ -7,12 +7,13 @@ import {
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import AdminRoutes from "./routes/AdminRoutes";
-
+import SuperAdminRoutes from "./routes/SuperAdminRoutes";
 import UserRoutes from "./routes/UserRoutes";
+import HRRoutes from "./routes/HRRoutes";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "./hooks/useAuthContext";
-import SuperAdminRoutes from "./routes/SuperAdminRoutes";
+
 
 const App = () => {
   const [isAuthReady, setIsAuthReady] = useState(false);
@@ -65,6 +66,16 @@ const App = () => {
           element={
             user !== null && user !== undefined && user.role === "user" ? (
               <UserRoutes />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        <Route
+          path="/hr/*"
+          element={
+            user !== null && user !== undefined && user.role === "HR" ? (
+              <HRRoutes />
             ) : (
               <Navigate to="/" replace />
             )

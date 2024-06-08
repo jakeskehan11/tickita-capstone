@@ -11,7 +11,7 @@ export const useSignup = () => {
     setError(null);
 
     try {
-      const response = await fetch("https://tickita-api.vercel.app/api/auth/signup/", {
+      const response = await fetch("/api/auth/signup/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ firstName, lastName, email, password, role }),
@@ -25,7 +25,7 @@ export const useSignup = () => {
       }
 
       // Save the user to local storage
-      localStorage.setItem("user", JSON.stringify(json));
+      // localStorage.setItem("user", JSON.stringify(json));
 
       // Update the auth context
       // dispatch({ type: "LOGIN", payload: json });

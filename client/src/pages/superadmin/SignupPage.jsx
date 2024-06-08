@@ -130,6 +130,7 @@ const SignupPage = () => {
                     Computer Technician Admin
                   </SelectItem>
                   <SelectItem value="PPSS">PPSS Admin</SelectItem>
+                  <SelectItem value="HR">HR</SelectItem>
                 </SelectContent>
               </Select>
             </div>

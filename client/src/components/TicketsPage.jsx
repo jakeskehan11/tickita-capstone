@@ -52,11 +52,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
-import CreateTicket from "@/pages/user/CreateTicket";
 import { useTicketsContext } from "@/hooks/useTicketsContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import { IoCopy } from "react-icons/io5";
 import { MdPreview } from "react-icons/md";
+import CreateTicket from "@/components/CreateTicket";
+import FeedbackForm from "@/components/FeedbackForm";
 
 const UserTicket = () => {
   const { dispatch, tickets } = useTicketsContext();
@@ -69,18 +70,19 @@ const UserTicket = () => {
   const [rowSelection, setRowSelection] = useState({});
   const [viewTicket, setViewTicket] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   // FETCH TICKETS
   useEffect(() => {
     const fetchTickets = async () => {
-      const jobTicketResponse = await fetch("https://tickita-api.vercel.app/api/job-ticket/", {
+      const jobTicketResponse = await fetch("/api/job-ticket/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
 
       const technicalJobTicketResponse = await fetch(
-        "https://tickita-api.vercel.app/api/technical-job-ticket/",
+        "/api/technical-job-ticket/",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -123,8 +125,8 @@ const UserTicket = () => {
   const fetchTicketDetails = async (ticketId, ticketType) => {
     const endpoint =
       ticketType === "Technical Job Ticket"
-        ? `https://tickita-api.vercel.app/api/technical-job-ticket/${ticketId}`
-        : `https://tickita-api.vercel.app/api/job-ticket/${ticketId}`;
+        ? `/api/technical-job-ticket/${ticketId}`
+        : `/api/job-ticket/${ticketId}`;
     const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -140,13 +142,13 @@ const UserTicket = () => {
     }
   };
 
-  // CLOSED TICKET STATUS
+  // CLOSE TICKET STATUS
   const handleCloseTicket = async () => {
     try {
       const endpoint =
         viewTicket.ticketType === "Technical Job Ticket"
-          ? `https://tickita-api.vercel.app/api/technical-job-ticket/${viewTicket._id}`
-          : `https://tickita-api.vercel.app/api/job-ticket/${viewTicket._id}`;
+          ? `/api/technical-job-ticket/${viewTicket._id}`
+          : `/api/job-ticket/${viewTicket._id}`;
 
       const response = await fetch(endpoint, {
         method: "PATCH",
@@ -168,6 +170,7 @@ const UserTicket = () => {
         setData(updatedTickets);
 
         setIsModalOpen(false);
+        setIsFeedbackOpen(true);
       } else {
         console.error(
           "Failed to update the ticket status:",
@@ -182,7 +185,7 @@ const UserTicket = () => {
   const getStatusColorClass = (status) => {
     switch (status) {
       case "open":
-        return "bg-green-950 hover:bg-green-900";
+        return "bg-green-900 hover:bg-green-800";
       case "pending":
         return "bg-yellow-500 hover:bg-yellow-400";
       case "resolved":
@@ -197,7 +200,7 @@ const UserTicket = () => {
   const getPriorityColorClass = (priority) => {
     switch (priority) {
       case "low":
-        return "bg-green-950 hover:bg-green-900";
+        return "bg-green-900 hover:bg-green-800";
       case "medium":
         return "bg-yellow-500 hover:bg-yellow-400";
       case "high":
@@ -248,16 +251,18 @@ const UserTicket = () => {
     {
       accessorKey: "ticketType",
       header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Ticket Type
-          <CaretSortIcon className="text-center" />
-        </Button>
+        <div className="text-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Ticket Type
+            <CaretSortIcon className="text-center" />
+          </Button>
+        </div>
       ),
       cell: ({ row }) => (
-        <div className="text-center w-36">{row.getValue("ticketType")}</div>
+        <div className="w-36 text-center">{row.getValue("ticketType")}</div>
       ),
     },
     {
@@ -283,7 +288,6 @@ const UserTicket = () => {
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
         >
           Department
           <CaretSortIcon className="text-center" />
@@ -301,7 +305,6 @@ const UserTicket = () => {
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
         >
           Building
           <CaretSortIcon className="text-center" />
@@ -317,7 +320,6 @@ const UserTicket = () => {
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
         >
           Room #
           <CaretSortIcon className="text-center" />
@@ -333,7 +335,6 @@ const UserTicket = () => {
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className=""
         >
           Status
           <CaretSortIcon className="text-center" />
@@ -559,7 +560,7 @@ const UserTicket = () => {
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
-                    No ticket results.
+                    No ticket.
                   </TableCell>
                 </TableRow>
               )}
@@ -595,7 +596,7 @@ const UserTicket = () => {
                               ? "Description of Work Requested:"
                               : "Description of Work Requested and Other Details:"}
                           </span>
-                          <p className="whitespace-normal break-words max-w-[39rem] max-h-40 overflow-y-auto">
+                          <p className="whitespace-normal break-words max-w-[39rem] max-h-40 overflow-y-auto scrollbar-custom">
                             {viewTicket.description}
                           </p>
                         </div>
@@ -630,7 +631,7 @@ const UserTicket = () => {
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button className="bg-red-500 hover:bg-red-600">
-                          Closed Ticket
+                          Close Ticket
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
@@ -640,7 +641,7 @@ const UserTicket = () => {
                           </AlertDialogTitle>
                           <AlertDialogDescription>
                             This action cannot be undone. This will permanently
-                            closed the ticket.
+                            close the ticket.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
@@ -649,7 +650,7 @@ const UserTicket = () => {
                             onClick={handleCloseTicket}
                             className="bg-red-500 hover:bg-red-600"
                           >
-                            Closed ticket
+                            Close ticket
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
@@ -662,6 +663,15 @@ const UserTicket = () => {
             </DialogContent>
           </Dialog>
         )}
+
+        {/* FEEDBACK MODAL */}
+        <FeedbackForm
+          isOpen={isFeedbackOpen}
+          onClose={() => setIsFeedbackOpen(false)}
+          ticketId={viewTicket ? viewTicket._id : null}
+          ticketType={viewTicket ? viewTicket.ticketType : null}
+        />
+
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}

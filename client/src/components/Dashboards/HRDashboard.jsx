@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
-import UserSidebar from "../Sidebar/UserSidebar";
+import HRSidebar from "../Sidebar/HRSidebar";
 import Navbar from "../Navbar";
 
-const UserDashboard = () => {
+const HRDashboard = () => {
   return (
     <div className="flex">
       <div className="w-full">
@@ -10,7 +10,7 @@ const UserDashboard = () => {
           <Navbar />
         </div>
         <div className="w-60 fixed bg-green-950 z-20">
-          <UserSidebar />
+          <HRSidebar />
         </div>
         <main className="bg-slate-100 h-screen">
           <Outlet />
@@ -19,4 +19,4 @@ const UserDashboard = () => {
     </div>
   );
 };
-export default UserDashboard;
+export default HRDashboard;

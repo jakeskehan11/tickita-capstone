@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
 // job ticket
 const jobTicketSchema = new Schema({
   user_id: {
@@ -11,6 +12,7 @@ const jobTicketSchema = new Schema({
   ticketType: {
     type: String,
     enum: ["Job Ticket"],
+    default: "Job Ticket",
   },
   requesterName: { type: String },
   department: {
@@ -27,7 +29,7 @@ const jobTicketSchema = new Schema({
   description: { type: String, required: true },
   status: {
     type: String,
-    enum: ["open", "pending", "resolved" ,"closed"],
+    enum: ["open", "pending", "resolved", "closed"],
     default: "open",
   },
   priority: {

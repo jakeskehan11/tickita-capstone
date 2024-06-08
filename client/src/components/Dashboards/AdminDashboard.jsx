@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 import AdminSidebar from "../Sidebar/AdminSidebar";
-import AdminNavbar from "../Navbar/AdminNavbar";
+import Navbar from "../Navbar";
 
 const AdminDashboard = () => {
   return (
     <div className="flex">
       <div className="w-full">
         <div className="fixed w-full bg-slate-50 z-10">
-          <AdminNavbar />
+          <Navbar />
         </div>
         <div className="w-60 fixed bg-green-950 z-20">
           <AdminSidebar />

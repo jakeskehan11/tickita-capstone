@@ -10,7 +10,6 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import defaultPic from "../../assets/defaultpic.jpg";
 import { Link } from "react-router-dom";
 import {
   Tooltip,
@@ -20,6 +19,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useLogout } from "@/hooks/useLogout";
 import { useAuthContext } from "@/hooks/useAuthContext";
+import defaultPic from "/defaultpic.jpg";
 
 const Navbar = () => {
   const { logout } = useLogout();

@@ -16,7 +16,6 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   password: {
     type: String,
@@ -24,7 +23,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["user", "Computer Technician", "PPSS"],
+    enum: ["user", "Computer Technician", "PPSS", "HR"],
     default: "user",
   },
   createDate: { type: String, default: new Date().toLocaleDateString() },

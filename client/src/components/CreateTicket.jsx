@@ -17,13 +17,13 @@ const CreateTicket = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-green-950 hover:bg-green-900">
+        <Button className="bg-green-900 hover:bg-green-800">
           Request Ticket
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-xl">
         <DialogHeader className="flex items-center justify-between">
-          <DialogTitle className="py-4">Request a Ticket</DialogTitle>
+          <DialogTitle className="py-4">Request Ticket Form</DialogTitle>
         </DialogHeader>
         <Tabs className="w-full" defaultValue="Job Ticket">
           <TabsList className="grid w-full grid-cols-2">
