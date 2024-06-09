@@ -92,7 +92,7 @@ const TechnicalJobTicketFeedbacks = () => {
     const json = await response.json();
 
     if (response.ok) {
-      setViewTicket(json);
+      setViewFeedback(json);
       setIsModalOpen(true);
     } else {
       console.error("Failed to fetch the ticket details:", json.message);
@@ -542,7 +542,7 @@ const TechnicalJobTicketFeedbacks = () => {
           </Table>
         </div>
 
-        {/* VIEW TICKET MODAL */}
+        {/* VIEW TICKET FEEDBACK MODAL */}
         {isModalOpen && (
           <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogContent className="max-w-2xl">
