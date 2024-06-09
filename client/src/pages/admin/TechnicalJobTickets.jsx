@@ -73,7 +73,7 @@ const TechnicalJobTickets = () => {
   useEffect(() => {
     const fetchTechnicalJobTickets = async () => {
       const response = await fetch(
-        "/api/technical-job-ticket/",
+        "https://tickita-api.vercel.app/api/technical-job-ticket/",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -96,7 +96,7 @@ const TechnicalJobTickets = () => {
   // FETCH SINGLE TICKET
   const fetchTicketDetails = async (ticketId) => {
     const response = await fetch(
-      `/api/technical-job-ticket/${ticketId}`,
+      `https://tickita-api.vercel.app/api/technical-job-ticket/${ticketId}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -117,7 +117,7 @@ const TechnicalJobTickets = () => {
   const handleUpdateTicket = async (ticket, updatedStatus, updatedPriority) => {
     try {
       const response = await fetch(
-        `/api/technical-job-ticket/${ticket._id}`,
+        `https://tickita-api.vercel.app/api/technical-job-ticket/${ticket._id}`,
         {
           method: "PATCH",
           headers: {
@@ -441,7 +441,7 @@ const TechnicalJobTickets = () => {
             }
 
             const response = await fetch(
-              `/api/technical-job-ticket/${ticket._id}`,
+              `https://tickita-api.vercel.app/api/technical-job-ticket/${ticket._id}`,
               {
                 method: "DELETE",
                 headers: {

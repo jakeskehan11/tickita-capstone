@@ -61,7 +61,7 @@ const JobTicketFeedbacks = () => {
   // FETCH FEEDBACKS
   useEffect(() => {
     const fetchJobTicketFeedbacks = async () => {
-      const response = await fetch("/api/job-ticket/feedback/all", {
+      const response = await fetch("https://tickita-api.vercel.app/api/job-ticket/feedback/all", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -81,7 +81,7 @@ const JobTicketFeedbacks = () => {
 
   // FETCH SINGLE TICKET
   const fetchFeedbackDetails = async (ticketId) => {
-    const response = await fetch(`/api/job-ticket/feedback/${ticketId}`, {
+    const response = await fetch(`https://tickita-api.vercel.app/api/job-ticket/feedback/${ticketId}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },

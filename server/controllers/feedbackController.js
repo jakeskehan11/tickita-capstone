@@ -62,7 +62,7 @@ const createTicketFeedback = async (req, res) => {
     if (ticket.feedbackCreated) {
       return res
         .status(400)
-        .json({ error: "For this ticket, feedback already exists." });
+        .json({ error: "Feedback already exists for this ticket" });
     }
 
     const feedback = await Feedback.create({

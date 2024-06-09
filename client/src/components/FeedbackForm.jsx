@@ -55,8 +55,8 @@ const FeedbackForm = ({ isOpen, onClose, ticketId, ticketType }) => {
 
     const endpoint =
       ticketType === "Technical Job Ticket"
-        ? `/api/technical-job-ticket/feedback/${ticketId}`
-        : `/api/job-ticket/feedback/${ticketId}`;
+        ? `https://tickita-api.vercel.app/api/technical-job-ticket/feedback/${ticketId}`
+        : `https://tickita-api.vercel.app/api/job-ticket/feedback/${ticketId}`;
 
     const response = await fetch(endpoint, {
       method: "POST",

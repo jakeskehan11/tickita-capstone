@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// job ticket feedback
+// ticket feedback
 const FeedbackSchema = new Schema({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,

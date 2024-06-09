@@ -88,10 +88,10 @@ const Feedbacks = () => {
         };
 
         const jobTicketFeedbacks = await fetchFeedback(
-          "/api/job-ticket/feedback/all/"
+          "https://tickita-api.vercel.app/api/job-ticket/feedback/all/"
         );
         const technicalJobTicketFeedbacks = await fetchFeedback(
-          "/api/technical-job-ticket/feedback/all/"
+          "https://tickita-api.vercel.app/api/technical-job-ticket/feedback/all/"
         );
 
         const combinedFeedbacks = [
@@ -135,8 +135,8 @@ const Feedbacks = () => {
   const fetchFeedbackDetails = async (ticketId, ticketType) => {
     const endpoint =
       ticketType === "Technical Job Ticket"
-        ? `/api/technical-job-ticket/feedback/${ticketId}`
-        : `/api/job-ticket/feedback/${ticketId}`;
+        ? `https://tickita-api.vercel.app/api/technical-job-ticket/feedback/${ticketId}`
+        : `https://tickita-api.vercel.app/api/job-ticket/feedback/${ticketId}`;
     const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -477,8 +477,8 @@ const Feedbacks = () => {
             }
 
             const baseUrl = feedback.jobTicket_id
-              ? `/api/job-ticket/feedback/${feedback._id}`
-              : `/api/technical-job-ticket/feedback/${feedback._id}`;
+              ? `https://tickita-api.vercel.app/api/job-ticket/feedback/${feedback._id}`
+              : `https://tickita-api.vercel.app/api/technical-job-ticket/feedback/${feedback._id}`;
 
             const response = await fetch(baseUrl, {
               method: "DELETE",
