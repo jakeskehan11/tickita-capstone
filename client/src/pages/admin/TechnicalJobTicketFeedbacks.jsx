@@ -40,24 +40,13 @@ import {
   DialogContent,
   Dialog,
 } from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
 import { IoCopy } from "react-icons/io5";
-import { MdPreview, MdDelete } from "react-icons/md";
+import { MdPreview } from "react-icons/md";
 import { useFeedbacksContext } from "@/hooks/useFeedbacksContext";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
-const Feedbacks = () => {
+const TechnicalJobTicketFeedbacks = () => {
   const { dispatch } = useFeedbacksContext();
   const { user } = useAuthContext();
 
@@ -71,84 +60,42 @@ const Feedbacks = () => {
 
   // FETCH FEEDBACKS
   useEffect(() => {
-    const fetchFeedbacks = async () => {
-      try {
-        const fetchFeedback = async (url) => {
-          const response = await fetch(url, {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          });
+    const fetchJobTicketFeedbacks = async () => {
+      const response = await fetch("/api/technical-job-ticket/feedback/all", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
 
-          const data = await response.json();
-          if (!response.ok) {
-            throw new Error(data.error || "Failed to fetch feedback");
-          }
-          return data;
-        };
-
-        const jobTicketFeedbacks = await fetchFeedback(
-          "/api/job-ticket/feedback/all/"
-        );
-        const technicalJobTicketFeedbacks = await fetchFeedback(
-          "/api/technical-job-ticket/feedback/all/"
-        );
-
-        const combinedFeedbacks = [
-          ...jobTicketFeedbacks.map((feedback) => ({
-            ...feedback,
-            ticketType: feedback.jobTicket_id
-              ? "Job Ticket"
-              : "Technical Job Ticket",
-          })),
-          ...technicalJobTicketFeedbacks.map((feedback) => ({
-            ...feedback,
-            ticketType: feedback.technicalJobTicket_id
-              ? "Technical Job Ticket"
-              : "Job Ticket",
-          })),
-        ];
-
-        // Remove duplicates based on unique feedback ID
-        const uniqueFeedbacks = combinedFeedbacks.reduce((acc, current) => {
-          const x = acc.find((item) => item._id === current._id);
-          if (!x) {
-            return acc.concat([current]);
-          } else {
-            return acc;
-          }
-        }, []);
-
-        setData(uniqueFeedbacks);
-        dispatch({ type: "SET_FEEDBACKS", payload: uniqueFeedbacks });
-      } catch (error) {
-        console.error("Error fetching feedbacks:", error);
+      if (response.ok) {
+        setData(json);
+        dispatch({ type: "SET_FEEDBACKS", payload: json });
       }
     };
 
     if (user) {
-      fetchFeedbacks();
+      fetchJobTicketFeedbacks();
     }
   }, [dispatch, user]);
 
-  // FETCH SINGLE TICKET FEEDBACK
-  const fetchFeedbackDetails = async (ticketId, ticketType) => {
-    const endpoint =
-      ticketType === "Technical Job Ticket"
-        ? `/api/technical-job-ticket/feedback/${ticketId}`
-        : `/api/job-ticket/feedback/${ticketId}`;
-    const response = await fetch(endpoint, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+  // FETCH SINGLE TICKET
+  const fetchFeedbackDetails = async (ticketId) => {
+    const response = await fetch(
+      `/api/technical-job-ticket/feedback/${ticketId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (response.ok) {
-      setViewFeedback(json);
+      setViewTicket(json);
       setIsModalOpen(true);
     } else {
-      console.error("Failed to fetch the feedback details:", json.message);
+      console.error("Failed to fetch the ticket details:", json.message);
     }
   };
 
@@ -404,27 +351,6 @@ const Feedbacks = () => {
       ),
     },
     {
-      accessorKey: "jobTicket_id",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Job Ticket ID
-          <CaretSortIcon className="text-center" />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const jobTicketId = row.getValue("jobTicket_id");
-
-        return (
-          <div className="ml-4 uppercase w-72">
-            {jobTicketId ? `TICKET-${jobTicketId}` : "N/A"}
-          </div>
-        );
-      },
-    },
-    {
       accessorKey: "technicalJobTicket_id",
       header: ({ column }) => (
         <Button
@@ -436,16 +362,15 @@ const Feedbacks = () => {
         </Button>
       ),
       cell: ({ row }) => {
-        const technicalJobTicketId = row.getValue("technicalJobTicket_id");
+        const technicalJobTicket_id = row.getValue("technicalJobTicket_id");
 
         return (
           <div className="ml-4 uppercase w-72">
-            {technicalJobTicketId ? `TICKET-${technicalJobTicketId}` : "N/A"}
+            {technicalJobTicket_id ? `TICKET-${technicalJobTicket_id}` : "N/A"}
           </div>
         );
       },
     },
-
     {
       accessorKey: "ticketType",
       header: ({ column }) => (
@@ -468,38 +393,6 @@ const Feedbacks = () => {
       enableHiding: false,
       cell: ({ row }) => {
         const feedback = row.original;
-
-        // DELETE TICKET
-        const handleDeleteClick = async () => {
-          try {
-            if (!user) {
-              return;
-            }
-
-            const baseUrl = feedback.jobTicket_id
-              ? `/api/job-ticket/feedback/${feedback._id}`
-              : `/api/technical-job-ticket/feedback/${feedback._id}`;
-
-            const response = await fetch(baseUrl, {
-              method: "DELETE",
-              headers: {
-                Authorization: `Bearer ${user.token}`,
-              },
-            });
-            const json = await response.json();
-
-            if (response.ok) {
-              dispatch({ type: "DELETE_FEEDBACK", payload: json });
-              setData((prevData) =>
-                prevData.filter((item) => item._id !== feedback._id)
-              );
-            } else {
-              console.error("Failed to delete the feedback:", json.message);
-            }
-          } catch (error) {
-            console.error("Network error:", error);
-          }
-        };
 
         return (
           <DropdownMenu>
@@ -528,33 +421,6 @@ const Feedbacks = () => {
                 <MdPreview className="text-center size-5 mr-1" />
                 View Feedback
               </DropdownMenuItem>
-
-              <AlertDialog>
-                <AlertDialogTrigger className="text-sm hover:bg-slate-100 text-red-500 py-1.5 rounded-sm pl-2 px-20 flex">
-                  <MdDelete className="text-center size-5 mr-1 text-red-500" />
-                  Delete
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you absolutely sure?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      the feedback and remove the feedback data from servers.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={handleDeleteClick}
-                      className="bg-red-500 text-white hover:bg-red-600"
-                    >
-                      Delete Feedback
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -815,4 +681,4 @@ const Feedbacks = () => {
   );
 };
 
-export default Feedbacks;
+export default TechnicalJobTicketFeedbacks;

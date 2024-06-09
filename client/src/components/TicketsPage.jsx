@@ -310,9 +310,13 @@ const UserTicket = () => {
           <CaretSortIcon className="text-center" />
         </Button>
       ),
-      cell: ({ row }) => (
-        <div className="text-center capitalize">{row.getValue("building")}</div>
-      ),
+      cell: ({ row }) => {
+        const building = row.getValue("building");
+
+        return (
+          <div className="text-center">{building ? `${building}` : "N/A"}</div>
+        );
+      },
     },
     {
       accessorKey: "room",
@@ -325,9 +329,11 @@ const UserTicket = () => {
           <CaretSortIcon className="text-center" />
         </Button>
       ),
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue("room")}</div>
-      ),
+      cell: ({ row }) => {
+        const room = row.getValue("room");
+
+        return <div className="text-center">{room ? `${room}` : "N/A"}</div>;
+      },
     },
     {
       accessorKey: "status",

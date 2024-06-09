@@ -20,9 +20,9 @@ const AdminSidebar = () => {
   const getNavLinkDestination = (role) => {
     switch (role) {
       case "PPSS":
-        return "job-tickets";
+        return "tickets";
       case "Computer Technician":
-        return "technical-job-tickets";
+        return "tickets";
       default:
         return null;
     }
@@ -74,7 +74,7 @@ const AdminSidebar = () => {
         >
           <div className="flex ml-5">
             <FaTicket className="size-5 place-self-center" />
-            <p className="ml-5 py-3">Ticket</p>
+            <p className="ml-5 py-3">Tickets</p>
           </div>
         </NavLink>
         <NavLink

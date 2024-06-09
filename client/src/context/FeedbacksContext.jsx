@@ -8,7 +8,7 @@ export const feedbacksReducer = (state, action) => {
       return {
         feedbacks: action.payload,
       };
-    case "DELETE_FEEDBACKS":
+    case "DELETE_FEEDBACK":
       return {
          feedbacks: state.feedbacks.filter(
           (feedback) => feedback._id !== action.payload._id

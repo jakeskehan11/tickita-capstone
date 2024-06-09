@@ -59,21 +59,10 @@ const createTicketFeedback = async (req, res) => {
     }
 
     // Check if feedback already exists for the ticket
-    const existingFeedback = await Feedback.findOne({
-      $or: [
-        { jobTicket_id: jobTicket ? jobTicket._id : null },
-        {
-          technicalJobTicket_id: technicalJobTicket
-            ? technicalJobTicket._id
-            : null,
-        },
-      ],
-    });
-
-    if (existingFeedback) {
+    if (ticket.feedbackCreated) {
       return res
         .status(400)
-        .json({ error: "Feedback already exists for this ticket" });
+        .json({ error: "For this ticket, feedback already exists." });
     }
 
     const feedback = await Feedback.create({
@@ -91,6 +80,7 @@ const createTicketFeedback = async (req, res) => {
     });
 
     ticket.feedback = feedback._id;
+    ticket.feedbackCreated = true;
     await ticket.save();
 
     res.status(200).json({ ticket, feedback });
@@ -103,19 +93,52 @@ const createTicketFeedback = async (req, res) => {
 const getTicketFeedbacks = async (req, res) => {
   try {
     const user_id = req.user._id;
-    const user_role = req.user.role; // Assuming role is stored in req.user.role
 
     let feedbacks;
 
-    // If the user's role is 'HR', fetch all Job Ticket Feedbacks and Technical Job Ticket Feedbacks
-    if (user_role === "HR") {
-      feedbacks = await Feedback.find();
-    } else {
-      // Otherwise, fetch only the Job Ticket Feedback for the specific user
-      feedbacks = await Feedback.find({ user_id });
+    // Check the ticketType field in the Feedback documents
+    feedbacks = await Feedback.find({
+      $or: [
+        { ticketType: "Job Ticket" },
+        { ticketType: "Technical Job Ticket" },
+        { user_id },
+      ],
+    });
+
+    // Filter the feedbacks based on the ticketType
+    const jobTicketFeedbacks = feedbacks.filter(
+      (feedback) => feedback.ticketType === "Job Ticket"
+    );
+    const technicalJobTicketFeedbacks = feedbacks.filter(
+      (feedback) => feedback.ticketType === "Technical Job Ticket"
+    );
+    const userFeedbacks = feedbacks.filter(
+      (feedback) => feedback.user_id.toString() === user_id.toString()
+    );
+
+    // Construct the response object based on the user's role
+    const user_role = req.user.role;
+    let response;
+
+    switch (user_role) {
+      case "HR":
+        response = feedbacks;
+        break;
+
+      case "PPSS":
+        response = jobTicketFeedbacks;
+        break;
+
+      case "Computer Technician":
+        response = technicalJobTicketFeedbacks;
+        break;
+
+      default:
+        response = userFeedbacks;
+        break;
     }
 
-    res.status(200).json(feedbacks);
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

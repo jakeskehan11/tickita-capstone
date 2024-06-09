@@ -17,7 +17,7 @@ const CreateTicket = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-green-900 hover:bg-green-800">
+        <Button className="bg-green-900 hover:bg-green-800 w-40">
           Request Ticket
         </Button>
       </DialogTrigger>

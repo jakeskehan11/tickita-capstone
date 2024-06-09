@@ -205,7 +205,7 @@ const FeedbackForm = ({ isOpen, onClose, ticketId, ticketType }) => {
           <div className="grid gap-2">
             <Label htmlFor="comments">Comments/Suggestions:</Label>
             <Textarea
-              className={`min-h-[100px] max-h-[250px] overflow-auto ${
+              className={`min-h-[100px] max-h-[250px] overflow-auto scrollbar-custom ${
                 emptyFields.includes("comments") ? "error" : ""
               }`}
               id="comments"
@@ -218,7 +218,7 @@ const FeedbackForm = ({ isOpen, onClose, ticketId, ticketType }) => {
           <AlertDialogFooter>
             <AlertDialogCancel>No thanks</AlertDialogCancel>
             <Button
-              className="w-40 bg-green-950 hover:bg-green-900"
+              className="w-40 bg-green-900 hover:bg-green-800"
               type="submit"
               disabled={isLoading}
             >

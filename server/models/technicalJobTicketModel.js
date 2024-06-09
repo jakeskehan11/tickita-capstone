@@ -46,6 +46,7 @@ const technicalJobTicketSchema = new Schema({
   },
   requestDate: { type: String, default: new Date().toLocaleDateString() },
   requestTime: { type: String, default: new Date().toLocaleTimeString() },
+  feedbackCreated: { type: Boolean, default: false },
 });
 
 technicalJobTicketSchema.pre("save", async function (next) {

@@ -3,7 +3,9 @@ import AdminDashboard from "@/components/Dashboards/AdminDashboard";
 import {
   Dashboard,
   JobTickets,
+  JobTicketFeedbacks,
   TechnicalJobTickets,
+  TechnicalJobTicketFeedbacks,
   Chat,
   Feedbacks,
   Settings,
@@ -20,24 +22,31 @@ const AdminRoutes = () => {
         <Route path="dashboard" element={<Dashboard />} />
         {/* PPSS Admin can only access */}
         <Route
-          path="job-tickets"
+          path="tickets"
           element={
-            user.role === "PPSS" ? <JobTickets /> : <Navigate to="*" replace />
-          }
-        />
-        {/* Computer Technician Admin can only access */}
-        <Route
-          path="technical-job-tickets"
-          element={
-            user.role === "Computer Technician" ? (
+            user.role === "PPSS" ? (
+              <JobTickets />
+            ) : user.role === "Computer Technician" ? (
               <TechnicalJobTickets />
             ) : (
               <Navigate to="*" replace />
             )
           }
         />
+        {/* Computer Technician Admin can only access */}
+        <Route
+          path="feedbacks"
+          element={
+            user.role === "PPSS" ? (
+              <JobTicketFeedbacks />
+            ) : user.role === "Computer Technician" ? (
+              <TechnicalJobTicketFeedbacks />
+            ) : (
+              <Navigate to="*" replace />
+            )
+          }
+        />
         <Route path="chat" element={<Chat />} />
-        <Route path="feedbacks" element={<Feedbacks />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<NotFoundv2 />} />
       </Route>

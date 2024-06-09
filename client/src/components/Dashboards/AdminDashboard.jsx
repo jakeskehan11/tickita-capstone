@@ -4,7 +4,7 @@ import Navbar from "../Navbar";
 
 const AdminDashboard = () => {
   return (
-    <div className="flex overflow-y-auto scrollbar-custom">
+    <div className="flex overflow-y-auto scrollbar-custom z-30">
       <div className="w-full">
         <div className="fixed w-full bg-slate-50 z-10">
           <Navbar />

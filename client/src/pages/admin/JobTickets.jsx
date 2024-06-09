@@ -212,7 +212,7 @@ const JobTicket = () => {
     const getBackgroundClass = (priority) => {
       switch (priority) {
         case "low":
-          return "bg-green-800 hover:bg-green-700";
+          return "bg-green-900 hover:bg-green-800";
         case "medium":
           return "bg-yellow-500 hover:bg-yellow-400";
         case "high":
